@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class TestUtils {
 
+    private final Long ID = 1L;
+
 
     public Users user(){
         return Users.builder().id(1L).build();
