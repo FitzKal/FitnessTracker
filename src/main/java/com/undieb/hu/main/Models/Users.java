@@ -15,6 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Builder
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
