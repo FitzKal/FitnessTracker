@@ -32,10 +32,18 @@ public class UsersService {
     }
 
     public void updateUser(Long id,BasicUserDto basicUserDto){
-        var userToUpdate = userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("The User Cannot be found"));
+        var userToUpdate = userRepository.findById(id)
+                .orElseThrow(()-> new UserNotFoundException("The User cannot be found."));
         userToUpdate.setEmail(basicUserDto.getEmail());
         userToUpdate.setPassword(basicUserDto.getPassword());
         userToUpdate.setEmail(basicUserDto.getUsername());
+        userRepository.save(userToUpdate);
+    }
 
+    public Users saveUser(BasicUserDto basicUserDto){
+        var userToSave = usersToBasicUserDtoConverter.basicUserDtoToUser(basicUserDto);
+        return (userRepository.save(userToSave));
     }
 }
+//TODO: Implement tests for the remaining CRUD methods
+//TODO: Implement the respective controller methods and the tests for them
