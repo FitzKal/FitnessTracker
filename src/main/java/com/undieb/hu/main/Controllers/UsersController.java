@@ -2,7 +2,6 @@ package com.undieb.hu.main.Controllers;
 
 import com.undieb.hu.main.Controllers.DTOs.BasicUserDto;
 import com.undieb.hu.main.Converters.UsersToBasicUserDtoConverter;
-import com.undieb.hu.main.Models.Users;
 import com.undieb.hu.main.Services.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
@@ -44,9 +43,9 @@ public class UsersController {
     }
 
     @PostMapping
-    public ResponseEntity<Users> saveUser(BasicUserDto basicUserDto){
+    public ResponseEntity<BasicUserDto> saveUser(@NonNull @RequestBody BasicUserDto basicUserDto){
         var newUser = usersService.saveUser(basicUserDto);
-        return ResponseEntity.ok(newUser);
+        return ResponseEntity.ok(usersToBasicUserDtoConverter.userToBasicUserDto(newUser));
     }
 
 }
