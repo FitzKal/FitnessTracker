@@ -11,7 +11,7 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
+import org.springframework.mock.web.MockHttpServletRequest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
@@ -85,5 +85,15 @@ class AuthenticationServiceTest {
         // Then
         assertEquals(expected, actual);
         verify(jwtService).generateToken(req.getUsername());
+    }
+
+    @Test
+    public void testLogoutShouldAddTokenToBlackList(){
+        //Given
+        MockHttpServletRequest req = new MockHttpServletRequest();
+        //When
+        underTest.logout(req);
+        //Then
+        verify(jwtService).addToBlackList(req);
     }
 }

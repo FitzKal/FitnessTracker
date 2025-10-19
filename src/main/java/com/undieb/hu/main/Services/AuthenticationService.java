@@ -7,7 +7,9 @@ import com.undieb.hu.main.Exceptions.UserNotFoundException;
 import com.undieb.hu.main.Models.Role;
 import com.undieb.hu.main.Repositories.UserRepository;
 import com.undieb.hu.main.Security.PasswordEncrypter;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +41,9 @@ public class AuthenticationService {
     private Boolean checkCredential(LoginRequestDTO requestDTO){
         var userToLogin = userRepository.findByUsername(requestDTO.getUsername());
         return passwordEncrypter.passwordEncoder().matches(requestDTO.getPassword(),userToLogin.getPassword());
+    }
+
+    public void logout(HttpServletRequest request){
+        jwtService.addToBlackList(request);
     }
 }
