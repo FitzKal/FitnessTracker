@@ -2,10 +2,19 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
+import LoginForm from "./components/auth/LoginForm.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
-
+    {
+        path:"/",
+        element:<Navigate to={"/login"}/>,
+        errorElement:<p>Page not found!</p>
+    },
+    {
+        path:"/login",
+        element:<LoginForm/>
+    }
 ]);
 
 
