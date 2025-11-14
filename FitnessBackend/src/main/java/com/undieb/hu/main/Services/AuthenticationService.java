@@ -27,13 +27,14 @@ public class AuthenticationService {
                 .encode(registerUserDto.getPassword()));
         userRepository.save(convertedToUser);
         var authToken = jwtService.generateToken(registerUserDto.getUsername());
-        return new LoginUserResponseDTO(registerUserDto.getUsername(),authToken);
+        return new LoginUserResponseDTO(registerUserDto.getUsername(),authToken,convertedToUser.getRole());
     }
 
     public LoginUserResponseDTO loginUser(LoginRequestDTO loginRequestDTO){
         if (checkCredential(loginRequestDTO)){
+            var userToLogin = userRepository.findByUsername(loginRequestDTO.getUsername());
             var authToken = jwtService.generateToken(loginRequestDTO.getUsername());
-            return new LoginUserResponseDTO(loginRequestDTO.getUsername(),authToken);
+            return new LoginUserResponseDTO(loginRequestDTO.getUsername(),authToken,userToLogin.getRole());
         }
         throw new UserNotFoundException("Invalid login credentials!");
     }
