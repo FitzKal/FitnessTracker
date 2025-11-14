@@ -1,12 +1,16 @@
 package com.undieb.hu.main.Services;
 
 import com.undieb.hu.main.Exceptions.TokenNotFoundException;
+import com.undieb.hu.main.Models.JWTBlackListedTokens;
+import com.undieb.hu.main.Repositories.JWTBlackListRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +23,11 @@ import java.util.function.Function;
 @Service
 public class JWTService {
     private final String secretKey;
+    @Autowired
+    private JWTBlackListRepository blackListRepository;
 
-    @Getter
-    private final List<String> blackList = new ArrayList<>();
+
+
 
     public JWTService(){
         try{
@@ -79,11 +85,6 @@ public class JWTService {
         return claimsResolver.apply(claims);
     }
 
-    public void addToBlackList(HttpServletRequest request){
-        var token = extractTokenFromRequest(request);
-        blackList.add(token);
-    }
-
     private Date extractExpiration (String token){
         return extractClaim(token,Claims::getExpiration);
     }
@@ -95,6 +96,20 @@ public class JWTService {
     public boolean validateToken(String token, UserDetails userDetails){
         final String username = getUserNameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
 
+    public void addToBlackList(HttpServletRequest request){
+        var token = extractTokenFromRequest(request);
+        blackListRepository.save(JWTBlackListedTokens.builder().token(token)
+                .expirationDate(extractExpiration(token)).build());
+    }
+
+    public List<JWTBlackListedTokens> getBlackList(){
+        return blackListRepository.findAll();
+    }
+
+    public boolean checkIfTokenIsBlackListed(String token){
+        return getBlackList().stream().map(JWTBlackListedTokens::getToken)
+                .toList().contains(token);
     }
 }
