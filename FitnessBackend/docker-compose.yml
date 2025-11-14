@@ -10,6 +10,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - appnet
 
   backend:
     build:
@@ -24,7 +26,23 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/FitnessTrackerDB
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+    networks:
+      - appnet
 
+  frontend:
+    build:
+      context: ../fitnessfrontend
+      dockerfile: Dockerfile
+    container_name: fitness_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - appnet
+
+networks:
+  appnet:
 
 volumes:
   postgres_data:
