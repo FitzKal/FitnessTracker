@@ -1,0 +1,99 @@
+import {useForm} from "react-hook-form";
+import {type RegisterRequest, schema} from "../../types/FormTypes.ts";
+import {toast} from "react-toastify";
+import {useMutation} from "@tanstack/react-query";
+import {registerUser} from "../../services/AuthService.ts";
+import {UserStore} from "../../stores/UserStore.ts";
+import {useNavigate} from "react-router-dom";
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useState} from "react";
+
+
+export default function RegisterForm(){
+    const {register, handleSubmit, formState:{errors,isSubmitting}} = useForm<RegisterRequest>({
+        resolver:zodResolver(schema)
+    });
+    const [passwordError,setPasswordError] = useState<boolean>(false)
+    const navigate = useNavigate();
+    const onSubmit = async (data:RegisterRequest) =>{
+        try {
+            const password = (document.getElementById("password") as HTMLInputElement)?.value;
+            const confirm = (document.getElementById("confirm") as HTMLInputElement)?.value;
+            if (password === confirm){
+                setPasswordError(false)
+                registerMutation.mutate(data);
+            }else{
+                throw new Error("The entered passwords don't match");
+            }
+        }catch (error){
+            const errorMessage = (error as Error).message;
+            toast.error(errorMessage);
+            setPasswordError(true);
+        }
+    }
+
+    const registerMutation = useMutation({
+        mutationFn:(data:RegisterRequest) =>
+            registerUser(data),
+        onSuccess:(result, variables) =>{
+            UserStore.getState().stateLogin({
+                accessToken:result.accessToken,
+                username:variables.username,
+                role:result.role
+            })
+            navigate("/HomePage");
+            toast.success("Register Successful!");
+        },
+        onError:(error) =>{
+            if (error instanceof Error){
+                toast.error(error.message);
+            }else{
+                toast.error("Something went wrong!");
+            }
+        }
+    })
+
+
+    return(<div className={"flex flex-col bg-gradient-to-b from-orange-400 to-black min-h-screen"}>
+        <h1 className={"text-center mb-5 text-5xl text-yellow-100 mt-10"}>Register</h1>
+        <div className={"flex flex-col bg-white self-center border-2 rounded-2xl w-200 h-120"}>
+            <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col ml-18 justify-center"}>
+                <div className={"flex flex-row gap-10 mt-15"}>
+                    <div>
+                    <input {...register("username")} placeholder={"username"}
+                       className={"border-2 rounded-md text-center w-75 h-10"}/>
+                {errors.username &&( <div className={"text-red-500"}>{errors.username.message}</div>)}
+                    </div>
+                    <div>
+                <input {...register("email")} placeholder={"email"}
+                       className={"border-2 rounded-md text-center w-75 h-10"}/>
+                {errors.email &&( <div className={"text-red-500"}>{errors.email.message}</div>)}
+                    </div>
+                </div>
+                <div className={"flex flex-col justify-center"}>
+                    <input{...register("password")} placeholder={"password"} id={"password"}
+                          className={"flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
+                    {errors.password &&( <div className={"text-center mr-5 text-red-500"}>{errors.password.message}</div>)}
+                    <input placeholder={"Confirm Password"} id={"confirm"}
+                          className={"flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
+                    {passwordError?<div className={"text-center mr-15 text-red-500"}>The entered passwords don't match</div>:<div></div>}
+                </div>
+                <button className={"border-2 rounded-2xl mr-20 mt-10 w-25 h-10 self-center font-semibold " +
+                    "bg-gradient-to-b from-orange-400 to-black text-white " +
+                    "transition duration-300 ease-in-out " +
+                    "hover:from-green-600 hover:to-black"}
+                >
+                    {isSubmitting ? "Loading..." : "Register"}
+                </button>
+            </form>
+            <div className={"ml-15 mt-10"}>
+                <p>Already have an account?</p>
+                <button className={"border-2 rounded-2xl mt-2 w-25 self-center font-semibold " +
+                    "bg-gradient-to-b from-red-500 to-black text-white " +
+                    "transition duration-300 ease-in-out " +
+                    "hover:from-green-600 hover:to-black"}
+                        onClick={() => navigate("/login")} >Log in!</button>
+            </div>
+        </div>
+    </div>);
+}
