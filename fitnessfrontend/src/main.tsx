@@ -4,6 +4,7 @@ import App from './App.tsx'
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm.tsx";
+import RegisterForm from "./components/auth/RegisterForm.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
     {
         path:"/login",
         element:<LoginForm/>
+    },
+    {
+        path:"/register",
+        element:<RegisterForm />
     }
 ]);
 
