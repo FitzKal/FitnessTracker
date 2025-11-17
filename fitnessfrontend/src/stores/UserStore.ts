@@ -1,7 +1,6 @@
 import type {User} from "../types/User.ts";
 import {create} from "zustand/react";
-import {createJSONStorage, persist} from "zustand/middleware/persist";
-
+import { createJSONStorage, persist } from "zustand/middleware";
 interface UserState {
     user: User | null,
     stateLogin: (user:User) => void,
