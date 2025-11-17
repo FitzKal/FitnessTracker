@@ -41,7 +41,10 @@ public class AuthenticationService {
 
     private Boolean checkCredential(LoginRequestDTO requestDTO){
         var userToLogin = userRepository.findByUsername(requestDTO.getUsername());
+        if (userToLogin != null)
         return passwordEncrypter.passwordEncoder().matches(requestDTO.getPassword(),userToLogin.getPassword());
+        else
+            throw new UserNotFoundException("User not found");
     }
 
     public void logout(HttpServletRequest request){
