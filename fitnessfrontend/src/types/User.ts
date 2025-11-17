@@ -1,7 +1,8 @@
 export interface User {
     id?:number,
     username:string,
-    password:string,
-    email:string,
+    password?:string,
+    email?:string
     role?:"ADMIN"|"USER",
+    accessToken?: string
 }
