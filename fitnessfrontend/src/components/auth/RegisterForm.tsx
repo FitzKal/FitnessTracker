@@ -3,7 +3,6 @@ import {type RegisterRequest, schema} from "../../types/FormTypes.ts";
 import {toast} from "react-toastify";
 import {useMutation} from "@tanstack/react-query";
 import {registerUser} from "../../services/AuthService.ts";
-import {UserStore} from "../../stores/UserStore.ts";
 import {useNavigate} from "react-router-dom";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useState} from "react";
@@ -35,14 +34,9 @@ export default function RegisterForm(){
     const registerMutation = useMutation({
         mutationFn:(data:RegisterRequest) =>
             registerUser(data),
-        onSuccess:(result, variables) =>{
-            UserStore.getState().stateLogin({
-                accessToken:result.accessToken,
-                username:variables.username,
-                role:result.role
-            })
-            navigate("/HomePage");
-            toast.success("Register Successful!");
+        onSuccess:() =>{
+            navigate("/VerificationPage");
+            toast.success("Verification code sent to your email address");
         },
         onError:(error) =>{
             if (error instanceof Error){
