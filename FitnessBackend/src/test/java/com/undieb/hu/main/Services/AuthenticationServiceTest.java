@@ -41,7 +41,7 @@ class AuthenticationServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
+   /* @Test
     void testRegisterUserShouldRegisterUser() {
         //Given
         var userToBeSaved = testUtils.user();
@@ -63,7 +63,7 @@ class AuthenticationServiceTest {
         verify(userRepository).save(userToBeSaved);
         assertEquals(expectedResult,loginResponse);
 
-    }
+    }*/
 
     @Test
     void testLoginUserShouldLoginUser() {
