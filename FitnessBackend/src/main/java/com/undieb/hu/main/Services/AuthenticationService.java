@@ -5,6 +5,7 @@ import com.undieb.hu.main.Controllers.DTOs.RegisterUserDto;
 import com.undieb.hu.main.Converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.Exceptions.UserNotFoundException;
 import com.undieb.hu.main.Models.Role;
+import com.undieb.hu.main.Models.Users;
 import com.undieb.hu.main.Repositories.UserRepository;
 import com.undieb.hu.main.Security.PasswordEncrypter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,15 +20,16 @@ public class AuthenticationService {
     private final PasswordEncrypter passwordEncrypter;
     private final JWTService jwtService;
     private final RegisterUserDTOToUserConverter registerUserDTOToUserConverter;
+    private final EmailSenderService emailSenderService;
+    private Users currentUser;
 
-    public LoginUserResponseDTO registerUser(RegisterUserDto registerUserDto){
+    public String registerUser(RegisterUserDto registerUserDto){
         var convertedToUser = registerUserDTOToUserConverter.convertRegisterUserDTOToUser(registerUserDto);
         convertedToUser.setRole(Role.USER);
         convertedToUser.setPassword(passwordEncrypter.passwordEncoder()
                 .encode(registerUserDto.getPassword()));
-        userRepository.save(convertedToUser);
-        var authToken = jwtService.generateToken(registerUserDto.getUsername());
-        return new LoginUserResponseDTO(registerUserDto.getUsername(),authToken,convertedToUser.getRole());
+        this.currentUser = convertedToUser;
+        return "Verification code Sent";
     }
 
     public LoginUserResponseDTO loginUser(LoginRequestDTO loginRequestDTO){
