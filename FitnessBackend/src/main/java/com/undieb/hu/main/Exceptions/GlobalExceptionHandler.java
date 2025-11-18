@@ -17,4 +17,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> tokenNotFoundException(TokenNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+
+    @ExceptionHandler(InvalidVerificationCodeException.class)
+    public ResponseEntity<String> InvalidVerificationCodeException(InvalidVerificationCodeException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }
