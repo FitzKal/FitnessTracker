@@ -7,6 +7,7 @@ import com.undieb.hu.main.Services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +32,12 @@ public class AuthenticationController {
         authenticationService.logout(request);
         return ResponseEntity.ok("You have been successfully logged out!");
     }
+
+    @PostMapping("/confirmRegister")
+    public ResponseEntity<LoginUserResponseDTO> confirmRegister(@NonNull @RequestBody String verificationCode){
+        var newUser =  authenticationService.confirmRegistration(verificationCode);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    }
+
 
 }
