@@ -34,7 +34,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/confirmRegister")
-    public ResponseEntity<LoginUserResponseDTO> confirmRegister(@NonNull @RequestBody String verificationCode){
+    public ResponseEntity<LoginUserResponseDTO> confirmRegister(@NonNull @RequestParam String verificationCode){
         var newUser =  authenticationService.confirmRegistration(verificationCode);
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }

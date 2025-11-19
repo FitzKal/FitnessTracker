@@ -28,10 +28,12 @@ public class EmailSenderService {
         this.otpTime = Instant.now();
         var messageToSend = setMessageDetails(recipientEmail,message);
         mailSender.send(messageToSend);
+        System.out.println(lastOTP);
         return message;
     }
 
     public Boolean verifyOtp(String otpToVerify){
+        System.out.println(otpToVerify);
         return otpToVerify.equals(lastOTP) && Instant.now().isBefore(otpTime.plusSeconds(60 * 30));
     }
 
