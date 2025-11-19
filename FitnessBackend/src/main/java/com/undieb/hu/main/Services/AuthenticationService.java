@@ -2,6 +2,7 @@ package com.undieb.hu.main.Services;
 import com.undieb.hu.main.Controllers.DTOs.LoginRequestDTO;
 import com.undieb.hu.main.Controllers.DTOs.LoginUserResponseDTO;
 import com.undieb.hu.main.Controllers.DTOs.RegisterUserDto;
+import com.undieb.hu.main.Controllers.DTOs.RegisterUserResponse;
 import com.undieb.hu.main.Converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.Exceptions.InvalidVerificationCodeException;
 import com.undieb.hu.main.Exceptions.UserNotFoundException;
@@ -17,38 +18,29 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Data
+@AllArgsConstructor
 public class AuthenticationService {
-    @Autowired
     private final UserRepository userRepository;
-    @Autowired
     private final PasswordEncrypter passwordEncrypter;
-    @Autowired
     private final JWTService jwtService;
-    @Autowired
     private final RegisterUserDTOToUserConverter registerUserDTOToUserConverter;
-    @Autowired
     private final EmailSenderService emailSenderService;
-    private Users currentUser;
 
-    public String registerUser(RegisterUserDto registerUserDto){
-        try {
+    public RegisterUserResponse registerUser(RegisterUserDto registerUserDto){
             var convertedToUser = registerUserDTOToUserConverter.convertRegisterUserDTOToUser(registerUserDto);
             convertedToUser.setRole(Role.USER);
             convertedToUser.setPassword(passwordEncrypter.passwordEncoder()
                     .encode(registerUserDto.getPassword()));
-            this.currentUser = convertedToUser;
-            emailSenderService.sendEmail(currentUser.getEmail());
-            return "Verification code Sent";
-        }catch (Exception e){
-            return e.getMessage();
-        }
+            var registerDetails = emailSenderService.sendEmail(convertedToUser.getEmail());
+            return RegisterUserResponse.builder().user(convertedToUser)
+                    .otpTime(registerDetails.getOtpTime()).lastOTP(registerDetails.getLastOTP()).build();
     }
 
-    public LoginUserResponseDTO confirmRegistration(String verificationCode){
-        if (emailSenderService.verifyOtp(verificationCode)){
-            userRepository.save(currentUser);
-            var token = jwtService.generateToken(currentUser.getUsername());
-            return new LoginUserResponseDTO(currentUser.getUsername(),token,currentUser.getRole());
+    public LoginUserResponseDTO confirmRegistration(String verificationCode, RegisterUserResponse registerUserResponse){
+        if (emailSenderService.verifyOtp(verificationCode,registerUserResponse)){
+            userRepository.save(registerUserResponse.getUser());
+            var token = jwtService.generateToken(registerUserResponse.getUser().getUsername());
+            return new LoginUserResponseDTO(registerUserResponse.getUser().getUsername(),token,registerUserResponse.getUser().getRole());
         }else{
             throw new InvalidVerificationCodeException("The given verification code is incorrect");
         }
