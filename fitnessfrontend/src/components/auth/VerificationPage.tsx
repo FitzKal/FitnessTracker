@@ -4,17 +4,26 @@ import {useMutation} from "@tanstack/react-query";
 import {confirmRegister} from "../../services/AuthService.ts";
 import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {UserResisterRequestStore} from "../../stores/UserRegisterRequestStore.ts";
+import type {UserRegisterType} from "../../types/User.ts";
 
 
 function VerificationPage(){
     const {register,handleSubmit,formState:{isSubmitting}} = useForm<Verification>();
     const navigate = useNavigate();
+    const currentRegister : UserRegisterType = {
+        user:UserResisterRequestStore.getState().user,
+        lastOTP: UserResisterRequestStore.getState().lastOTP,
+        otpTime: UserResisterRequestStore.getState().otpTime
+    };
+
 
     const mutation = useMutation({
-        mutationFn : (code:Verification) => confirmRegister(code.verificationCode),
+        mutationFn : (code:Verification) => confirmRegister(code.verificationCode,currentRegister),
         onSuccess: () =>{
             navigate("/HomePage");
             toast.success("Verification Successful!");
+            UserResisterRequestStore.getState().stateEmpty();
         },
         onError:(error) =>{
             if (error instanceof  Error){
@@ -26,6 +35,7 @@ function VerificationPage(){
     })
 
     const onSubmit = async (verification:Verification) =>{
+        console.log(currentRegister)
         mutation.mutate(verification);
     }
 
