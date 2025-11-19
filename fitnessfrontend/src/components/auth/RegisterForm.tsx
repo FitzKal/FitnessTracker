@@ -6,6 +6,7 @@ import {registerUser} from "../../services/AuthService.ts";
 import {useNavigate} from "react-router-dom";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useState} from "react";
+import {UserResisterRequestStore} from "../../stores/UserRegisterRequestStore.ts";
 
 
 export default function RegisterForm(){
@@ -30,11 +31,15 @@ export default function RegisterForm(){
             setPasswordError(true);
         }
     }
-
     const registerMutation = useMutation({
         mutationFn:(data:RegisterRequest) =>
             registerUser(data),
-        onSuccess:() =>{
+        onSuccess:(result) =>{
+            UserResisterRequestStore.getState().stateRegister(
+                 result.user,
+                result.lastOTP,
+                result.otpTime
+            )
             navigate("/VerificationPage");
             toast.success("Verification code sent to your email address");
         },
