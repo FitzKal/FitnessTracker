@@ -36,7 +36,7 @@ export default function LoginForm(){
     }
 
     return (<div className={"flex flex-col bg-gradient-to-b from-red-500 to-black min-h-screen"}>
-        <h1 className={"text-center mb-5 text-6xl text-yellow-100 mt-30"}>Log In</h1>
+        <h1 className={"text-center mb-5 text-6xl text-yellow-100 mt-10"}>Log In</h1>
         <div className={"flex flex-col bg-white self-center border-2 rounded-2xl w-130 h-110"}>
             <form className={"flex flex-col justify-center w-full"} onSubmit={handleSubmit(onSubmit)}>
                 <input{...register("username",{
