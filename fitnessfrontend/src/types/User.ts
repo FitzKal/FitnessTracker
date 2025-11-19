@@ -6,3 +6,9 @@ export interface User {
     role?:"ADMIN"|"USER",
     accessToken?: string
 }
+
+export type UserRegisterType = {
+    user:User | null,
+    lastOTP:string | null,
+    otpTime:string | null
+}
