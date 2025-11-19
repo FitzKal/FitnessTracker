@@ -1,5 +1,6 @@
 import api from "./AxiosConfig.tsx";
 import type {LoginRequest, RegisterRequest} from "../types/FormTypes.ts";
+import type {UserRegisterType} from "../types/User.ts";
 
 // ------------- LOGIN -------------
 export const userLogin = async (loginRequest:LoginRequest) =>{
@@ -32,9 +33,9 @@ export const registerUser = async (registerRequest:RegisterRequest) =>{
 }
 
 // ------------- Confirm Registration -------------
-export const confirmRegister = async (verificationCode:string) => {
+export const confirmRegister = async (verificationCode:string, userToRegister : UserRegisterType) => {
     try{
-        const res = await api.post("/auth/confirmRegister",verificationCode,{
+        const res = await api.post("/auth/confirmRegister",userToRegister,{
             params : {
                 verificationCode : verificationCode
             }
