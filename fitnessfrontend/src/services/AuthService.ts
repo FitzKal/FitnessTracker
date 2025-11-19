@@ -30,3 +30,21 @@ export const registerUser = async (registerRequest:RegisterRequest) =>{
         throw new Error("There was a problem while registering");
     }
 }
+
+// ------------- Confirm Registration -------------
+export const confirmRegister = async (verificationCode:string) => {
+    try{
+        const res = await api.post("/auth/confirmRegister",verificationCode,{
+            params : {
+                verificationCode : verificationCode
+            }
+        })
+            .then(response => response.data);
+        console.log(res);
+        return res;
+    }catch(error){
+        const message = (error as Error).message;
+        console.log(message);
+        throw new Error("Invalid verification code");
+    }
+}
