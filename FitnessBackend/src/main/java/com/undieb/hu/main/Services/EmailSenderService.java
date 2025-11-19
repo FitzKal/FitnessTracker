@@ -1,5 +1,7 @@
 package com.undieb.hu.main.Services;
 
+import com.undieb.hu.main.Controllers.DTOs.RegisterUserResponse;
+import com.undieb.hu.main.Controllers.DTOs.VerificationDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +21,19 @@ public class EmailSenderService {
     @Autowired
     private JavaMailSender mailSender;
     private final String ADMIN_EMAIL = "FitnessTrackerSuppTeam@gmail.com";
-    private String lastOTP;
-    private Instant otpTime;
 
-    public String sendEmail(String recipientEmail){
+    public VerificationDetails sendEmail(String recipientEmail){
         var message = String.format("%05d",new Random().nextInt(10000));
-        this.lastOTP = message;
-        this.otpTime = Instant.now();
         var messageToSend = setMessageDetails(recipientEmail,message);
         mailSender.send(messageToSend);
-        System.out.println(lastOTP);
-        return message;
+        return VerificationDetails.builder().lastOTP(message).otpTime(Instant.now()).build();
     }
 
-    public Boolean verifyOtp(String otpToVerify){
+    public Boolean verifyOtp(String otpToVerify, RegisterUserResponse userResponse){
         System.out.println(otpToVerify);
-        return otpToVerify.equals(lastOTP) && Instant.now().isBefore(otpTime.plusSeconds(60 * 30));
+        System.out.println(userResponse);
+        return otpToVerify.equals(userResponse.getLastOTP()) && Instant.now()
+                .isBefore(userResponse.getOtpTime().plusSeconds(60 * 30));
     }
 
     private SimpleMailMessage setMessageDetails(String recipient, String message){
