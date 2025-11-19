@@ -12,3 +12,7 @@ export const schema = z.object({
 });
 
 export type RegisterRequest = z.infer<typeof schema>;
+
+export type Verification = {
+    verificationCode: string
+}
