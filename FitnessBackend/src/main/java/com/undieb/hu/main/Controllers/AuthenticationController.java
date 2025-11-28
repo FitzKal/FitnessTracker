@@ -1,9 +1,6 @@
 package com.undieb.hu.main.Controllers;
 
-import com.undieb.hu.main.Controllers.DTOs.LoginRequestDTO;
-import com.undieb.hu.main.Controllers.DTOs.LoginUserResponseDTO;
-import com.undieb.hu.main.Controllers.DTOs.RegisterUserDto;
-import com.undieb.hu.main.Controllers.DTOs.RegisterUserResponse;
+import com.undieb.hu.main.Controllers.DTOs.*;
 import com.undieb.hu.main.Services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -41,5 +38,10 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
+    @PostMapping("/resendCode")
+    public ResponseEntity<VerificationDetails> resendCode(@NonNull @RequestBody NewVerificationRequest newVerificationRequest){
+        var newDetails = authenticationService.resendVerificationCode(newVerificationRequest.getEmail());
+        return ResponseEntity.ok(newDetails);
+    }
 
 }
