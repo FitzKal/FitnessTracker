@@ -1,5 +1,5 @@
 import type {LoginRequest, RegisterRequest} from "../types/FormTypes.ts";
-import type {UserRegisterType} from "../types/User.ts";
+import type {ResendTokenType, UserRegisterType} from "../types/User.ts";
 
 // ------------- LOGIN -------------
 export const userLogin = async (loginRequest:LoginRequest) =>{
@@ -67,7 +67,7 @@ export const confirmRegister = async (verificationCode:string, userToRegister : 
     //     console.log(message);
     //     throw new Error("Invalid verification code");
     // }
-    const res = await fetch(`api/fitness/auth/confirmRegister?` + new URLSearchParams({
+    const res = await fetch(`/api/fitness/auth/confirmRegister?` + new URLSearchParams({
         verificationCode : verificationCode
     }), {
         method : "POST",
@@ -83,5 +83,24 @@ export const confirmRegister = async (verificationCode:string, userToRegister : 
     }else {
         const message = await res.text();
         throw new Error(message || "Invalid verification code");
+    }
+}
+
+// ------------- Resend verification code -------------w
+export const resendVerificationCode = async (email:ResendTokenType) => {
+    const res = await fetch("/api/fitness/auth/resendCode",{
+        method : "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body:JSON.stringify(email)
+    });
+    if (res.ok){
+        const response = await res.json();
+        console.log(response);
+        return response
+    }else {
+        const message = await res.text();
+        throw new Error(message || "Could not resend verification code");
     }
 }
