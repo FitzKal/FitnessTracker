@@ -1,8 +1,5 @@
 package com.undieb.hu.main.Services;
-import com.undieb.hu.main.Controllers.DTOs.LoginRequestDTO;
-import com.undieb.hu.main.Controllers.DTOs.LoginUserResponseDTO;
-import com.undieb.hu.main.Controllers.DTOs.RegisterUserDto;
-import com.undieb.hu.main.Controllers.DTOs.RegisterUserResponse;
+import com.undieb.hu.main.Controllers.DTOs.*;
 import com.undieb.hu.main.Converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.Exceptions.InvalidVerificationCodeException;
 import com.undieb.hu.main.Exceptions.UserNotFoundException;
@@ -65,5 +62,9 @@ public class AuthenticationService {
 
     public void logout(HttpServletRequest request){
         jwtService.addToBlackList(request);
+    }
+
+    public VerificationDetails resendVerificationCode(String email){
+        return emailSenderService.sendEmail(email);
     }
 }
