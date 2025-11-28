@@ -11,7 +11,7 @@ export const UserStore = create<UserState>()(
     persist(
         (set) =>({
             user:null,
-            stateLogin:(user:User) =>({user}),
+            stateLogin:(user:User) =>set({user}),
             stateLogout:() =>set({user:null})
         }),
         {
