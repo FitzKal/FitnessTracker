@@ -12,3 +12,6 @@ export type UserRegisterType = {
     lastOTP:string | null,
     otpTime:string | null
 }
+export type ResendTokenType = {
+    email:string | undefined
+}
