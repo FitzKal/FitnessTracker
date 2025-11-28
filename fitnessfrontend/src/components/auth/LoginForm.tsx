@@ -13,10 +13,10 @@ export default function LoginForm(){
     const loginMutation = useMutation({
         mutationFn:(data:LoginRequest) =>
             userLogin(data),
-        onSuccess:(result, variables) =>{
+        onSuccess:(result) =>{
             UserStore.getState().stateLogin({
                 accessToken:result.accessToken,
-                username:variables.username,
+                username:result.username,
                 role:result.role
             })
             navigate("/HomePage");
