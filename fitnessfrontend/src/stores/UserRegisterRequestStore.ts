@@ -5,6 +5,7 @@ interface RegisterState {
     user: User | null,
     stateRegister: (user:User, lastOTP : string, otpTime : string) => void,
     stateEmpty: () => void
+    stateResetVerificationCode: (lastOTP : string, otpTime : string) => void,
     lastOTP : string | null,
     otpTime : string | null
 }
@@ -16,6 +17,8 @@ export const UserResisterRequestStore = create<RegisterState>()(
             stateRegister:(user:User, lastOTP : string, otpTime : string) =>
                 set({user,lastOTP,otpTime}),
             stateEmpty:() =>set({user:null, lastOTP:null, otpTime:null}),
+            stateResetVerificationCode: (lastOTP : string, otpTime : string) =>
+                set({lastOTP,otpTime}),
             lastOTP:null,
             otpTime:null
         }),
