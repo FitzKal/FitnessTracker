@@ -6,6 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import {UserResisterRequestStore} from "../../stores/UserRegisterRequestStore.ts";
 import type {ResendTokenType, UserRegisterType} from "../../types/User.ts";
+import {useEffect} from "react";
 
 
 function VerificationPage(){
@@ -51,6 +52,13 @@ function VerificationPage(){
             }
         }
     })
+
+    useEffect(() => {
+        console.log(currentRegister)
+        if (UserResisterRequestStore.getState().user === null){
+            navigate("/register");
+        }
+    }, []);
 
     const onSubmit = async (verification:Verification) =>{
         console.log(currentRegister)
