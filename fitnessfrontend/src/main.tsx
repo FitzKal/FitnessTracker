@@ -6,6 +6,9 @@ import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm.tsx";
 import RegisterForm from "./components/auth/RegisterForm.tsx";
 import VerificationPage from "./components/auth/VerificationPage.tsx";
+import HomePage from "./components/HomePage/HomePage.tsx";
+import NavBar from "./components/HomePage/NavBar.tsx";
+import Profile from "./components/Profile/Profile.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -24,6 +27,20 @@ const router = createBrowserRouter([
     {
         path:"/verificationPage",
         element:<VerificationPage />
+    },
+    {
+        path: "/Fitness",
+        element:<NavBar />,
+        children:[
+            {
+                path:"/Fitness/home",
+                element:<HomePage />
+            },
+            {
+                path:"/Fitness/Profile",
+                element:<Profile />
+            }
+        ]
     }
 ]);
 
