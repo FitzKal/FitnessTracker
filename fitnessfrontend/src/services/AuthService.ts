@@ -1,5 +1,6 @@
 import type {LoginRequest, RegisterRequest} from "../types/FormTypes.ts";
 import type {ResendTokenType, UserRegisterType} from "../types/User.ts";
+import api from "./AxiosConfig.ts";
 
 // ------------- LOGIN -------------
 export const userLogin = async (loginRequest:LoginRequest) =>{
@@ -103,4 +104,16 @@ export const resendVerificationCode = async (email:ResendTokenType) => {
         const message = await res.text();
         throw new Error(message || "Could not resend verification code");
     }
+}
+
+// ------------- Logout -------------
+
+export const logoutUser = async () =>{
+ try{
+     return await api.post("/auth/logout")
+        .then(res => res.data);
+ }catch (error){
+     const message = (error as Error).message;
+     throw new Error(message || "Could not complete request")
+ }
 }

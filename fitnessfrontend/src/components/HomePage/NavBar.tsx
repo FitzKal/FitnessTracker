@@ -1,8 +1,26 @@
 import {Link, Outlet} from "react-router-dom";
 import {ArrowRightEndOnRectangleIcon, BoltIcon, HomeIcon, UserIcon} from "@heroicons/react/16/solid";
+import {useMutation} from "@tanstack/react-query";
+import {logoutUser} from "../../services/AuthService.ts";
+import {UserStore} from "../../stores/UserStore.ts";
+import {toast} from "react-toastify";
 
 export default function NavBar(){
-    
+    const logoutMutation = useMutation({
+        mutationFn:() => logoutUser(),
+        onSuccess:() => {
+
+            UserStore.getState().stateLogout();
+            toast.success("You have been successfully logged out!");
+        },
+        onError:(error) => {
+            toast.error(error.message || "Invalid logout request");
+        }
+    })
+
+    const handleLogout = async () =>{
+        logoutMutation.mutate();
+    }
     
     return(
         <div>
@@ -34,7 +52,7 @@ export default function NavBar(){
 
                     <li className={"list-none m-[5px_0] hover:bg-[#06e6e6] absolute bottom-0 w-full"}>
                         <Link to={"/login"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
-                            "text-2xl"}>
+                            "text-2xl"} onClick={handleLogout}>
                             <ArrowRightEndOnRectangleIcon className={"h-10 w-10 flex mr-1 fixed"}/>
                             <span className={"ml-11 mt-1"}>Logout</span>
                         </Link>
