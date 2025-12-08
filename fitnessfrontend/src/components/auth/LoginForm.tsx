@@ -19,7 +19,7 @@ export default function LoginForm(){
                 username:result.username,
                 role:result.role
             })
-            navigate("/HomePage");
+            navigate("/Fitness/home");
             toast.success("Login Successful!");
         },
         onError:(error) =>{
