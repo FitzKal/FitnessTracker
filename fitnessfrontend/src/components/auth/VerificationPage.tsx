@@ -22,7 +22,7 @@ function VerificationPage(){
     const mutation = useMutation({
         mutationFn : (code:Verification) => confirmRegister(code.verificationCode,currentRegister),
         onSuccess: () =>{
-            navigate("/HomePage");
+            navigate("/Fitness/home");
             toast.success("Verification Successful!");
             UserResisterRequestStore.getState().stateEmpty();
         },
