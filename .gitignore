@@ -38,6 +38,7 @@ out/
 
 
 # Ignore Spring Boot config
-src/main/resources/application.properties
-src/main/resources/application*.properties
-src/main/resources/application*.yml
+FitnessBackend/src/main/resources/application.properties
+FitnessBackend/src/main/resources/application*.properties
+FitnessBackend/src/main/resources/application*.yml
+
