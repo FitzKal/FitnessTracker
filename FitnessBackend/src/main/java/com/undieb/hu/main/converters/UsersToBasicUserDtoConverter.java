@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Converters;
+package com.undieb.hu.main.converters;
 
 import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.Models.Users;

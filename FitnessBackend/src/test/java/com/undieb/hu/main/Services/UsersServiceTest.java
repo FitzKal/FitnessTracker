@@ -2,7 +2,7 @@ package com.undieb.hu.main.Services;
 
 import TestUtils.TestUtils;
 import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
-import com.undieb.hu.main.Converters.UsersToBasicUserDtoConverter;
+import com.undieb.hu.main.converters.UsersToBasicUserDtoConverter;
 import com.undieb.hu.main.Models.Users;
 import com.undieb.hu.main.Repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;

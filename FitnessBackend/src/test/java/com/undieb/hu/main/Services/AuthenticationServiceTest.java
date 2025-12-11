@@ -1,8 +1,7 @@
 package com.undieb.hu.main.Services;
 
 import TestUtils.TestUtils;
-import com.undieb.hu.main.Converters.RegisterUserDTOToUserConverter;
-import com.undieb.hu.main.Models.Role;
+import com.undieb.hu.main.converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.Repositories.UserRepository;
 import com.undieb.hu.main.Security.PasswordEncrypter;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Converters;
+package com.undieb.hu.main.converters;
 
 import TestUtils.TestUtils;
 import org.junit.jupiter.api.Test;
