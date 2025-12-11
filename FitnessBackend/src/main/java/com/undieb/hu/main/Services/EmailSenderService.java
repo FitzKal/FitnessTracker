@@ -1,8 +1,7 @@
 package com.undieb.hu.main.Services;
 
-import com.undieb.hu.main.Controllers.DTOs.RegisterUserResponse;
-import com.undieb.hu.main.Controllers.DTOs.VerificationDetails;
-import lombok.AllArgsConstructor;
+import com.undieb.hu.main.Controllers.DTOs.auth.RegisterUserResponse;
+import com.undieb.hu.main.Controllers.DTOs.auth.VerificationDetails;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,8 +9,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Random;
 
 @Service

@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Controllers.DTOs;
+package com.undieb.hu.main.Controllers.DTOs.auth;
 
 import lombok.*;
 

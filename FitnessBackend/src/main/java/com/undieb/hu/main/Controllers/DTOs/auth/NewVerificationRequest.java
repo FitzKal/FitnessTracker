@@ -1,5 +1,4 @@
-package com.undieb.hu.main.Controllers.DTOs;
-
+package com.undieb.hu.main.Controllers.DTOs.auth;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +8,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterUserDto {
-    private String username;
+public class NewVerificationRequest {
     private String email;
-    private String password;
 }

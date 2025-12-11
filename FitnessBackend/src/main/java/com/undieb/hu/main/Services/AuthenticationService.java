@@ -1,16 +1,13 @@
 package com.undieb.hu.main.Services;
-import com.undieb.hu.main.Controllers.DTOs.*;
+import com.undieb.hu.main.Controllers.DTOs.auth.*;
 import com.undieb.hu.main.Converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.Exceptions.InvalidVerificationCodeException;
 import com.undieb.hu.main.Exceptions.UserNotFoundException;
 import com.undieb.hu.main.Models.Role;
-import com.undieb.hu.main.Models.Users;
 import com.undieb.hu.main.Repositories.UserRepository;
 import com.undieb.hu.main.Security.PasswordEncrypter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
