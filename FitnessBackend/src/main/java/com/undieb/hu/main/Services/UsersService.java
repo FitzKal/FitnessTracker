@@ -1,6 +1,6 @@
 package com.undieb.hu.main.Services;
 
-import com.undieb.hu.main.Controllers.DTOs.user.BasicUserDto;
+import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.Converters.UsersToBasicUserDtoConverter;
 import com.undieb.hu.main.Exceptions.UserNotFoundException;
 import com.undieb.hu.main.Models.Users;

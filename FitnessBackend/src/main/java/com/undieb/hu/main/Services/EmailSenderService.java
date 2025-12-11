@@ -1,7 +1,7 @@
 package com.undieb.hu.main.Services;
 
-import com.undieb.hu.main.Controllers.DTOs.auth.RegisterUserResponse;
-import com.undieb.hu.main.Controllers.DTOs.auth.VerificationDetails;
+import com.undieb.hu.main.controllers.DTOs.auth.RegisterUserResponse;
+import com.undieb.hu.main.controllers.DTOs.auth.VerificationDetails;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Controllers.DTOs.user;
+package com.undieb.hu.main.controllers.DTOs.user;
 
 import com.undieb.hu.main.Models.Role;
 import lombok.Builder;

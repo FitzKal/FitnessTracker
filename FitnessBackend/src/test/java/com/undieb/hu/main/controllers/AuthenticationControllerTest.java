@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Controllers;
+package com.undieb.hu.main.controllers;
 
 import TestUtils.TestUtils;
 import com.undieb.hu.main.Services.AuthenticationService;
