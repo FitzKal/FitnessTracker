@@ -1,6 +1,6 @@
 package com.undieb.hu.main.controllers.DTOs.auth;
 
-import com.undieb.hu.main.Models.Users;
+import com.undieb.hu.main.models.Users;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

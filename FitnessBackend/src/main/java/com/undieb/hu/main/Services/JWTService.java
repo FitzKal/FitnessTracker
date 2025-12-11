@@ -1,7 +1,7 @@
 package com.undieb.hu.main.Services;
 
 import com.undieb.hu.main.exceptions.TokenNotFoundException;
-import com.undieb.hu.main.Models.JWTBlackListedTokens;
+import com.undieb.hu.main.models.JWTBlackListedTokens;
 import com.undieb.hu.main.Repositories.JWTBlackListRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

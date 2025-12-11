@@ -4,7 +4,7 @@ import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.controllers.DTOs.auth.LoginRequestDTO;
 import com.undieb.hu.main.controllers.DTOs.auth.LoginUserResponseDTO;
 import com.undieb.hu.main.controllers.DTOs.auth.RegisterUserDto;
-import com.undieb.hu.main.Models.Users;
+import com.undieb.hu.main.models.Users;
 import lombok.Data;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

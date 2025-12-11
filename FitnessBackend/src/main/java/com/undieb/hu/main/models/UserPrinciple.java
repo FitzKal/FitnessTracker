@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Models;
+package com.undieb.hu.main.models;
 
 import lombok.Builder;
 import lombok.Data;
