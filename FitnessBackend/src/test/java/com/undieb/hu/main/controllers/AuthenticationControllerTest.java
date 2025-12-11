@@ -1,6 +1,6 @@
 package com.undieb.hu.main.controllers;
 
-import TestUtils.TestUtils;
+import testUtils.TestUtils;
 import com.undieb.hu.main.services.AuthenticationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

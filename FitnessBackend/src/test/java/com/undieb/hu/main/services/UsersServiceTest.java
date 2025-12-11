@@ -1,6 +1,6 @@
 package com.undieb.hu.main.services;
 
-import TestUtils.TestUtils;
+import testUtils.TestUtils;
 import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.converters.UsersToBasicUserDtoConverter;
 import com.undieb.hu.main.models.Users;

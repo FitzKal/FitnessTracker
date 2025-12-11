@@ -1,6 +1,6 @@
 package com.undieb.hu.main.services;
 
-import TestUtils.TestUtils;
+import testUtils.TestUtils;
 import com.undieb.hu.main.converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.repositories.UserRepository;
 import com.undieb.hu.main.security.PasswordEncrypter;

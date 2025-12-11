@@ -1,6 +1,6 @@
 package com.undieb.hu.main.converters;
 
-import TestUtils.TestUtils;
+import testUtils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 

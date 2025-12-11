@@ -1,4 +1,4 @@
-package TestUtils;
+package testUtils;
 
 import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.controllers.DTOs.auth.LoginRequestDTO;
