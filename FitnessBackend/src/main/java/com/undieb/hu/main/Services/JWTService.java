@@ -1,6 +1,6 @@
 package com.undieb.hu.main.Services;
 
-import com.undieb.hu.main.Exceptions.TokenNotFoundException;
+import com.undieb.hu.main.exceptions.TokenNotFoundException;
 import com.undieb.hu.main.Models.JWTBlackListedTokens;
 import com.undieb.hu.main.Repositories.JWTBlackListRepository;
 import io.jsonwebtoken.Claims;
@@ -8,9 +8,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 

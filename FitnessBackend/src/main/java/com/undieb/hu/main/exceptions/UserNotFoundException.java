@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Exceptions;
+package com.undieb.hu.main.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

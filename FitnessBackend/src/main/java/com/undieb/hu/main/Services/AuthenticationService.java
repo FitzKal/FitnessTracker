@@ -1,8 +1,8 @@
 package com.undieb.hu.main.Services;
 import com.undieb.hu.main.controllers.DTOs.auth.*;
 import com.undieb.hu.main.converters.RegisterUserDTOToUserConverter;
-import com.undieb.hu.main.Exceptions.InvalidVerificationCodeException;
-import com.undieb.hu.main.Exceptions.UserNotFoundException;
+import com.undieb.hu.main.exceptions.InvalidVerificationCodeException;
+import com.undieb.hu.main.exceptions.UserNotFoundException;
 import com.undieb.hu.main.Models.Role;
 import com.undieb.hu.main.Repositories.UserRepository;
 import com.undieb.hu.main.Security.PasswordEncrypter;

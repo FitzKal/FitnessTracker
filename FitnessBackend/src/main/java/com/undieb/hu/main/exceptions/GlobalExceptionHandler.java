@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Exceptions;
+package com.undieb.hu.main.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
