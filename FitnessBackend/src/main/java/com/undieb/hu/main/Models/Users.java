@@ -1,5 +1,7 @@
 package com.undieb.hu.main.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -24,6 +26,10 @@ public class Users {
     private Role role;
     @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private UserProfile userProfile;
 
     @Override
     public final boolean equals(Object o) {
