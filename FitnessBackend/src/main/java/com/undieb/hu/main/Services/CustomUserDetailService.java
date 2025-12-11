@@ -1,7 +1,7 @@
 package com.undieb.hu.main.Services;
 
 import com.undieb.hu.main.models.UserPrinciple;
-import com.undieb.hu.main.Repositories.UserRepository;
+import com.undieb.hu.main.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

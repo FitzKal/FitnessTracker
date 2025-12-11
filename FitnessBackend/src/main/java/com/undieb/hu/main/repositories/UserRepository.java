@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Repositories;
+package com.undieb.hu.main.repositories;
 
 import com.undieb.hu.main.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;

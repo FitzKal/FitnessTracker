@@ -4,7 +4,7 @@ import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.converters.UsersToBasicUserDtoConverter;
 import com.undieb.hu.main.exceptions.UserNotFoundException;
 import com.undieb.hu.main.models.Users;
-import com.undieb.hu.main.Repositories.UserRepository;
+import com.undieb.hu.main.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
