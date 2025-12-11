@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Security;
+package com.undieb.hu.main.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

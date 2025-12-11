@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Security;
+package com.undieb.hu.main.security;
 
 
 import com.undieb.hu.main.Services.CustomUserDetailService;

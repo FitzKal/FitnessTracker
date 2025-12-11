@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Security;
+package com.undieb.hu.main.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

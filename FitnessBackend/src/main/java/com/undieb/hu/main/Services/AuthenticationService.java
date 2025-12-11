@@ -5,7 +5,7 @@ import com.undieb.hu.main.exceptions.InvalidVerificationCodeException;
 import com.undieb.hu.main.exceptions.UserNotFoundException;
 import com.undieb.hu.main.models.Role;
 import com.undieb.hu.main.repositories.UserRepository;
-import com.undieb.hu.main.Security.PasswordEncrypter;
+import com.undieb.hu.main.security.PasswordEncrypter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.*;
 import org.springframework.stereotype.Service;
