@@ -1,6 +1,6 @@
 package com.undieb.hu.main.Controllers;
 
-import com.undieb.hu.main.Controllers.DTOs.BasicUserDto;
+import com.undieb.hu.main.Controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.Converters.UsersToBasicUserDtoConverter;
 import com.undieb.hu.main.Services.UsersService;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package TestUtils;
 
-import com.undieb.hu.main.Controllers.DTOs.BasicUserDto;
+import com.undieb.hu.main.Controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.Controllers.DTOs.auth.LoginRequestDTO;
 import com.undieb.hu.main.Controllers.DTOs.auth.LoginUserResponseDTO;
 import com.undieb.hu.main.Controllers.DTOs.auth.RegisterUserDto;
