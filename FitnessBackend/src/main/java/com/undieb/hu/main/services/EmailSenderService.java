@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Services;
+package com.undieb.hu.main.services;
 
 import com.undieb.hu.main.controllers.DTOs.auth.RegisterUserResponse;
 import com.undieb.hu.main.controllers.DTOs.auth.VerificationDetails;

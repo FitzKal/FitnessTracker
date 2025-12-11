@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Services;
+package com.undieb.hu.main.services;
 
 import com.undieb.hu.main.models.UserPrinciple;
 import com.undieb.hu.main.repositories.UserRepository;

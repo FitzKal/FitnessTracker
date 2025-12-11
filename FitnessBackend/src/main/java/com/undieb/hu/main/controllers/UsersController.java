@@ -2,7 +2,7 @@ package com.undieb.hu.main.controllers;
 
 import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
 import com.undieb.hu.main.converters.UsersToBasicUserDtoConverter;
-import com.undieb.hu.main.Services.UsersService;
+import com.undieb.hu.main.services.UsersService;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.http.ResponseEntity;

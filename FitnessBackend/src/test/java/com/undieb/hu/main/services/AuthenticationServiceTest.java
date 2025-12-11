@@ -1,4 +1,4 @@
-package com.undieb.hu.main.Services;
+package com.undieb.hu.main.services;
 
 import TestUtils.TestUtils;
 import com.undieb.hu.main.converters.RegisterUserDTOToUserConverter;

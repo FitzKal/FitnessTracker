@@ -1,7 +1,7 @@
 package com.undieb.hu.main.controllers;
 
 import com.undieb.hu.main.controllers.DTOs.auth.*;
-import com.undieb.hu.main.Services.AuthenticationService;
+import com.undieb.hu.main.services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;

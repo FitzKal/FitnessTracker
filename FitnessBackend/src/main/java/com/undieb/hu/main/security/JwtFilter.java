@@ -1,8 +1,8 @@
 package com.undieb.hu.main.security;
 
 
-import com.undieb.hu.main.Services.CustomUserDetailService;
-import com.undieb.hu.main.Services.JWTService;
+import com.undieb.hu.main.services.CustomUserDetailService;
+import com.undieb.hu.main.services.JWTService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
