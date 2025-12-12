@@ -1,5 +1,6 @@
 package com.undieb.hu.main.services;
 
+import com.undieb.hu.main.controllers.DTOs.user.UserImg;
 import com.undieb.hu.main.controllers.DTOs.user.UserProfileDto;
 import com.undieb.hu.main.converters.UserProfileToUserProfileDtoConverter;
 import com.undieb.hu.main.exceptions.ProfileNotFoundException;
@@ -41,9 +42,43 @@ public class UserProfileService {
         return userProfileToUserProfileDtoConverter.userProfileToUserProfileDto(user.getUserProfile());
     }
 
+    public UserProfileDto updateUserProfile(HttpServletRequest request, UserProfileDto userProfileDto, MultipartFile file) throws IOException {
+        var user = getUserFromRequest(request);
+        var newImgDetails = new UserImg();
+        if (user.getUserProfile() == null){
+            throw new ProfileNotFoundException("The user's profile cannot be found");
+        }
+        var profileToUpdate = user.getUserProfile();
+        if (file != null){
+            s3Service.deleteFile(profileToUpdate.getProfilePictureName());
+            newImgDetails = s3Service.uploadFile(file);
+            profileToUpdate.setProfilePictureName(newImgDetails.getImgName());
+            profileToUpdate.setProfilePictureSrc(newImgDetails.getImgUrl());
+        }
+        profileToUpdate.setFirstName(userProfileDto.getFirstName());
+        profileToUpdate.setLastName(userProfileDto.getLastName());
+        profileToUpdate.setWeight(userProfileDto.getWeight());
+        profileToUpdate.setHeight(userProfileDto.getHeight());
+        userProfileRepository.save(profileToUpdate);
+        return userProfileToUserProfileDtoConverter.userProfileToUserProfileDto(profileToUpdate);
+    }
+
+    public String deleteUserProfile(HttpServletRequest request){
+        var user = getUserFromRequest(request);
+        if (user.getUserProfile() == null){
+            throw new ProfileNotFoundException("The user's profile cannot be found");
+        }
+        var profileToDelete = user.getUserProfile();
+        s3Service.deleteFile(profileToDelete.getProfilePictureName());
+        user.removeProfile();
+        userProfileRepository.deleteById(profileToDelete.getProfileId());
+        return "The profile was deleted successfully!";
+    }
+
     private Users getUserFromRequest(HttpServletRequest request) {
         var tokenFromRequest = jwtService.extractTokenFromRequest(request);
         var username = jwtService.getUserNameFromToken(tokenFromRequest);
         return userRepository.findByUsername(username);
     }
+
 }
