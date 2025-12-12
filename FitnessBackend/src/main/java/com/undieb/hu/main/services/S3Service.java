@@ -1,5 +1,6 @@
 package com.undieb.hu.main.services;
 
+import com.undieb.hu.main.controllers.DTOs.user.UserImg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,16 @@ public class S3Service {
     @Value("${aws.bucket.name}")
     private String bucketName;
 
-    public String uploadFile(MultipartFile file) throws IOException {
+    public UserImg uploadFile(MultipartFile file) throws IOException {
         s3Client.putObject(PutObjectRequest.builder()
                         .bucket(bucketName)
                         .key(file.getOriginalFilename())
                 .build(),
                 RequestBody.fromBytes(file.getBytes()));
         var key = file.getOriginalFilename();
-        return s3Client.utilities()
+        var url = s3Client.utilities()
                 .getUrl(builder ->  builder.bucket(bucketName).key(key)).toExternalForm();
+        return new UserImg(url,key);
     }
 }
 
