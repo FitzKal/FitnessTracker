@@ -51,4 +51,9 @@ public class Users {
         this.setUserProfile(userProfile);
         userProfile.setUser(this);
     }
+
+    public void removeProfile(){
+        this.setUserProfile(null);
+        userProfile.setUser(null);
+    }
 }
