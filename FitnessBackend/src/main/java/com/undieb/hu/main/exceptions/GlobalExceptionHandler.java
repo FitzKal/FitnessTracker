@@ -22,4 +22,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> InvalidVerificationCodeException(InvalidVerificationCodeException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(ProfileNotFoundException.class)
+    public ResponseEntity<String> profileNotFoundException(ProfileNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 }
