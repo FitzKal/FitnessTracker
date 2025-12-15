@@ -10,9 +10,6 @@ const getAccessToken =():string|undefined =>{
 
 const api = axios.create({
     baseURL:base_url,
-    headers:{
-        'Content-Type' : 'application/json'
-    },
     withCredentials: true
 })
 
