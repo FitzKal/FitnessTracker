@@ -39,7 +39,9 @@ public class UserProfileService {
         if (user.getUserProfile() == null){
             throw new ProfileNotFoundException("The user's profile cannot be found");
         }
-        return userProfileToUserProfileDtoConverter.userProfileToUserProfileDto(user.getUserProfile());
+        var convertedProfile = userProfileToUserProfileDtoConverter.userProfileToUserProfileDto(user.getUserProfile());
+        convertedProfile.setEmail(user.getEmail());
+        return convertedProfile;
     }
 
     public UserProfileDto updateUserProfile(HttpServletRequest request, UserProfileDto userProfileDto, MultipartFile file) throws IOException {

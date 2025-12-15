@@ -1,9 +1,12 @@
 package com.undieb.hu.main.exceptions;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import java.security.SignatureException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -26,5 +29,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProfileNotFoundException.class)
     public ResponseEntity<String> profileNotFoundException(ProfileNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<String> jwtTokenExpiredException(ExpiredJwtException e){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+    }
+
+    @ExceptionHandler(SignatureException.class)
+    public ResponseEntity<String> jwtTokenNotValidException(SignatureException e){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 }
