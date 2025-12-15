@@ -15,3 +15,13 @@ export type UserRegisterType = {
 export type ResendTokenType = {
     email:string | undefined
 }
+
+export interface UserProfile{
+    id?:number,
+    firstName?:string,
+    lastName?:string,
+    height?:number,
+    weight?:number,
+    profilePictureName?:string,
+    profilePictureSrc?:string
+}
