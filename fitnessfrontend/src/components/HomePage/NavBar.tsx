@@ -1,15 +1,18 @@
 import {Link, Outlet} from "react-router-dom";
 import {ArrowRightEndOnRectangleIcon, BoltIcon, HomeIcon, UserIcon} from "@heroicons/react/16/solid";
-import {useMutation} from "@tanstack/react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {logoutUser} from "../../services/AuthService.ts";
 import {UserStore} from "../../stores/UserStore.ts";
 import {toast} from "react-toastify";
 
 export default function NavBar(){
+
+    const queryClient = useQueryClient();
+
     const logoutMutation = useMutation({
         mutationFn:() => logoutUser(),
         onSuccess:() => {
-
+            queryClient.removeQueries({ queryKey: ["profile"], exact: false });
             UserStore.getState().stateLogout();
             toast.success("You have been successfully logged out!");
         },

@@ -25,9 +25,11 @@ public class UserProfileService {
 
     public UserProfileDto createUserProfileDto(UserProfileDto userProfileDto, HttpServletRequest request, MultipartFile multipartFile) throws IOException {
         var user = getUserFromRequest(request);
-        var imgDetails = s3Service.uploadFile(multipartFile);
-        userProfileDto.setProfilePictureSrc(imgDetails.getImgUrl());
-        userProfileDto.setProfilePictureName(imgDetails.getImgName());
+        if (multipartFile != null){
+            var imgDetails = s3Service.uploadFile(multipartFile);
+            userProfileDto.setProfilePictureSrc(imgDetails.getImgUrl());
+            userProfileDto.setProfilePictureName(imgDetails.getImgName());
+        }
         var convertedToProfile = userProfileToUserProfileDtoConverter.userProfileDtoToUserProfile(userProfileDto);
         user.setProfile(convertedToProfile);
         userProfileRepository.save(convertedToProfile);
@@ -71,7 +73,9 @@ public class UserProfileService {
             throw new ProfileNotFoundException("The user's profile cannot be found");
         }
         var profileToDelete = user.getUserProfile();
-        s3Service.deleteFile(profileToDelete.getProfilePictureName());
+        if (profileToDelete.getProfilePictureName() != null){
+            s3Service.deleteFile(profileToDelete.getProfilePictureName());
+        }
         user.removeProfile();
         userProfileRepository.deleteById(profileToDelete.getProfileId());
         return "The profile was deleted successfully!";

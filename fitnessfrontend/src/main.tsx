@@ -9,6 +9,7 @@ import VerificationPage from "./components/auth/VerificationPage.tsx";
 import HomePage from "./components/HomePage/HomePage.tsx";
 import NavBar from "./components/HomePage/NavBar.tsx";
 import Profile from "./components/Profile/Profile.tsx";
+import CreateProfile from "./components/Profile/CreateProfile.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
             },
             {
                 path:"/Fitness/Profile",
-                element:<Profile />
+                element:<Profile />,
+            },
+            {
+                path:"/Fitness/CreateProfile",
+                element:<CreateProfile/>
             }
         ]
     }

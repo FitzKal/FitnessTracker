@@ -1,14 +1,15 @@
 import {useForm} from "react-hook-form";
-import {UpdateSchema, type UserProfile, type UserUpdate, type UserUpdateRequest} from "../../types/User.ts";
+import {ProfileSchema, type UserProfile, type UserProfileFormType, type UserProfileDetails} from "../../types/User.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {updateUserProfile} from "../../services/UserProfileService.ts";
 import {toast} from "react-toastify";
+import {useEffect} from "react";
 
 
 export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>void, userData:UserProfile}){
-    const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm<UserUpdate>({
-        resolver:zodResolver(UpdateSchema),
+    const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm<UserProfileFormType>({
+        resolver:zodResolver(ProfileSchema),
         defaultValues:{
             height:prop.userData.height,
             weight: prop.userData.weight,
@@ -17,21 +18,20 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
         }
     })
 
-    const onSubmit = async (data:UserUpdate) => {
+    const onSubmit = async (data:UserProfileFormType) => {
         updateMutation.mutate(data);
     }
 
     const queryClient = useQueryClient();
 
     const updateMutation = useMutation({
-        mutationFn: (data:UserUpdate) => {
-            const newProfile:UserUpdateRequest = {
+        mutationFn: (data:UserProfileFormType) => {
+            const newProfile:UserProfileDetails = {
                 weight:data.weight,
                 height:data.height,
                 lastName:data.lastName,
                 firstName:data.firstName
             };
-            console.log(data.image[0]);
             return updateUserProfile(newProfile,data.image[0]);
         },
         onSuccess: () =>{
@@ -47,6 +47,10 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
           }
         }
     })
+
+    useEffect(() => {
+        console.log(prop.userData);
+    }, []);
 
     return (
         <>
@@ -70,42 +74,74 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
       `}
             >
                 <h1 className="text-3xl">Update Profile Details</h1>
-                <form className="mt-15" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="flex flex-row flex-wrap justify-between gap-10">
-                        <div className="flex flex-col">
-                            <input {...register('firstName')} placeholder="First name" className="p-1 border-2 rounded-md" />
-                            {errors.firstName && <div className="text-red-500">{errors.firstName.message}</div>}
+                <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
+                    <div className={"flex flex-wrap justify-center gap-x-10 gap-y-8"}>
+
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className="text-sm font-semibold ml-1 mb-1">First Name</label>
+                            <input {...register("firstName")} placeholder={"First name"}
+                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                            {errors.firstName && (
+                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                    {errors.firstName.message}
+                                </div>
+                            )}
                         </div>
 
-                        <div className="flex flex-col">
-                            <input {...register('lastName')} placeholder="Last name" className="p-1 border-2 rounded-md" />
-                            {errors.lastName && <div className="text-red-500">{errors.lastName.message}</div>}
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className="text-sm font-semibold ml-1 mb-1">Last Name</label>
+                            <input {...register("lastName")} placeholder={"Last name"}
+                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                            {errors.lastName && (
+                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                    {errors.lastName.message}
+                                </div>
+                            )}
                         </div>
 
-                        <div className="flex flex-col">
-                            <input {...register('height',{valueAsNumber:true})} type={"number"} placeholder="Height (in cm)" className="p-1 border-2 rounded-md" />
-                            {errors.height && <div className="text-red-500">{errors.height.message}</div>}
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className="text-sm font-semibold ml-1 mb-1">Height (cm)</label>
+                            <input {...register("height", { valueAsNumber: true })} type="number" placeholder={"175"}
+                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                            {errors.height && (
+                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                    {errors.height.message}
+                                </div>
+                            )}
                         </div>
 
-                        <div className="flex flex-col">
-                            <input {...register('weight',{valueAsNumber:true})} type={"number"} placeholder="Weight (in Kg)" className="p-1 border-2 rounded-md" />
-                            {errors.weight && <div className="text-red-500">{errors.weight.message}</div>}
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className="text-sm font-semibold ml-1 mb-1">Weight (kg)</label>
+                            <input {...register("weight", { valueAsNumber: true })} type="number" placeholder={"70"}
+                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                            {errors.weight && (
+                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                    {errors.weight.message}
+                                </div>
+                            )}
                         </div>
 
-                        <div className="flex flex-row gap-1">
-                            <label className="mt-1">Choose a profile picture</label>
+                        <div className={"flex flex-col w-full max-w-xl text-left relative"}>
+                            <label className={"text-sm font-semibold ml-1 mb-1"}>Profile Picture</label>
                             <div>
-                                <input
-                                    {...register('image',{required:false})}
-                                    type="file"
-                                    className="border border-gray-300 rounded-md text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-l-md file:border-0 file:border-r file:border-gray-300 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100"
-                                    accept="image/jpeg,image/jpg,image/png,image/webp"
-                                />
+                                <input {...register("image")} type={"file"}
+                                       className="block w-full text-sm text-gray-500
+                                       file:mr-4 file:py-2 file:px-4
+                                       file:rounded-full file:border-0
+                                       file:text-sm file:font-semibold
+                                       file:bg-violet-50 file:text-violet-700
+                                       hover:file:bg-violet-100
+                                       cursor-pointer border border-gray-300 rounded-lg"
+                                       accept={"image/jpeg,image/jpg,image/png,image/webp"}/>
+                                {errors.image && (
+                                    <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                        {errors.image.message as string}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
-
-                    <div className="flex flex-row mt-10 justify-center gap-6">
+                    <div className="flex flex-row mt-15 justify-center gap-6">
                         <button
                             type="button"
                             className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition-colors"
