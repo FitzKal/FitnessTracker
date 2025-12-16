@@ -29,8 +29,7 @@ export interface UserProfile{
     profilePictureName?:string,
     profilePictureSrc?:string
 }
-
-export const UpdateSchema = z.object({
+export const ProfileSchema = z.object({
     firstName:z.string().min(3,"The first name should be at least 3 characters long"),
     lastName:z.string().min(3,"The last name should be at least 3 characters long"),
     height:z.number(),
@@ -46,9 +45,9 @@ export const UpdateSchema = z.object({
         }, "Invalid file type. Only JPEG, PNG, and WebP are allowed.")
 });
 
-export type UserUpdate = z.infer<typeof UpdateSchema>;
+export type UserProfileFormType = z.infer<typeof ProfileSchema>;
 
-export type UserUpdateRequest = {
+export type UserProfileDetails = {
     firstName?:string,
     lastName?:string,
     height?:number,
