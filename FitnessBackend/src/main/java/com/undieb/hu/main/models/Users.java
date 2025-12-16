@@ -53,7 +53,7 @@ public class Users {
     }
 
     public void removeProfile(){
-        this.setUserProfile(null);
         userProfile.setUser(null);
+        this.setUserProfile(null);
     }
 }
