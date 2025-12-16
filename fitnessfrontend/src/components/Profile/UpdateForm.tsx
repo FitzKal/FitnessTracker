@@ -8,7 +8,7 @@ import {useEffect} from "react";
 
 
 export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>void, userData:UserProfile}){
-    const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm<UserProfileFormType>({
+    const {register,handleSubmit,formState:{errors,isSubmitting},reset} = useForm<UserProfileFormType>({
         resolver:zodResolver(ProfileSchema),
         defaultValues:{
             height:prop.userData.height,
@@ -48,9 +48,16 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
         }
     })
 
+
     useEffect(() => {
-        console.log(prop.userData);
-    }, []);
+        reset({
+            height: prop.userData.height,
+            weight: prop.userData.weight,
+            firstName: prop.userData.firstName,
+            lastName: prop.userData.lastName,
+            image: undefined as never,
+        });
+    }, [prop.userData, reset]);
 
     return (
         <>
