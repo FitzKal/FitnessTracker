@@ -31,6 +31,7 @@ public class UserProfileService {
             userProfileDto.setProfilePictureName(imgDetails.getImgName());
         }
         var convertedToProfile = userProfileToUserProfileDtoConverter.userProfileDtoToUserProfile(userProfileDto);
+        convertedToProfile.setHeight(convertedToProfile.getHeight()/100);
         user.setProfile(convertedToProfile);
         userProfileRepository.save(convertedToProfile);
         return userProfileDto;
@@ -62,7 +63,7 @@ public class UserProfileService {
         profileToUpdate.setFirstName(userProfileDto.getFirstName());
         profileToUpdate.setLastName(userProfileDto.getLastName());
         profileToUpdate.setWeight(userProfileDto.getWeight());
-        profileToUpdate.setHeight(userProfileDto.getHeight());
+        profileToUpdate.setHeight(userProfileDto.getHeight()/100);
         userProfileRepository.save(profileToUpdate);
         return userProfileToUserProfileDtoConverter.userProfileToUserProfileDto(profileToUpdate);
     }

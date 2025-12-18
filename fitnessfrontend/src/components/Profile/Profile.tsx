@@ -1,7 +1,7 @@
 import {useQuery} from "@tanstack/react-query";
 import {UserStore} from "../../stores/UserStore.ts";
 import {getUserProfile} from "../../services/UserProfileService.ts";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import UpdateForm from "./UpdateForm.tsx";
@@ -14,7 +14,7 @@ export default function Profile(){
     const [isDeleting,setIsDeleting] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const {data, error, isError, isLoading} = useQuery({
+    const {data, isLoading} = useQuery({
         queryKey:["profile"],
         queryFn : async() =>{
             if (!currentUser?.accessToken){
@@ -29,17 +29,10 @@ export default function Profile(){
                 navigate("/Fitness/CreateProfile");
                 return false;
             }
+            toast.error(error.message);
             return failureCount < 3;
         }
     });
-
-    useEffect(() => {
-        if (isError && error instanceof Error){
-            console.log(error);
-            toast.error(error.message);
-        }
-    }, [error, isError]);
-
 
     const handleUpdating = () =>{
         if (isUpdating){
@@ -91,7 +84,7 @@ export default function Profile(){
 
                     <div className={"flex flex-row text-2xl"}>
                         <p>Height: </p>
-                        <span className={"ml-2"}>{data.height} cm</span>
+                        <span className={"ml-2"}>{data.height} m</span>
                     </div>
 
                     <div className={"flex flex-row text-2xl"}>
