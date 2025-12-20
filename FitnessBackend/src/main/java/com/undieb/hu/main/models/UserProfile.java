@@ -21,6 +21,8 @@ public class UserProfile {
     private String lastName;
     private Double weight;
     private Double height;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

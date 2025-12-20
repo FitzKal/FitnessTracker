@@ -4,9 +4,7 @@ import com.undieb.hu.main.controllers.DTOs.user.UserImg;
 import com.undieb.hu.main.controllers.DTOs.user.UserProfileDto;
 import com.undieb.hu.main.converters.UserProfileToUserProfileDtoConverter;
 import com.undieb.hu.main.exceptions.ProfileNotFoundException;
-import com.undieb.hu.main.models.Users;
 import com.undieb.hu.main.repositories.UserProfileRepository;
-import com.undieb.hu.main.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,10 +19,9 @@ public class UserProfileService {
     private final  S3Service s3Service;
     private final UserProfileToUserProfileDtoConverter userProfileToUserProfileDtoConverter;
     private final JWTService jwtService;
-    private final UserRepository userRepository;
 
     public UserProfileDto createUserProfileDto(UserProfileDto userProfileDto, HttpServletRequest request, MultipartFile multipartFile) throws IOException {
-        var user = getUserFromRequest(request);
+        var user = jwtService.getUserFromRequest(request);
         if (multipartFile != null){
             var imgDetails = s3Service.uploadFile(multipartFile);
             userProfileDto.setProfilePictureSrc(imgDetails.getImgUrl());
@@ -38,7 +35,7 @@ public class UserProfileService {
     }
 
     public UserProfileDto getUserProfile(HttpServletRequest request){
-        var user = getUserFromRequest(request);
+        var user = jwtService.getUserFromRequest(request);
         if (user.getUserProfile() == null){
             throw new ProfileNotFoundException("The user's profile cannot be found");
         }
@@ -48,7 +45,7 @@ public class UserProfileService {
     }
 
     public UserProfileDto updateUserProfile(HttpServletRequest request, UserProfileDto userProfileDto, MultipartFile file) throws IOException {
-        var user = getUserFromRequest(request);
+        var user = jwtService.getUserFromRequest(request);
         var newImgDetails = new UserImg();
         if (user.getUserProfile() == null){
             throw new ProfileNotFoundException("The user's profile cannot be found");
@@ -64,12 +61,13 @@ public class UserProfileService {
         profileToUpdate.setLastName(userProfileDto.getLastName());
         profileToUpdate.setWeight(userProfileDto.getWeight());
         profileToUpdate.setHeight(userProfileDto.getHeight()/100);
+        profileToUpdate.setGender(userProfileDto.getGender());
         userProfileRepository.save(profileToUpdate);
         return userProfileToUserProfileDtoConverter.userProfileToUserProfileDto(profileToUpdate);
     }
 
     public String deleteUserProfile(HttpServletRequest request){
-        var user = getUserFromRequest(request);
+        var user = jwtService.getUserFromRequest(request);
         if (user.getUserProfile() == null){
             throw new ProfileNotFoundException("The user's profile cannot be found");
         }
@@ -80,12 +78,6 @@ public class UserProfileService {
         user.removeProfile();
         userProfileRepository.deleteById(profileToDelete.getProfileId());
         return "The profile was deleted successfully!";
-    }
-
-    private Users getUserFromRequest(HttpServletRequest request) {
-        var tokenFromRequest = jwtService.extractTokenFromRequest(request);
-        var username = jwtService.getUserNameFromToken(tokenFromRequest);
-        return userRepository.findByUsername(username);
     }
 
 }

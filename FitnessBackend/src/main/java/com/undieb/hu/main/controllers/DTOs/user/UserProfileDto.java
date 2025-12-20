@@ -1,5 +1,6 @@
 package com.undieb.hu.main.controllers.DTOs.user;
 
+import com.undieb.hu.main.models.Gender;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,4 +15,5 @@ public class UserProfileDto {
     private Double weight;
     private Double height;
     private String email;
+    private Gender gender;
 }
