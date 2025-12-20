@@ -15,7 +15,7 @@ export default function Profile(){
     const navigate = useNavigate();
 
     const {data, isLoading} = useQuery({
-        queryKey:["profile"],
+        queryKey:["profile", currentUser?.username],
         queryFn : async() =>{
             if (!currentUser?.accessToken){
                 throw new Error("Could not authenticate");
