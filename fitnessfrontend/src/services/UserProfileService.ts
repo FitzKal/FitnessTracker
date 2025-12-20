@@ -1,6 +1,10 @@
 // ------------- GetProfile -------------
 import api from "./AxiosConfig.ts";
 import type {UserProfileDetails} from "../types/User.ts";
+import {useQuery} from "@tanstack/react-query";
+import {UserStore} from "../stores/UserStore.ts";
+
+const currentUser = UserStore.getState().user;
 
 export const getUserProfile = async () => {
     try {
@@ -78,4 +82,18 @@ export const deleteUserProfile= async () =>{
         const message = (error as Error).message;
         console.log(message);
     }
+}
+
+export function useProfileDetails ()
+{
+    return useQuery({
+        queryKey: ["profile"],
+        queryFn: async () => {
+            if (!currentUser?.accessToken) {
+                throw new Error("Could not authenticate");
+            }
+            return await getUserProfile();
+        },
+        enabled: !!currentUser?.accessToken,
+    })
 }
