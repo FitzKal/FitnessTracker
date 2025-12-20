@@ -14,7 +14,8 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
             height:prop.userData.height,
             weight: prop.userData.weight,
             firstName: prop.userData.firstName,
-            lastName: prop.userData.lastName
+            lastName: prop.userData.lastName,
+            gender: prop.userData.gender
         }
     })
 
@@ -30,8 +31,10 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                 weight:data.weight,
                 height:data.height,
                 lastName:data.lastName,
-                firstName:data.firstName
+                firstName:data.firstName,
+                gender:data.gender
             };
+            console.log(updateMutation);
             return updateUserProfile(newProfile,data.image[0]);
         },
         onSuccess: () =>{
@@ -51,7 +54,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
 
     useEffect(() => {
         reset({
-            height: prop.userData.height,
+            height: prop.userData.height?prop.userData.height * 100 : prop.userData.height,
             weight: prop.userData.weight,
             firstName: prop.userData.firstName,
             lastName: prop.userData.lastName,
@@ -126,6 +129,17 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                                     {errors.weight.message}
                                 </div>
                             )}
+                        </div>
+
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className={"pt-1"}>Choose your gender: </label>
+                            <select{...register("gender",{
+                                required:true,
+                            })} className={"bg-white border-2 h-8"}>
+                                <option value="MALE">Male</option>
+                                <option value="FENALE">Female</option>
+                            </select>
+
                         </div>
 
                         <div className={"flex flex-col w-full max-w-xl text-left relative"}>

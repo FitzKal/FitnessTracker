@@ -28,6 +28,7 @@ export interface UserProfile{
     weight?:number,
     profilePictureName?:string,
     profilePictureSrc?:string
+    gender?:"MALE" | "FEMALE"
 }
 export const ProfileSchema = z.object({
     firstName:z.string().min(3,"The first name should be at least 3 characters long"),
@@ -42,7 +43,8 @@ export const ProfileSchema = z.object({
 
             const file = files[0];
             return ACCEPTED_IMAGE_TYPES.includes(file.type);
-        }, "Invalid file type. Only JPEG, PNG, and WebP are allowed.")
+        }, "Invalid file type. Only JPEG, PNG, and WebP are allowed."),
+    gender:z.enum(["MALE","FEMALE"])
 });
 
 export type UserProfileFormType = z.infer<typeof ProfileSchema>;
@@ -52,4 +54,5 @@ export type UserProfileDetails = {
     lastName?:string,
     height?:number,
     weight?:number,
+    gender?:"MALE" | "FEMALE"
 }

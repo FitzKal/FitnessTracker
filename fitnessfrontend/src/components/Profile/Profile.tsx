@@ -96,6 +96,10 @@ export default function Profile(){
                         <p>Email: </p>
                         <span className={"ml-2"}>{data.email}</span>
                     </div>
+                    <div className={"flex flex-row text-2xl"}>
+                        <p>Gender: </p>
+                        <span className={"ml-2"}>{data.gender}</span>
+                    </div>
                 </div>
             </div>
             <div className={"flex flex-row ml-25 mt-7 gap-45"}>
