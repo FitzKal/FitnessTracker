@@ -33,8 +33,8 @@ export interface UserProfile{
 export const ProfileSchema = z.object({
     firstName:z.string().min(3,"The first name should be at least 3 characters long"),
     lastName:z.string().min(3,"The last name should be at least 3 characters long"),
-    height:z.number(),
-    weight:z.number(),
+    height:z.number().min(1),
+    weight:z.number().min(1),
     image: z
         .any()
         .refine((files) => {
