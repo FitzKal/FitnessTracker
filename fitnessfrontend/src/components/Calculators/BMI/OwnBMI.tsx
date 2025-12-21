@@ -35,9 +35,6 @@ export default function OwnBMI(){
 
     const {data:details,isLoading:profileLoading} = useProfileDetails();
 
-    const bmiScale = BMIClassing(Number(bmiData));
-
-
     if (profileLoading || BmiLoading){
         return (
             <div className={"text-center"}>
@@ -62,7 +59,7 @@ export default function OwnBMI(){
                     <p className={"text-xl"}>Your BMI is <strong className={`${bmiDetails[0]}`}>{bmiDetails[1]}</strong></p>
                 </div>
             </div>
-            <BmiClassificationText classification ={bmiScale[1]}/>
+            <BmiClassificationText classification ={bmiDetails[1]}/>
         </div>
     }
     else{

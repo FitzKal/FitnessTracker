@@ -1,11 +1,9 @@
-import {useForm} from "react-hook-form";
-import type {BMIForm} from "../../../types/FormTypes.ts";
 import {useState} from "react";
 import OwnBMI from "./OwnBMI.tsx";
 import BmiInformation from "./BmiInformation.tsx";
+import CustomBMI from "./CustomBMI.tsx";
 
 export default function BMICalculator(){
-    const {register, handleSubmit} = useForm<BMIForm>();
     const [isOwnBMI, setOwnBMI] = useState<boolean>(true);
     const [isCustomBMI, setCustomBMI] = useState<boolean>(false);
 
@@ -35,7 +33,9 @@ export default function BMICalculator(){
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 px-4 md:px-8 mx-10">
                 <div className="border-2 mt-2 bg-green-200 rounded-md p-4 min-w-0">
-                    <OwnBMI />
+                    {isOwnBMI ?
+                    <OwnBMI/> :
+                    <CustomBMI/>}
                 </div>
                 <div className="border-2 mt-2 bg-gray-200 rounded-md p-4 min-w-0">
                     <BmiInformation />

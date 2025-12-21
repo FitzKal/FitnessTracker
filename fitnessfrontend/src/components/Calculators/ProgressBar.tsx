@@ -2,7 +2,7 @@ export default function ProgressBar({ value }: { value: number }) {
     const returnBarColour = (value: number ):string => {
         if ( 0 < value && value < 18.5){
             return "bg-yellow-500";
-        }else if(18.5 <= value && value <= 24.9){
+        }else if(18.5 <= value && value <= 25){
             return "bg-green-500";
         }else{
             return "bg-red-500";

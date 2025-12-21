@@ -1,6 +1,7 @@
 // ------------- CalculateByProfile -------------
 
 import api from "./AxiosConfig.ts";
+import type {BMIForm} from "../types/FormTypes.ts";
 
 export const calculateByProfile = async () => {
     try{
@@ -15,14 +16,9 @@ export const calculateByProfile = async () => {
 }
 
 // ------------- CalculateCustom -------------
-export const calculateCustomBMI = async (height:number, weight:number) => {
+export const calculateCustomBMI = async (bmiDetails:BMIForm) => {
     try{
-        return api.get("/bmi",{
-            params:{
-                height : height,
-                weight : weight
-            }
-        })
+        return api.post("/bmi/custom",bmiDetails)
             .then(res => res.data)
             .then(data => parseToTwoDigits(data));
     }catch (error){
@@ -45,13 +41,17 @@ export const BMIClassing = (value: number ):string[] => {
         array.push("text-yellow-500");
         array.push("underweight");
         return array;
-    }else if(18.5 <= value && value <= 24.9){
+    }else if(18.5 <= value && value <= 25){
         array.push("text-green-500");
         array.push("normal");
         return array;
-    }else{
+    }else if (value > 25){
         array.push("text-red-500");
         array.push("overweight");
+        return array;
+    }else {
+        array.push("text-black text-base");
+        array.push("Not yet calculated")
         return array;
     }
 }
