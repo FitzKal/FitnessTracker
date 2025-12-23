@@ -1,6 +1,6 @@
 package com.undieb.hu.main.controllers.DTOs.user;
 
-import com.undieb.hu.main.models.Gender;
+import com.undieb.hu.main.models.enums.Gender;
 import lombok.Builder;
 import lombok.Data;
 

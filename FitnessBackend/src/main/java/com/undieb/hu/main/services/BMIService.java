@@ -26,6 +26,8 @@ public class BMIService {
         return calculateBMI(customHeightInCm,weight);
     }
 
+
+
     private Double calculateBMI(Double height, Double weight){
         var squaredHeight = height * height;
         return weight/squaredHeight;

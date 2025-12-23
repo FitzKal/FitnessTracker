@@ -1,6 +1,7 @@
 package com.undieb.hu.main.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.undieb.hu.main.models.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 

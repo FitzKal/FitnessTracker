@@ -1,4 +1,4 @@
-package com.undieb.hu.main.controllers.DTOs;
+package com.undieb.hu.main.controllers.DTOs.calculators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

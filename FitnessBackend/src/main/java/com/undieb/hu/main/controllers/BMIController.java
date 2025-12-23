@@ -1,6 +1,6 @@
 package com.undieb.hu.main.controllers;
 
-import com.undieb.hu.main.controllers.DTOs.BMIRequestDTO;
+import com.undieb.hu.main.controllers.DTOs.calculators.BMIRequestDTO;
 import com.undieb.hu.main.services.BMIService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
