@@ -24,7 +24,9 @@ export default function CreateProfile(){
                 firstName:data.firstName,
                 lastName:data.lastName,
                 weight: data.weight,
-                height:data.height
+                height:data.height,
+                gender:data.gender,
+                age:data.age
             };
             return postUserProfile(userData, data.image[0]);
         },
@@ -100,6 +102,27 @@ export default function CreateProfile(){
                                 )}
                             </div>
 
+                            <div className={"flex flex-col text-left relative"}>
+                                <label className="text-sm font-semibold ml-1 mb-1">Age</label>
+                                <input {...register("age", { valueAsNumber: true })} type="number" placeholder={"25"}
+                                       className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                                {errors.age && (
+                                    <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                        {errors.age.message}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className={"flex flex-col text-left relative"}>
+                                <label className={"pt-1 font-bold"}>Choose your gender: </label>
+                                <select{...register("gender",{
+                                    required:true,
+                                })} className={"bg-white border-2 h-8"}>
+                                    <option value="MALE">Male</option>
+                                    <option value="FENALE">Female</option>
+                                </select>
+                            </div>
+
                             <div className={"flex flex-col w-full max-w-xl text-left relative"}>
                                 <label className={"text-sm font-semibold ml-1 mb-1"}>Profile Picture</label>
                                 <div>
@@ -121,7 +144,7 @@ export default function CreateProfile(){
                             </div>
                         </div>
                         <div className={"justify-center"}>
-                            <button className="px-6 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold transition-colors shadow-lg mt-40"
+                            <button className="px-6 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold transition-colors shadow-lg mt-10"
                             disabled={isSubmitting}>{isSubmitting ? 'Creating...' : 'Create'}</button>
                         </div>
                     </form>

@@ -32,7 +32,8 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                 height:data.height,
                 lastName:data.lastName,
                 firstName:data.firstName,
-                gender:data.gender
+                gender:data.gender,
+                age:data.age
             };
             console.log(updateMutation);
             return updateUserProfile(newProfile,data.image[0]);
@@ -59,6 +60,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
             firstName: prop.userData.firstName,
             lastName: prop.userData.lastName,
             image: undefined as never,
+            age: prop.userData.age
         });
     }, [prop.userData, reset]);
 
@@ -77,7 +79,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                 aria-modal="true"
                 aria-label="Update Profile Details"
                 className={`
-        text-center bg-white h-120 w-200 border-2 rounded-2xl p-5
+        text-center bg-white h-150 w-200 border-2 rounded-2xl p-5
         fixed left-1/2 -translate-x-1/2 top-6 z-50
         transition-transform opacity duration-500 ease-out will-change-transform
         ${prop.isUpdating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}
@@ -123,6 +125,17 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                         <div className={"flex flex-col text-left relative"}>
                             <label className="text-sm font-semibold ml-1 mb-1">Weight (kg)</label>
                             <input {...register("weight", { valueAsNumber: true })} type="number" placeholder={"70"}
+                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                            {errors.weight && (
+                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                    {errors.weight.message}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className="text-sm font-semibold ml-1 mb-1">Age</label>
+                            <input {...register("age", { valueAsNumber: true })} type="number" placeholder={"18"}
                                    className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
                             {errors.weight && (
                                 <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
