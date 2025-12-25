@@ -8,8 +8,8 @@ export default function BMICalculator(){
     const [isCustomBMI, setCustomBMI] = useState<boolean>(false);
 
     return(
-        <div>
-            <div className="flex justify-center mb-10 mt-2">
+        <div className={"bg-gradient-to-b bg-white to-blue-300 min-h-screen"}>
+            <div className="flex justify-center mb-10 mt-13">
                 <div>
                     <h1 className="text-4xl">Welcome to the BMI calculator!</h1>
                     <div className="mt-5">

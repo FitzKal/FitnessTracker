@@ -54,7 +54,7 @@ export default function NavBar(){
                     </li>
 
                     <li className={"list-none m-[5px_0] hover:bg-[#06e6e6] mt-[10px] h-[50px]"}>
-                        <Link to={"/Fitness/Bmi"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
+                        <Link to={"/Fitness/calculator/bmi"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
                             "text-2xl"}>
                             <CalculatorIcon className={"h-10 w-10 flex mr-1 fixed"}></CalculatorIcon>
                             <span className={"ml-11 mt-1 overflow-hidden"}>BMI Calculator</span>

@@ -11,6 +11,8 @@ import NavBar from "./components/HomePage/NavBar.tsx";
 import Profile from "./components/Profile/Profile.tsx";
 import CreateProfile from "./components/Profile/CreateProfile.tsx";
 import BMICalculator from "./components/Calculators/BMI/BMICalculator.tsx";
+import CalculatorNavBar from "./components/Calculators/CalculatorNavBar.tsx";
+import ProteinCalculator from "./components/Calculators/protein/ProteinCalculator.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -47,8 +49,18 @@ const router = createBrowserRouter([
                 element:<CreateProfile/>
             },
             {
-                path:"/Fitness/bmi",
-                element:<BMICalculator/>,
+                path:"/Fitness/calculator",
+                element:<CalculatorNavBar/>,
+                children:[
+                    {
+                        path:"/Fitness/calculator/bmi",
+                        element:<BMICalculator/>
+                    },
+                    {
+                        path: "/Fitness/calculator/protein",
+                        element:<ProteinCalculator/>
+                    }
+                ]
             }
         ]
     }
