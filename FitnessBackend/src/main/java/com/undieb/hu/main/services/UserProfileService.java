@@ -62,6 +62,7 @@ public class UserProfileService {
         profileToUpdate.setWeight(userProfileDto.getWeight());
         profileToUpdate.setHeight(userProfileDto.getHeight()/100);
         profileToUpdate.setGender(userProfileDto.getGender());
+        profileToUpdate.setAge(userProfileDto.getAge());
         userProfileRepository.save(profileToUpdate);
         return userProfileToUserProfileDtoConverter.userProfileToUserProfileDto(profileToUpdate);
     }

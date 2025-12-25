@@ -16,4 +16,5 @@ public class UserProfileDto {
     private Double height;
     private String email;
     private Gender gender;
+    private int age;
 }
