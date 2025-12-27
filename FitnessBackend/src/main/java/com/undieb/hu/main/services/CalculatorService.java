@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class BMIService {
+public class CalculatorService {
 
     private final JWTService jwtService;
 
@@ -73,20 +73,20 @@ public class BMIService {
     }
 
     private Double calculateProteinWHO(double weight){
-        return weight*0.83;
+        return Math.floor(weight*0.83);
     }
 
     private String calculateProteinCDC(Double dailyCalorie){
-        return ((dailyCalorie * 10)/100)/4 + " - " +((dailyCalorie * 35)/100)/4;
+        return (Math.floor((dailyCalorie * 10)/100)/4) + " - " +Math.floor(((dailyCalorie * 35)/100)/4);
     }
 
     private String calculateProteinADA(double weight, ExerciseType exerciseType){
         if (exerciseType == ExerciseType.SEDENTARY){
             var lowerLimit = weight * 0.8;
-            return lowerLimit + " - " + weight;
+            return Math.floor(lowerLimit) + " - " + Math.floor(weight);
         }else {
             var upperLimit = weight * 1.8;
-            return weight + " - " + upperLimit;
+            return Math.floor(weight) + " - " + Math.floor(upperLimit);
         }
     }
 
@@ -95,25 +95,25 @@ public class BMIService {
                 ,calorieIntakeRequestDTO.getAge(),calorieIntakeRequestDTO.getGender());
         switch (calorieIntakeRequestDTO.getExerciseType()){
             case SEDENTARY -> {
-                return baseCalorieIntake * 1.2;
+                return Math.floor(baseCalorieIntake * 1.2);
             }
             case LIGHT -> {
-                return baseCalorieIntake * 1.375;
+                return Math.floor(baseCalorieIntake * 1.375);
             }
             case MODERATE -> {
-                return baseCalorieIntake * 1.465;
+                return Math.floor(baseCalorieIntake * 1.465);
             }
             case ACTIVE -> {
-                return baseCalorieIntake * 1.55;
+                return Math.floor(baseCalorieIntake * 1.55);
             }
             case VERY_ACTIVE -> {
-                return baseCalorieIntake *  1.725;
+                return Math.floor(baseCalorieIntake *  1.725);
             }
             case EXTRA_ACTIVE -> {
-                return baseCalorieIntake * 1.9;
+                return Math.floor(baseCalorieIntake * 1.9);
             }
             default -> {
-                return baseCalorieIntake;
+                return Math.floor(baseCalorieIntake);
             }
         }
     }
