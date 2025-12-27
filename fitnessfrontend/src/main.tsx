@@ -13,6 +13,7 @@ import CreateProfile from "./components/Profile/CreateProfile.tsx";
 import BMICalculator from "./components/Calculators/BMI/BMICalculator.tsx";
 import CalculatorNavBar from "./components/Calculators/CalculatorNavBar.tsx";
 import ProteinCalculator from "./components/Calculators/protein/ProteinCalculator.tsx";
+import CalorieCalculator from "./components/Calculators/calories/CalorieCalculator.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
                     {
                         path: "/Fitness/calculator/protein",
                         element:<ProteinCalculator/>
+                    },
+                    {
+                        path:"/Fitness/calculator/calories",
+                        element:<CalorieCalculator/>
                     }
                 ]
             }
