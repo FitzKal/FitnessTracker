@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import {UserStore} from "../../../stores/UserStore.ts";
-import {BMIClassing, calculateByProfile} from "../../../services/BMIService.ts";
+import {BMIClassing, calculateByProfile} from "../../../services/CalculatorService.ts";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useState} from "react";

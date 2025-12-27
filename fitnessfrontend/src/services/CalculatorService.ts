@@ -2,6 +2,7 @@
 
 import api from "./AxiosConfig.ts";
 import type {BMIForm} from "../types/FormTypes.ts";
+import type {userProteinIntakeRequest} from "../types/CalculatorTypes.ts";
 
 export const calculateByProfile = async () => {
     try{
@@ -21,6 +22,35 @@ export const calculateCustomBMI = async (bmiDetails:BMIForm) => {
         return api.post("/bmi/custom",bmiDetails)
             .then(res => res.data)
             .then(data => parseToTwoDigits(data));
+    }catch (error){
+        const message = (error as Error).message;
+        console.log(message);
+        return message;
+    }
+}
+
+// ------------- CalculateProteinIntake -------------
+export const calculateProteinIntakeByProfile = async (exerciseType:string) =>{
+    try{
+        return api.post("/protein",null,{
+            params: {
+                exerciseType:exerciseType
+            }
+        })
+            .then(res => res.data);
+    }catch (error){
+        const message = (error as Error).message;
+        console.log(message);
+        return message;
+    }
+}
+
+// ------------- CalculateCustomProteinIntake -------------
+export const calculateCustomProteinIntake = async (proteinRequestData:userProteinIntakeRequest) => {
+    try {
+        return api.post("protein/custom", proteinRequestData)
+            .then(res => res.data);
+
     }catch (error){
         const message = (error as Error).message;
         console.log(message);

@@ -2,7 +2,7 @@
 import ProgressBar from "../ProgressBar.tsx";
 import CustomBMIForm from "./CustomBMIForm.tsx";
 import {useState} from "react";
-import {BMIClassing} from "../../../services/BMIService.ts";
+import {BMIClassing} from "../../../services/CalculatorService.ts";
     import CustomSubmittedBMI from "./CustomSubmittedBMI.tsx";
     import BmiClassificationText from "./BmiClassificationText.tsx";
 
@@ -40,7 +40,7 @@ export default function CustomBMI(){
           <div className={"text-center"}>
               <h1 className={"text-2xl"}>Calculate BMI by custom details</h1>
           </div>
-         <div className={"flex justify-between flex-row mx-20"}>
+         <div className={"flex justify-between flex-row mx-20 sm:mx-10"}>
              {!submittedShowing?
                  <CustomBMIForm handleCustomScore = {handleCustomBmiScoreChange} handleCustomDetails = {handleDetailsChange} customBMIDetails = {customBMIDetails}
                                 handleSubmittedShowing={handleSubmittedShowing} />
