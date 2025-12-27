@@ -1,6 +1,7 @@
 package com.undieb.hu.main.services;
 
 import com.undieb.hu.main.controllers.DTOs.calculators.CalorieIntakeRequestDTO;
+import com.undieb.hu.main.controllers.DTOs.calculators.CalorieResponseDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.ProteinCalculatorResponse;
 import com.undieb.hu.main.exceptions.ProfileNotFoundException;
 import com.undieb.hu.main.models.enums.ExerciseType;
@@ -54,22 +55,17 @@ public class CalculatorService {
         return response;
     }
 
-    public Double calculateCaloriesByProfile(HttpServletRequest request,ExerciseType exerciseType){
-        var user = jwtService.getUserFromRequest(request);
-        var userProfile = user.getUserProfile();
-        if (userProfile == null){
-            throw  new ProfileNotFoundException("Profile cannot be found");
-        }
-        var statsByProfile = new CalorieIntakeRequestDTO(userProfile.getHeight(),userProfile.getWeight(),userProfile.getAge()
-                ,userProfile.getGender(),exerciseType);
-        return calculateDailyCaloriesByExercise(statsByProfile);
+    public CalorieResponseDTO calculateProfileCalories(HttpServletRequest request, ExerciseType exerciseType){
+        var caloriesByProfile = calculateCaloriesByProfile(request,exerciseType);
+        return calculateCalorieIntake(caloriesByProfile);
     }
 
-    public Double calculateCaloriesCustom(CalorieIntakeRequestDTO calorieIntakeRequestDTO){
+    public CalorieResponseDTO calculateCaloriesCustom(CalorieIntakeRequestDTO calorieIntakeRequestDTO){
         calorieIntakeRequestDTO.setHeight(calorieIntakeRequestDTO.getHeight()/100);
         var statsByProfile = new CalorieIntakeRequestDTO(calorieIntakeRequestDTO.getHeight(),calorieIntakeRequestDTO.getWeight(),calorieIntakeRequestDTO.getAge()
                 ,calorieIntakeRequestDTO.getGender(),calorieIntakeRequestDTO.getExerciseType());
-        return calculateDailyCaloriesByExercise(statsByProfile);
+        var calculatedCalories = calculateDailyCaloriesByExercise(statsByProfile);
+        return calculateCalorieIntake(calculatedCalories);
     }
 
     private Double calculateProteinWHO(double weight){
@@ -88,6 +84,29 @@ public class CalculatorService {
             var upperLimit = weight * 1.8;
             return Math.floor(weight) + " - " + Math.floor(upperLimit);
         }
+    }
+
+    private CalorieResponseDTO calculateCalorieIntake(double calories){
+        return CalorieResponseDTO.builder()
+                .maintainCalories((int) calories)
+                .mildWeightLossCalories((int) Math.floor(calories * 0.9))
+                .weightLossCalories((int) Math.floor(calories * 0.8))
+                .extremeWeightLossCalories((int) Math.floor(calories * 0.59))
+                .mildWeightGainCalories((int) Math.floor(calories * 1.1))
+                .weightGainCalories((int) Math.floor(calories * 1.15))
+                .extremeWeightGainCalories((int) Math.floor(calories * 1.2))
+                .build();
+    }
+
+    private Double calculateCaloriesByProfile(HttpServletRequest request,ExerciseType exerciseType){
+        var user = jwtService.getUserFromRequest(request);
+        var userProfile = user.getUserProfile();
+        if (userProfile == null){
+            throw  new ProfileNotFoundException("Profile cannot be found");
+        }
+        var statsByProfile = new CalorieIntakeRequestDTO(userProfile.getHeight(),userProfile.getWeight(),userProfile.getAge()
+                ,userProfile.getGender(),exerciseType);
+        return calculateDailyCaloriesByExercise(statsByProfile);
     }
 
     private Double calculateDailyCaloriesByExercise(CalorieIntakeRequestDTO calorieIntakeRequestDTO){

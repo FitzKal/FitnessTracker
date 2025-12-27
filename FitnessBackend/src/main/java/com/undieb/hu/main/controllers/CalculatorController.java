@@ -2,6 +2,7 @@ package com.undieb.hu.main.controllers;
 
 import com.undieb.hu.main.controllers.DTOs.calculators.BMIRequestDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.CalorieIntakeRequestDTO;
+import com.undieb.hu.main.controllers.DTOs.calculators.CalorieResponseDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.ProteinCalculatorResponse;
 import com.undieb.hu.main.models.enums.ExerciseType;
 import com.undieb.hu.main.services.CalculatorService;
@@ -38,12 +39,12 @@ public class CalculatorController {
     }
 
     @PostMapping("/calorie")
-    public ResponseEntity<Double> getCaloriesByExercise(@NonNull @RequestParam ExerciseType exerciseType, HttpServletRequest request){
-        return ResponseEntity.ok(calculatorService.calculateCaloriesByProfile(request,exerciseType));
+    public ResponseEntity<CalorieResponseDTO> getCaloriesByExercise(@NonNull @RequestParam ExerciseType exerciseType, HttpServletRequest request){
+        return ResponseEntity.ok(calculatorService.calculateProfileCalories(request,exerciseType));
     }
 
     @PostMapping("/calorie/custom")
-    public ResponseEntity<Double> getCaloriesCustom(@NonNull @RequestBody CalorieIntakeRequestDTO calorieIntakeRequestDTO){
+    public ResponseEntity<CalorieResponseDTO> getCaloriesCustom(@NonNull @RequestBody CalorieIntakeRequestDTO calorieIntakeRequestDTO){
         return ResponseEntity.ok(calculatorService.calculateCaloriesCustom(calorieIntakeRequestDTO));
     }
 }
