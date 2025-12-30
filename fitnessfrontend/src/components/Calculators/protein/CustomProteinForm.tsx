@@ -1,17 +1,17 @@
 import {useForm} from "react-hook-form";
-import {type proteinResponse, ProteinSchema, type userProteinIntakeRequest} from "../../../types/CalculatorTypes.ts";
+import {type proteinResponse, IntakeSchema, type IntakeRequest} from "../../../types/CalculatorTypes.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useMutation} from "@tanstack/react-query";
 import {calculateCustomProteinIntake} from "../../../services/CalculatorService.ts";
 import {toast} from "react-toastify";
 
 export default function CustomProteinForm(props:{handleProteinIntakeChange:(stats:proteinResponse) => void}){
-    const {register,handleSubmit,formState:{isSubmitting,errors}} = useForm<userProteinIntakeRequest>({
-        resolver:zodResolver(ProteinSchema)
+    const {register,handleSubmit,formState:{isSubmitting,errors}} = useForm<IntakeRequest>({
+        resolver:zodResolver(IntakeSchema)
     })
 
     const customProteinMutation = useMutation({
-        mutationFn: (proteinIntake: userProteinIntakeRequest) => calculateCustomProteinIntake(proteinIntake),
+        mutationFn: (proteinIntake: IntakeRequest) => calculateCustomProteinIntake(proteinIntake),
         onSuccess: (result) => {
             console.log(result);
             props.handleProteinIntakeChange(result);
@@ -22,7 +22,7 @@ export default function CustomProteinForm(props:{handleProteinIntakeChange:(stat
         }
     });
 
-    const onSubmit = (request: userProteinIntakeRequest) => {
+    const onSubmit = (request: IntakeRequest) => {
         customProteinMutation.mutate(request);
     }
 
