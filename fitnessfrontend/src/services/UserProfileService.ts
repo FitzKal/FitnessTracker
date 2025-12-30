@@ -3,6 +3,8 @@ import api from "./AxiosConfig.ts";
 import type {UserProfileDetails} from "../types/User.ts";
 import {useQuery} from "@tanstack/react-query";
 import {UserStore} from "../stores/UserStore.ts";
+import axios from "axios";
+import {toast} from "react-toastify";
 
 const currentUser = UserStore.getState().user;
 
@@ -95,5 +97,12 @@ export function useProfileDetails ()
             return await getUserProfile();
         },
         enabled: !!currentUser?.accessToken,
+        retry:(failureCount,error) =>{
+            if (axios.isAxiosError(error) && error.response?.status === 404){
+                return false;
+            }
+            toast.error(error.message);
+            return failureCount < 3;
+        }
     })
 }

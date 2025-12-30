@@ -1,9 +1,8 @@
-// ------------- CalculateByProfile -------------
-
 import api from "./AxiosConfig.ts";
 import type {BMIForm} from "../types/FormTypes.ts";
-import type {userProteinIntakeRequest} from "../types/CalculatorTypes.ts";
+import type {IntakeRequest} from "../types/CalculatorTypes.ts";
 
+// ------------- CalculateBMIByProfile -------------
 export const calculateByProfile = async () => {
     try{
         return api.get("/bmi")
@@ -16,7 +15,7 @@ export const calculateByProfile = async () => {
     }
 }
 
-// ------------- CalculateCustom -------------
+// ------------- CalculateBMICustom -------------
 export const calculateCustomBMI = async (bmiDetails:BMIForm) => {
     try{
         return api.post("/bmi/custom",bmiDetails)
@@ -46,9 +45,38 @@ export const calculateProteinIntakeByProfile = async (exerciseType:string) =>{
 }
 
 // ------------- CalculateCustomProteinIntake -------------
-export const calculateCustomProteinIntake = async (proteinRequestData:userProteinIntakeRequest) => {
+export const calculateCustomProteinIntake = async (proteinRequestData:IntakeRequest) => {
     try {
         return api.post("protein/custom", proteinRequestData)
+            .then(res => res.data);
+
+    }catch (error){
+        const message = (error as Error).message;
+        console.log(message);
+        return message;
+    }
+}
+
+// ------------- CalculateOwnCalorieIntake -------------
+export const calculateOwnCalorieIntake = async (exerciseType:string) => {
+    try {
+        return api.post("/calorie",null,{
+            params:{
+                exerciseType:exerciseType
+            }
+        })
+    .then(res => res.data);
+        }catch (error){
+            const message = (error as Error).message;
+            console.log(message);
+            return message;
+        }
+}
+
+// ------------- CalculateCustomCalorieIntake -------------
+export const calculateCustomCalorieIntake = async (calorieIntake:IntakeRequest) => {
+    try {
+        return api.post("calorie/custom", calorieIntake)
             .then(res => res.data);
 
     }catch (error){
