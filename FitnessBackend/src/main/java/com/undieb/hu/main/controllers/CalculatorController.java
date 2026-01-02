@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/fitness")
+@RequestMapping("/api/fitness")
 public class CalculatorController {
     private final CalculatorService calculatorService;
 
