@@ -1,7 +1,7 @@
 import {useQuery} from "@tanstack/react-query";
 import {UserStore} from "../../stores/UserStore.ts";
 import {getUserProfile} from "../../services/UserProfileService.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import UpdateForm from "./UpdateForm.tsx";
@@ -14,7 +14,7 @@ export default function Profile(){
     const [isDeleting,setIsDeleting] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const {data, isLoading} = useQuery({
+    const {data, isLoading,isError,error} = useQuery({
         queryKey:["profile", currentUser?.username],
         queryFn : async() =>{
             if (!currentUser?.accessToken){
@@ -34,6 +34,12 @@ export default function Profile(){
         }
     });
 
+    useEffect(() => {
+        console.log(currentUser);
+    })
+
+    const missingProfile = isError && axios.isAxiosError(error) && error.response?.status === 404;
+
     const handleUpdating = () =>{
         if (isUpdating){
             setIsUpdating(false)
@@ -50,7 +56,7 @@ export default function Profile(){
         }
     }
 
-    if (isLoading){
+    if (isLoading && !missingProfile){
         return(<div className={"flex justify-center"}>
             <h1 className={"text-4xl text-center"}>Loading Profile....</h1>
         </div>)

@@ -7,6 +7,7 @@ import {toast} from "react-toastify";
 import {UserResisterRequestStore} from "../../stores/UserRegisterRequestStore.ts";
 import type {ResendTokenType, UserRegisterType} from "../../types/User.ts";
 import {useEffect} from "react";
+import {UserStore} from "../../stores/UserStore.ts";
 
 
 function VerificationPage(){
@@ -21,10 +22,15 @@ function VerificationPage(){
 
     const mutation = useMutation({
         mutationFn : (code:Verification) => confirmRegister(code.verificationCode,currentRegister),
-        onSuccess: () =>{
+        onSuccess: (result) =>{
             navigate("/Fitness/home");
             toast.success("Verification Successful!");
             UserResisterRequestStore.getState().stateEmpty();
+            UserStore.getState().stateLogin({
+                accessToken:result.accessToken,
+                username:result.username,
+                role:result.role
+            })
         },
         onError:(error) =>{
             if (error instanceof  Error){

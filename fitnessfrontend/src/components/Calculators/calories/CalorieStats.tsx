@@ -23,7 +23,7 @@ export default function CalorieStats(props:{handleCalorieIntakeChange:(intake:ca
         }
     })
 
-    if (profileLoading){
+    if (profileLoading && !missingProfile){
         return (<div>Loading...</div>);
     }else if (missingProfile){
         return (

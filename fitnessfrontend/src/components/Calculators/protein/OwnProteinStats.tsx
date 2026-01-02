@@ -23,7 +23,7 @@ export default function OwnProteinStats(props:{handleProteinIntakeChange:(intake
 
     const missingProfile = isError && axios.isAxiosError(error) && error.response?.status === 404;
 
-    if (profileLoading){
+    if (profileLoading && !missingProfile){
         return(
             <div className={"flex justify-center"}>
                 <h1 className={"text-4xl"}>Loading...</h1>
@@ -46,7 +46,7 @@ export default function OwnProteinStats(props:{handleProteinIntakeChange:(intake
     return (
         <div>
             <h1 className={"text-center text-2xl border-b-2 py-2 bg-gray-200"}>We have imported your personal details from your profile!</h1>
-            <div className={"flex flex-row gap-10 mx-20 mt-5"}>
+            <div className={"flex flex-row gap-9 mx-20 mt-5"}>
                 <p>According to your personal statistics:</p>
                 <p>Your height is: {details.height} m</p>
                 <p>Your weight is: {details.weight} kg</p>
