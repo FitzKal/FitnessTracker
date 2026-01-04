@@ -48,6 +48,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mail:4.0.0-RC2")
 	implementation group: 'software.amazon.awssdk', name: 's3', version: '2.40.2'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation("io.netty:netty-resolver-dns-native-macos:4.1.107.Final") {
+		artifact {
+			classifier = "osx-aarch_64"
+		}
+	}
 }
 
 tasks.named('test') {

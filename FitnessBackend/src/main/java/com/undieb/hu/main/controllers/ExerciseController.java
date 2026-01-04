@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/fitness/exercise")
 @AllArgsConstructor
@@ -20,19 +22,27 @@ public class ExerciseController {
 
 
     @GetMapping
-    public ResponseEntity<ResponseFromAPI> getAllExercises(){
+    public ResponseEntity<ResponseFromAPI> getAllExercises(
+            @RequestParam(required = false) String after,
+            @RequestParam(required = false) String before
+    ){
         var response = webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .scheme(scheme)
-                        .host(host)
-                        .path(basePath + "exercises")
-                        .build()
-                ).retrieve()
+                .uri(uriBuilder -> {
+                    var builder = uriBuilder
+                            .scheme(scheme)
+                            .host(host)
+                            .path(basePath + "exercises");
+                    if (after != null) builder.queryParam("after", after);
+                    if (before != null) builder.queryParam("before", before);
+                    return builder.build();
+                })
+                .retrieve()
                 .bodyToMono(ResponseFromAPI.class)
                 .block();
 
         return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/search")
     public ResponseEntity<SearchResponseFromApi> getExerciseBySearch(@RequestParam String search){
