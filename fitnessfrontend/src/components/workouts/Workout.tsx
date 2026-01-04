@@ -1,5 +1,6 @@
 import React from 'react';
-import type { WorkoutListElement } from "../types/WorkoutType.ts";
+import type { WorkoutListElement } from "../../types/WorkoutType.ts";
+import {Link} from "react-router-dom";
 export default function Workout(prop: { workoutDetails: WorkoutListElement }) {
     const { workoutDetails } = prop;
 
@@ -35,9 +36,10 @@ export default function Workout(prop: { workoutDetails: WorkoutListElement }) {
 
                     <div className="lg:col-span-1">
                         <Label>Workout Name</Label>
-                        <p className="text-xl font-black text-slate-800 leading-tight">
+                        <Link to={`/Fitness/workouts/${workoutDetails.exerciseId}`}
+                              className="text-xl font-black text-slate-800 leading-tight transition delay-25 ease-in-out hover:text-blue-600">
                             {workoutDetails.name}
-                        </p>
+                        </Link>
                     </div>
 
                     <div>

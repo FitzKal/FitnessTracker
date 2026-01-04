@@ -1,9 +1,9 @@
-import {getAllWorkouts} from "../services/WorkoutService.ts";
+import {getAllWorkouts} from "../../services/WorkoutService.ts";
 import {useState} from "react";
-import type {WorkoutListElement} from "../types/WorkoutType.ts";
+import type {WorkoutListElement} from "../../types/WorkoutType.ts";
 import Workout from "./Workout.tsx";
 import {useQuery} from "@tanstack/react-query";
-import {UserStore} from "../stores/UserStore.ts";
+import {UserStore} from "../../stores/UserStore.ts";
 
 export default function DisplayWorkouts(){
     const [page,setPage] = useState<number>(1);
@@ -57,10 +57,11 @@ export default function DisplayWorkouts(){
                           }
                       </div>
                    </ul>
-                    <div className={"flex justify-center gap-1"}>
-                        <button className={"border-b-2"}
+                    <div className={"flex justify-center gap-x-20 pb-2"}>
+                        <button className={"bg-red-300 px-5 rounded-lg transition delay-50 ease-in-out hover:bg-red-500"}
                                 onClick={handlePageBackward}>page back</button>
-                        <button className={"border-b-2"}
+                        <span className={"bg-white border border-slate-300 rounded-2xl px-5"}>Page number {page}</span>
+                        <button className={"bg-red-300 px-5 rounded-lg transition delay-50 ease-in-out hover:bg-red-500"}
                                 onClick={handlePageForward}>next page</button>
                     </div>
                 </div>
