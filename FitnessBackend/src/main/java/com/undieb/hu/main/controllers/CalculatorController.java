@@ -4,7 +4,7 @@ import com.undieb.hu.main.controllers.DTOs.calculators.BMIRequestDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.CalorieIntakeRequestDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.CalorieResponseDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.ProteinCalculatorResponse;
-import com.undieb.hu.main.models.enums.ExerciseType;
+import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.services.CalculatorService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -29,8 +29,8 @@ public class CalculatorController {
     }
 
     @PostMapping("/protein")
-    public ResponseEntity<ProteinCalculatorResponse> calculateProteinByProfile(@NonNull @RequestParam ExerciseType exerciseType, HttpServletRequest request){
-        return ResponseEntity.ok(calculatorService.calculateProteinIntakeByProfile(request,exerciseType));
+    public ResponseEntity<ProteinCalculatorResponse> calculateProteinByProfile(@NonNull @RequestParam ExerciseTypeCalc exerciseTypeCalc, HttpServletRequest request){
+        return ResponseEntity.ok(calculatorService.calculateProteinIntakeByProfile(request, exerciseTypeCalc));
     }
 
     @PostMapping("/protein/custom")
@@ -39,8 +39,8 @@ public class CalculatorController {
     }
 
     @PostMapping("/calorie")
-    public ResponseEntity<CalorieResponseDTO> getCaloriesByExercise(@NonNull @RequestParam ExerciseType exerciseType, HttpServletRequest request){
-        return ResponseEntity.ok(calculatorService.calculateProfileCalories(request,exerciseType));
+    public ResponseEntity<CalorieResponseDTO> getCaloriesByExercise(@NonNull @RequestParam ExerciseTypeCalc exerciseTypeCalc, HttpServletRequest request){
+        return ResponseEntity.ok(calculatorService.calculateProfileCalories(request, exerciseTypeCalc));
     }
 
     @PostMapping("/calorie/custom")

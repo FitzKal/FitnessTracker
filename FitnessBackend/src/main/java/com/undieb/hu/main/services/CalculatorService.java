@@ -4,7 +4,7 @@ import com.undieb.hu.main.controllers.DTOs.calculators.CalorieIntakeRequestDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.CalorieResponseDTO;
 import com.undieb.hu.main.controllers.DTOs.calculators.ProteinCalculatorResponse;
 import com.undieb.hu.main.exceptions.ProfileNotFoundException;
-import com.undieb.hu.main.models.enums.ExerciseType;
+import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.models.enums.Gender;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -31,15 +31,15 @@ public class CalculatorService {
         return calculateBMI(customHeightInCm,weight);
     }
 
-    public ProteinCalculatorResponse calculateProteinIntakeByProfile(HttpServletRequest request,ExerciseType exerciseType){
+    public ProteinCalculatorResponse calculateProteinIntakeByProfile(HttpServletRequest request, ExerciseTypeCalc exerciseTypeCalc){
         var user = jwtService.getUserFromRequest(request);
         var userProfile = user.getUserProfile();
         if (userProfile == null){
             throw  new ProfileNotFoundException("Profile cannot be found");
         }
-        var calculatedCalories = calculateCaloriesByProfile(request,exerciseType);
+        var calculatedCalories = calculateCaloriesByProfile(request, exerciseTypeCalc);
         var response = new ProteinCalculatorResponse();
-        response.setDataByADA(calculateProteinADA(userProfile.getWeight(),exerciseType));
+        response.setDataByADA(calculateProteinADA(userProfile.getWeight(), exerciseTypeCalc));
         response.setDataByCDC(calculateProteinCDC(calculatedCalories));
         response.setDataByWHO(calculateProteinWHO(userProfile.getWeight()));
         return response;
@@ -49,21 +49,21 @@ public class CalculatorService {
         calorieIntakeRequestDTO.setHeight(calorieIntakeRequestDTO.getHeight()/100);
         var dailyCalories = calculateDailyCaloriesByExercise(calorieIntakeRequestDTO);
         var response = new ProteinCalculatorResponse();
-        response.setDataByADA(calculateProteinADA(calorieIntakeRequestDTO.getWeight(),calorieIntakeRequestDTO.getExerciseType()));
+        response.setDataByADA(calculateProteinADA(calorieIntakeRequestDTO.getWeight(),calorieIntakeRequestDTO.getExerciseTypeCalc()));
         response.setDataByCDC(calculateProteinCDC(dailyCalories));
         response.setDataByWHO(calculateProteinWHO(calorieIntakeRequestDTO.getWeight()));
         return response;
     }
 
-    public CalorieResponseDTO calculateProfileCalories(HttpServletRequest request, ExerciseType exerciseType){
-        var caloriesByProfile = calculateCaloriesByProfile(request,exerciseType);
+    public CalorieResponseDTO calculateProfileCalories(HttpServletRequest request, ExerciseTypeCalc exerciseTypeCalc){
+        var caloriesByProfile = calculateCaloriesByProfile(request, exerciseTypeCalc);
         return calculateCalorieIntake(caloriesByProfile);
     }
 
     public CalorieResponseDTO calculateCaloriesCustom(CalorieIntakeRequestDTO calorieIntakeRequestDTO){
         calorieIntakeRequestDTO.setHeight(calorieIntakeRequestDTO.getHeight()/100);
         var statsByProfile = new CalorieIntakeRequestDTO(calorieIntakeRequestDTO.getHeight(),calorieIntakeRequestDTO.getWeight(),calorieIntakeRequestDTO.getAge()
-                ,calorieIntakeRequestDTO.getGender(),calorieIntakeRequestDTO.getExerciseType());
+                ,calorieIntakeRequestDTO.getGender(),calorieIntakeRequestDTO.getExerciseTypeCalc());
         var calculatedCalories = calculateDailyCaloriesByExercise(statsByProfile);
         return calculateCalorieIntake(calculatedCalories);
     }
@@ -76,8 +76,8 @@ public class CalculatorService {
         return (Math.floor((dailyCalorie * 10)/100)/4) + " - " +Math.floor(((dailyCalorie * 35)/100)/4);
     }
 
-    private String calculateProteinADA(double weight, ExerciseType exerciseType){
-        if (exerciseType == ExerciseType.SEDENTARY){
+    private String calculateProteinADA(double weight, ExerciseTypeCalc exerciseTypeCalc){
+        if (exerciseTypeCalc == ExerciseTypeCalc.SEDENTARY){
             var lowerLimit = weight * 0.8;
             return Math.floor(lowerLimit) + " - " + Math.floor(weight);
         }else {
@@ -98,21 +98,21 @@ public class CalculatorService {
                 .build();
     }
 
-    private Double calculateCaloriesByProfile(HttpServletRequest request,ExerciseType exerciseType){
+    private Double calculateCaloriesByProfile(HttpServletRequest request, ExerciseTypeCalc exerciseTypeCalc){
         var user = jwtService.getUserFromRequest(request);
         var userProfile = user.getUserProfile();
         if (userProfile == null){
             throw  new ProfileNotFoundException("Profile cannot be found");
         }
         var statsByProfile = new CalorieIntakeRequestDTO(userProfile.getHeight(),userProfile.getWeight(),userProfile.getAge()
-                ,userProfile.getGender(),exerciseType);
+                ,userProfile.getGender(), exerciseTypeCalc);
         return calculateDailyCaloriesByExercise(statsByProfile);
     }
 
     private Double calculateDailyCaloriesByExercise(CalorieIntakeRequestDTO calorieIntakeRequestDTO){
         double baseCalorieIntake = calculateBaseDailyCalorieIntake(calorieIntakeRequestDTO.getHeight(),calorieIntakeRequestDTO.getWeight()
                 ,calorieIntakeRequestDTO.getAge(),calorieIntakeRequestDTO.getGender());
-        switch (calorieIntakeRequestDTO.getExerciseType()){
+        switch (calorieIntakeRequestDTO.getExerciseTypeCalc()){
             case SEDENTARY -> {
                 return Math.floor(baseCalorieIntake * 1.2);
             }

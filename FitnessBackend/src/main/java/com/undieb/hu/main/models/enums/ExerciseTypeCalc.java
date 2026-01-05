@@ -1,6 +1,6 @@
 package com.undieb.hu.main.models.enums;
 
-public enum ExerciseType {
+public enum ExerciseTypeCalc {
     BASE,
     SEDENTARY,
     LIGHT,
