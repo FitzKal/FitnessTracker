@@ -29,8 +29,8 @@ public class CalculatorController {
     }
 
     @PostMapping("/protein")
-    public ResponseEntity<ProteinCalculatorResponse> calculateProteinByProfile(@NonNull @RequestParam ExerciseTypeCalc exerciseTypeCalc, HttpServletRequest request){
-        return ResponseEntity.ok(calculatorService.calculateProteinIntakeByProfile(request, exerciseTypeCalc));
+    public ResponseEntity<ProteinCalculatorResponse> calculateProteinByProfile(@NonNull @RequestParam ExerciseTypeCalc exerciseType, HttpServletRequest request){
+        return ResponseEntity.ok(calculatorService.calculateProteinIntakeByProfile(request, exerciseType));
     }
 
     @PostMapping("/protein/custom")
@@ -39,8 +39,8 @@ public class CalculatorController {
     }
 
     @PostMapping("/calorie")
-    public ResponseEntity<CalorieResponseDTO> getCaloriesByExercise(@NonNull @RequestParam ExerciseTypeCalc exerciseTypeCalc, HttpServletRequest request){
-        return ResponseEntity.ok(calculatorService.calculateProfileCalories(request, exerciseTypeCalc));
+    public ResponseEntity<CalorieResponseDTO> getCaloriesByExercise(@NonNull @RequestParam ExerciseTypeCalc exerciseType, HttpServletRequest request){
+        return ResponseEntity.ok(calculatorService.calculateProfileCalories(request, exerciseType));
     }
 
     @PostMapping("/calorie/custom")
