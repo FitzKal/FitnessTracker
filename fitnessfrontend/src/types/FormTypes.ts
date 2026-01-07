@@ -16,3 +16,8 @@ export type RegisterRequest = z.infer<typeof schema>;
 export type Verification = {
     verificationCode: string
 }
+
+export type BMIForm = {
+    height: number,
+    weight:number
+}

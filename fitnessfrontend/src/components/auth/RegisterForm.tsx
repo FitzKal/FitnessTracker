@@ -58,24 +58,24 @@ export default function RegisterForm(){
         <div className={"flex flex-col bg-white self-center border-2 rounded-2xl w-200 h-120"}>
             <form onSubmit={handleSubmit(onSubmit)} className={"flex flex-col ml-18 justify-center"}>
                 <div className={"flex flex-row gap-10 mt-15"}>
-                    <div>
+                    <div className={"flex flex-col"}>
                     <input {...register("username")} placeholder={"username"}
                        className={"border-2 rounded-md text-center w-75 h-10"}/>
-                {errors.username &&( <div className={"text-red-500"}>{errors.username.message}</div>)}
+                <div className={"text-red-500 h-5"}>{errors.username?.message}</div>
                     </div>
-                    <div>
+                    <div className={"flex flex-col relative"}>
                 <input {...register("email")} placeholder={"email"}
                        className={"border-2 rounded-md text-center w-75 h-10"}/>
-                {errors.email &&( <div className={"text-red-500"}>{errors.email.message}</div>)}
+                <div className={"text-red-500 h-5"}>{errors.email?.message}</div>
                     </div>
                 </div>
                 <div className={"flex flex-col justify-center"}>
                     <input{...register("password")} placeholder={"password"} id={"password"}
                           className={"flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
-                    {errors.password &&( <div className={"text-center mr-5 text-red-500"}>{errors.password.message}</div>)}
+                    <div className={"self-center mr-20 text-center text-red-500 h-5 w-75"}>{errors.password?.message}</div>
                     <input placeholder={"Confirm Password"} id={"confirm"}
                           className={"flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
-                    {passwordError?<div className={"text-center mr-15 text-red-500"}>The entered passwords don't match</div>:<div></div>}
+                    <div className={"self-center mr-20 text-center text-red-500 h-5 w-75"}>{passwordError ? "The entered passwords don't match" : ""}</div>
                 </div>
                 <button className={"border-2 rounded-2xl mr-20 mt-10 w-25 h-10 self-center font-semibold " +
                     "bg-gradient-to-b from-orange-400 to-black text-white " +
@@ -85,7 +85,7 @@ export default function RegisterForm(){
                     {isSubmitting ? "Loading..." : "Register"}
                 </button>
             </form>
-            <div className={"ml-15 mt-10"}>
+            <div className={"ml-15"}>
                 <p>Already have an account?</p>
                 <button className={"border-2 rounded-2xl mt-2 w-25 self-center font-semibold " +
                     "bg-gradient-to-b from-red-500 to-black text-white " +

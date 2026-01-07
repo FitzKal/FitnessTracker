@@ -1,5 +1,12 @@
 import {Link, Outlet} from "react-router-dom";
-import {ArrowRightEndOnRectangleIcon, BoltIcon, HomeIcon, UserIcon} from "@heroicons/react/16/solid";
+import {
+    ArrowRightEndOnRectangleIcon,
+    BoltIcon,
+    CalculatorIcon,
+    HomeIcon,
+    TrophyIcon,
+    UserIcon
+} from "@heroicons/react/16/solid";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {logoutUser} from "../../services/AuthService.ts";
 import {UserStore} from "../../stores/UserStore.ts";
@@ -50,6 +57,22 @@ export default function NavBar(){
                             "text-2xl"}>
                             <UserIcon className={"h-10 w-10 flex mr-1 fixed"}></UserIcon>
                             <span className={"ml-11 mt-1 overflow-hidden"}>Profile</span>
+                        </Link>
+                    </li>
+
+                    <li className={"list-none m-[5px_0] hover:bg-[#06e6e6] mt-[10px] h-[50px]"}>
+                        <Link to={"/Fitness/calculator/bmi"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
+                            "text-2xl"}>
+                            <CalculatorIcon className={"h-10 w-10 flex mr-1 fixed"}></CalculatorIcon>
+                            <span className={"ml-11 mt-1 overflow-hidden"}>Fitness Calculators</span>
+                        </Link>
+                    </li>
+
+                    <li className={"list-none m-[5px_0] hover:bg-[#06e6e6] mt-[10px] h-[50px]"}>
+                        <Link to={"/Fitness/workouts"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
+                            "text-2xl"}>
+                            <TrophyIcon className={"h-10 w-10 flex mr-1 fixed"}></TrophyIcon>
+                            <span className={"ml-11 mt-1 overflow-hidden"}>Workout Catalog</span>
                         </Link>
                     </li>
 

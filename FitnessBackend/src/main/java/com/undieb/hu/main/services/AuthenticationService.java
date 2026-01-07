@@ -3,7 +3,7 @@ import com.undieb.hu.main.controllers.DTOs.auth.*;
 import com.undieb.hu.main.converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.exceptions.InvalidVerificationCodeException;
 import com.undieb.hu.main.exceptions.UserNotFoundException;
-import com.undieb.hu.main.models.Role;
+import com.undieb.hu.main.models.enums.Role;
 import com.undieb.hu.main.repositories.UserRepository;
 import com.undieb.hu.main.security.PasswordEncrypter;
 import jakarta.servlet.http.HttpServletRequest;

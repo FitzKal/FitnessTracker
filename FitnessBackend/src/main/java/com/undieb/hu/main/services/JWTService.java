@@ -2,7 +2,9 @@ package com.undieb.hu.main.services;
 
 import com.undieb.hu.main.exceptions.TokenNotFoundException;
 import com.undieb.hu.main.models.JWTBlackListedTokens;
+import com.undieb.hu.main.models.Users;
 import com.undieb.hu.main.repositories.JWTBlackListRepository;
+import com.undieb.hu.main.repositories.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -23,9 +25,8 @@ public class JWTService {
     private final String secretKey;
     @Autowired
     private JWTBlackListRepository blackListRepository;
-
-
-
+    @Autowired
+    private UserRepository userRepository;
 
     public JWTService(){
         try{
@@ -45,7 +46,7 @@ public class JWTService {
                .claims()
                .subject(username)
                .issuedAt(new Date(System.currentTimeMillis()))
-               .expiration(new Date(System.currentTimeMillis()  + 1000 * 60 * 30))
+               .expiration(new Date(System.currentTimeMillis()  + 100000 /* was 1000*/ * 60 * 30))
                .and()
                .signWith(getKey())
                .compact();
@@ -107,7 +108,12 @@ public class JWTService {
     }
 
     public boolean checkIfTokenIsBlackListed(String token){
-        return getBlackList().stream().map(JWTBlackListedTokens::getToken)
-                .toList().contains(token);
+        return blackListRepository.existsById(token);
+    }
+
+    public Users getUserFromRequest(HttpServletRequest request) {
+        var tokenFromRequest = extractTokenFromRequest(request);
+        var username = getUserNameFromToken(tokenFromRequest);
+        return userRepository.findByUsername(username);
     }
 }

@@ -10,6 +10,12 @@ import HomePage from "./components/HomePage/HomePage.tsx";
 import NavBar from "./components/HomePage/NavBar.tsx";
 import Profile from "./components/Profile/Profile.tsx";
 import CreateProfile from "./components/Profile/CreateProfile.tsx";
+import BMICalculator from "./components/Calculators/BMI/BMICalculator.tsx";
+import CalculatorNavBar from "./components/Calculators/CalculatorNavBar.tsx";
+import ProteinCalculator from "./components/Calculators/protein/ProteinCalculator.tsx";
+import CalorieCalculator from "./components/Calculators/calories/CalorieCalculator.tsx";
+import DisplayWorkouts from "./components/workouts/DisplayWorkouts.tsx";
+import WorkoutPage from "./components/workouts/WorkoutPage.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -44,6 +50,32 @@ const router = createBrowserRouter([
             {
                 path:"/Fitness/CreateProfile",
                 element:<CreateProfile/>
+            },
+            {
+                path:"/Fitness/calculator",
+                element:<CalculatorNavBar/>,
+                children:[
+                    {
+                        path:"/Fitness/calculator/bmi",
+                        element:<BMICalculator/>
+                    },
+                    {
+                        path: "/Fitness/calculator/protein",
+                        element:<ProteinCalculator/>
+                    },
+                    {
+                        path:"/Fitness/calculator/calories",
+                        element:<CalorieCalculator/>
+                    }
+                ]
+            },
+            {
+                path:"/Fitness/workouts",
+                element:<DisplayWorkouts/>
+            },
+            {
+                path:"/Fitness/workouts/:params",
+                element:<WorkoutPage/>
             }
         ]
     }

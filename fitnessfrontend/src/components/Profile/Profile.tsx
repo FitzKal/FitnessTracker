@@ -14,8 +14,8 @@ export default function Profile(){
     const [isDeleting,setIsDeleting] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const {data, error, isError, isLoading} = useQuery({
-        queryKey:["profile"],
+    const {data, isLoading,isError,error} = useQuery({
+        queryKey:["profile", currentUser?.username],
         queryFn : async() =>{
             if (!currentUser?.accessToken){
                 throw new Error("Could not authenticate");
@@ -29,17 +29,16 @@ export default function Profile(){
                 navigate("/Fitness/CreateProfile");
                 return false;
             }
+            toast.error(error.message);
             return failureCount < 3;
         }
     });
 
     useEffect(() => {
-        if (isError && error instanceof Error){
-            console.log(error);
-            toast.error(error.message);
-        }
-    }, [error, isError]);
+        console.log(currentUser);
+    })
 
+    const missingProfile = isError && axios.isAxiosError(error) && error.response?.status === 404;
 
     const handleUpdating = () =>{
         if (isUpdating){
@@ -57,7 +56,7 @@ export default function Profile(){
         }
     }
 
-    if (isLoading){
+    if (isLoading && !missingProfile){
         return(<div className={"flex justify-center"}>
             <h1 className={"text-4xl text-center"}>Loading Profile....</h1>
         </div>)
@@ -91,7 +90,7 @@ export default function Profile(){
 
                     <div className={"flex flex-row text-2xl"}>
                         <p>Height: </p>
-                        <span className={"ml-2"}>{data.height} cm</span>
+                        <span className={"ml-2"}>{data.height} m</span>
                     </div>
 
                     <div className={"flex flex-row text-2xl"}>
@@ -102,6 +101,14 @@ export default function Profile(){
                     <div className={"flex flex-row text-2xl"}>
                         <p>Email: </p>
                         <span className={"ml-2"}>{data.email}</span>
+                    </div>
+                    <div className={"flex flex-row text-2xl"}>
+                        <p>Gender: </p>
+                        <span className={"ml-2"}>{data.gender}</span>
+                    </div>
+                    <div className={"flex flex-row text-2xl"}>
+                        <p>Age: </p>
+                        <span className={"ml-2"}>{data.age}</span>
                     </div>
                 </div>
             </div>

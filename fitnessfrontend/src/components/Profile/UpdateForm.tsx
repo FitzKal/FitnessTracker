@@ -14,7 +14,8 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
             height:prop.userData.height,
             weight: prop.userData.weight,
             firstName: prop.userData.firstName,
-            lastName: prop.userData.lastName
+            lastName: prop.userData.lastName,
+            gender: prop.userData.gender
         }
     })
 
@@ -30,8 +31,11 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                 weight:data.weight,
                 height:data.height,
                 lastName:data.lastName,
-                firstName:data.firstName
+                firstName:data.firstName,
+                gender:data.gender,
+                age:data.age
             };
+            console.log(updateMutation);
             return updateUserProfile(newProfile,data.image[0]);
         },
         onSuccess: () =>{
@@ -51,11 +55,12 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
 
     useEffect(() => {
         reset({
-            height: prop.userData.height,
+            height: prop.userData.height?prop.userData.height * 100 : prop.userData.height,
             weight: prop.userData.weight,
             firstName: prop.userData.firstName,
             lastName: prop.userData.lastName,
             image: undefined as never,
+            age: prop.userData.age
         });
     }, [prop.userData, reset]);
 
@@ -74,7 +79,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                 aria-modal="true"
                 aria-label="Update Profile Details"
                 className={`
-        text-center bg-white h-120 w-200 border-2 rounded-2xl p-5
+        text-center bg-white h-150 w-200 border-2 rounded-2xl p-5
         fixed left-1/2 -translate-x-1/2 top-6 z-50
         transition-transform opacity duration-500 ease-out will-change-transform
         ${prop.isUpdating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}
@@ -126,6 +131,28 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                                     {errors.weight.message}
                                 </div>
                             )}
+                        </div>
+
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className="text-sm font-semibold ml-1 mb-1">Age</label>
+                            <input {...register("age", { valueAsNumber: true })} type="number" placeholder={"18"}
+                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                            {errors.weight && (
+                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                    {errors.weight.message}
+                                </div>
+                            )}
+                        </div>
+
+                        <div className={"flex flex-col text-left relative"}>
+                            <label className={"pt-1"}>Choose your gender: </label>
+                            <select{...register("gender",{
+                                required:true,
+                            })} className={"bg-white border-2 h-8"}>
+                                <option value="MALE">Male</option>
+                                <option value="FENALE">Female</option>
+                            </select>
+
                         </div>
 
                         <div className={"flex flex-col w-full max-w-xl text-left relative"}>

@@ -1,7 +1,7 @@
 package com.undieb.hu.main.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.undieb.hu.main.controllers.DTOs.user.UserProfileDto;
+import com.undieb.hu.main.models.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
