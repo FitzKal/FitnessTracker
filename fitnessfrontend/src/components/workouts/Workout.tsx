@@ -6,14 +6,12 @@ export default function Workout(prop: { workoutDetails: WorkoutListElement }) {
 
     if (!workoutDetails) return null;
 
-    // Helper for section labels
     const Label = ({ children }: { children: React.ReactNode }) => (
         <p className="text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-2">
             {children}
         </p>
     );
 
-    // Helper for color-coded badges
     const Badge = ({ children, color }: { children: React.ReactNode, color: string }) => (
         <span className={`px-2 py-0.5 rounded-md text-xs font-medium border ${color}`}>
             {children}
