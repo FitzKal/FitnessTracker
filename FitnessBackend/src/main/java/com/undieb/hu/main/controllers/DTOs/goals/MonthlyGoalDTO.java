@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +21,5 @@ public class MonthlyGoalDTO {
     private int exercisesDone;
     private int exercisesRemaining;
     private Double currentWeight;
+    private List<WeeklyGoalDTO> weeklyGoals;
 }

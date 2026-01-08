@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -38,9 +39,9 @@ public class MonthlyGoal {
     @JsonBackReference
     private UserProfile userProfile;
 
-    @OneToMany
+    @OneToMany(mappedBy = "monthlyGoal", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<WeeklyGoal> weeklyGoals;
+    private List<WeeklyGoal> weeklyGoals = new ArrayList<>();
 
     public void addToWeeklyGoals(WeeklyGoal weeklyGoal){
         weeklyGoals.add(weeklyGoal);
