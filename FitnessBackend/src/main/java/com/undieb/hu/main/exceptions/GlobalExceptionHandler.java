@@ -40,4 +40,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> jwtTokenNotValidException(SignatureException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
+
+    @ExceptionHandler(GoalNotFoundException.class)
+    public ResponseEntity<String> goalNotFoundException(GoalNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 }
