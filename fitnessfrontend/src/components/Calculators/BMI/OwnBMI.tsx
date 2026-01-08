@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 export default function OwnBMI() {
     const [hasProfile, setHasProfile] = useState<boolean>(true);
 
-    // 1. Fetch the Calculated BMI
     const { data: bmiData, isLoading: BmiLoading } = useQuery({
         queryKey: ["bmi"],
         queryFn: async () => {
@@ -33,10 +32,8 @@ export default function OwnBMI() {
         }
     });
 
-    // 2. Fetch the User Profile Details (Height/Weight)
     const { data: details, isLoading: profileLoading, isError: profileError } = useProfileDetails();
 
-    // 3. Loading State (Original Styling)
     if (profileLoading || BmiLoading) {
         return (
             <div className={"text-center"}>
@@ -45,7 +42,6 @@ export default function OwnBMI() {
         );
     }
 
-    // 4. Success State (Original Styling + Safety Checks)
     else if (hasProfile && details && !profileError) {
 
         const bmiValue = Number(bmiData);
@@ -74,7 +70,6 @@ export default function OwnBMI() {
         );
     }
 
-    // 5. No Profile / Error State (Original Styling)
     else {
         return (
             <div className={"flex flex-col text-center justify-center"}>

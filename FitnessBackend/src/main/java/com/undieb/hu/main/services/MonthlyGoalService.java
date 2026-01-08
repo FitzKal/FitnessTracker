@@ -4,7 +4,9 @@ import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
 import com.undieb.hu.main.exceptions.ProfileNotFoundException;
+import com.undieb.hu.main.exercises.types.ExerciseType;
 import com.undieb.hu.main.models.MonthlyGoal;
+import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.repositories.MonthlyGoalRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @AllArgsConstructor
 @Service
@@ -35,7 +38,11 @@ public class MonthlyGoalService {
                 .exerciseType(createGoalRequest.getExerciseType())
                 .goalWeight(createGoalRequest.getGoalWeight())
                 .exercisesDone(0)
-                .exercisesRemaining(0)
+                .exercisesRemaining(calculateExercisesToComplete(
+                        createGoalRequest.getExerciseType(),
+                        LocalDate.now(),
+                        createGoalRequest.getEndDate()
+                ))
                 .currentWeight(user.getUserProfile().getWeight())
                 .build();
         user.getUserProfile().addMonthlyGoal(newGoal);
@@ -47,5 +54,25 @@ public class MonthlyGoalService {
     private Boolean checkLocalDateValidity(LocalDate endDate){
         return endDate.isBefore(LocalDate.now()) &&
                 endDate.lengthOfMonth() - LocalDate.now().getDayOfMonth() < 7;
+    }
+
+    private int calculateExercisesToComplete(ExerciseTypeCalc exerciseTypeCalc, LocalDate startDate, LocalDate endDate){
+        long daysBetween = ChronoUnit.DAYS.between(startDate,endDate);
+        int weeks = (int) daysBetween /7;
+        switch (exerciseTypeCalc){
+            case LIGHT -> {
+                return weeks * 2;
+
+            }
+            case MODERATE, ACTIVE -> {
+                return weeks * 4;
+            }
+            case VERY_ACTIVE,EXTRA_ACTIVE ->{
+                return weeks * 6;
+            }
+            case null, default -> {
+                return 0;
+            }
+        }
     }
 }
