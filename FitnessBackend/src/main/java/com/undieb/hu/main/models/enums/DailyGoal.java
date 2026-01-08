@@ -6,6 +6,7 @@ import com.undieb.hu.main.models.WeeklyGoal;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
+import org.springframework.security.core.parameters.P;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,6 +30,21 @@ public class DailyGoal {
     @ManyToOne(optional = false)
     @JsonBackReference
     private WeeklyGoal weeklyGoal;
+
+    public void addToExercises(ExercisesDone exerciseDone){
+        boolean isExerciseDone = exercisesDone.stream()
+                .anyMatch(e -> e.getExerciseId().equals(exerciseDone.getExerciseId()));
+        if (isExerciseDone){
+            var doneExercise = exercisesDone.stream()
+                    .filter(e->e.getExerciseId().equals(exerciseDone.getExerciseId()))
+                    .findFirst().get();
+            doneExercise.setNumberOfCompletion(doneExercise.getNumberOfCompletion() + 1);
+        }else {
+            exerciseDone.setNumberOfCompletion(1);
+            exercisesDone.add(exerciseDone);
+        }
+
+    }
 
     @Override
     public final boolean equals(Object o) {
