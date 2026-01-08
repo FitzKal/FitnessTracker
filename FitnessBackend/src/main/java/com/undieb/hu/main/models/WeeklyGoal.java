@@ -41,6 +41,11 @@ public class WeeklyGoal {
         dailyGoal.setWeeklyGoal(this);
     }
 
+    public void removeFromDailyGoals(DailyGoal dailyGoal){
+        dailyGoals.remove(dailyGoal);
+        dailyGoal.setWeeklyGoal(null);
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
