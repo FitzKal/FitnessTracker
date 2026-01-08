@@ -1,11 +1,15 @@
 package com.undieb.hu.main.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.undieb.hu.main.models.enums.DailyGoal;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -25,8 +29,17 @@ public class WeeklyGoal {
 
     @ManyToOne(optional = false)
     @JsonBackReference
-    @JoinColumn(name = "monthly_goal_id)", nullable = false)
+    @JoinColumn(name = "monthly_goal_id", nullable = false)
     private MonthlyGoal monthlyGoal;
+
+    @OneToMany(mappedBy = "weeklyGoal", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<DailyGoal> dailyGoals = new ArrayList<>();
+
+    public void addToDailyGoals(DailyGoal dailyGoal){
+        dailyGoals.add(dailyGoal);
+        dailyGoal.setWeeklyGoal(this);
+    }
 
     @Override
     public final boolean equals(Object o) {
