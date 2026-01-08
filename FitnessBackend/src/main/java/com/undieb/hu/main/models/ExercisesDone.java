@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class ExercisesDone{
     private String exerciseName;
     private String exerciseId;
+    private int numberOfCompletion;
 }
