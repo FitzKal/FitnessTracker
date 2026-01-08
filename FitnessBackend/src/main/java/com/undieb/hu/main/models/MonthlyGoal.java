@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,8 +21,8 @@ public class MonthlyGoal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long monthlyGoalId;
-    private Date startDate;
-    private Date finishDate;
+    private LocalDate startDate;
+    private LocalDate finishDate;
     private ExerciseTypeCalc exerciseType;
     private Double goalWeight;
     private int exercisesDone;
