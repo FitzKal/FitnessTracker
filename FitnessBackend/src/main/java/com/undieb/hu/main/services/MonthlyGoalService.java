@@ -4,7 +4,6 @@ import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
 import com.undieb.hu.main.exceptions.ProfileNotFoundException;
-import com.undieb.hu.main.exercises.types.ExerciseType;
 import com.undieb.hu.main.models.MonthlyGoal;
 import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.repositories.MonthlyGoalRepository;

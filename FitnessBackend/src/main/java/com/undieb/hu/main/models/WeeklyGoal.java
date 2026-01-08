@@ -1,51 +1,32 @@
 package com.undieb.hu.main.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
-@Entity
 @Getter
 @Setter
 @ToString
+@Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class MonthlyGoal {
+public class WeeklyGoal {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long monthlyGoalId;
-    private LocalDate startDate;
-    private LocalDate finishDate;
-    @Enumerated(EnumType.STRING)
-    private ExerciseTypeCalc exerciseType;
-    private Double goalWeight;
-    private int exercisesDone;
+    private Long id;
     private int exercisesRemaining;
-    private Double currentWeight;
-
+    private LocalDate startOfTheWeek;
+    private LocalDate endOfTheWeek;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "profile_id", nullable = false)
     @JsonBackReference
-    private UserProfile userProfile;
-
-    @OneToMany
-    @JsonManagedReference
-    private List<WeeklyGoal> weeklyGoals;
-
-    public void addToWeeklyGoals(WeeklyGoal weeklyGoal){
-        weeklyGoals.add(weeklyGoal);
-        weeklyGoal.setMonthlyGoal(this);
-    }
+    @JoinColumn(name = "monthly_goal_id)", nullable = false)
+    private MonthlyGoal monthlyGoal;
 
     @Override
     public final boolean equals(Object o) {
@@ -54,8 +35,8 @@ public class MonthlyGoal {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        MonthlyGoal that = (MonthlyGoal) o;
-        return getMonthlyGoalId() != null && Objects.equals(getMonthlyGoalId(), that.getMonthlyGoalId());
+        WeeklyGoal that = (WeeklyGoal) o;
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
