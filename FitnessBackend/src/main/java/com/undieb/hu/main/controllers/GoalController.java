@@ -20,19 +20,29 @@ public class GoalController {
         return ResponseEntity.ok(monthlyGoalService.createGoal(createGoalRequest,request));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MonthlyGoalDTO> getGoalById(@PathVariable Long id){
-        return ResponseEntity.ok(monthlyGoalService.getMonthlyGoalById(id));
-    }
-
     @PostMapping("/addExercise")
     public ResponseEntity<String> createGoal(@RequestBody ExercisesDone exercisesDone, HttpServletRequest request){
         return ResponseEntity.ok(monthlyGoalService.addExerciseToGoal(exercisesDone,request));
     }
 
-    @DeleteMapping("/deleteDailyGoal/{weeklyGoalId}")
-    public ResponseEntity<String> deleteDailyGoal(@PathVariable Long weeklyGoalId, @RequestParam Long dailyGoalId){
-        return ResponseEntity.ok(monthlyGoalService.deleteDailyGoal(weeklyGoalId,dailyGoalId));
+    @GetMapping("/{id}")
+    public ResponseEntity<MonthlyGoalDTO> getGoalById(@PathVariable Long id){
+        return ResponseEntity.ok(monthlyGoalService.getMonthlyGoalById(id));
+    }
+
+    @DeleteMapping("/deleteDailyGoal/{dailyGoalId}")
+    public ResponseEntity<String> deleteDailyGoal(@PathVariable Long dailyGoalId){
+        return ResponseEntity.ok(monthlyGoalService.deleteDailyGoal(dailyGoalId));
+    }
+
+    @DeleteMapping("/deleteMonthlyGoal/{monthlyGoalId}")
+    public ResponseEntity<String>deleteMonthlyGoal(@PathVariable Long monthlyGoalId){
+        return ResponseEntity.ok(monthlyGoalService.deleteMonthlyGoal(monthlyGoalId));
+    }
+
+    @DeleteMapping ("/deleteWeeklyGoal/{weeklyGoalId}")
+    public ResponseEntity<String>deleteWeeklyGoal(@PathVariable Long weeklyGoalId){
+        return ResponseEntity.ok(monthlyGoalService.deleteWeeklyGoal(weeklyGoalId));
     }
 
 }
