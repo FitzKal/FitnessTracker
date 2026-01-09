@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MonthlyGoalRepository extends JpaRepository<MonthlyGoal, Long> {
+    boolean existsById(Long id);
 }
