@@ -2,18 +2,16 @@ package com.undieb.hu.main.services;
 
 import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
+import com.undieb.hu.main.controllers.DTOs.goals.WeeklyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
 import com.undieb.hu.main.exceptions.GoalNotFoundException;
-import com.undieb.hu.main.exceptions.ProfileNotFoundException;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.MonthlyGoal;
-import com.undieb.hu.main.models.UserProfile;
 import com.undieb.hu.main.models.WeeklyGoal;
-import com.undieb.hu.main.models.enums.DailyGoal;
-import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.repositories.DailyGoalRepository;
 import com.undieb.hu.main.repositories.MonthlyGoalRepository;
 import com.undieb.hu.main.repositories.WeeklyGoalRepository;
+import com.undieb.hu.main.services.helpers.MonthlyGoalHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -21,13 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import static java.time.DayOfWeek.SUNDAY;
-import static java.time.temporal.TemporalAdjusters.nextOrSame;
 
 @AllArgsConstructor
 @Service
@@ -37,13 +30,14 @@ public class MonthlyGoalService {
     private final GoalConverter goalConverter;
     private final DailyGoalRepository dailyGoalRepository;
     private final WeeklyGoalRepository weeklyGoalRepository;
+    private final MonthlyGoalHelper monthlyGoalHelper;
 
 
     //---CREATE METHODS---//
     public MonthlyGoalDTO createGoal(CreateGoalRequest createGoalRequest, HttpServletRequest request){
-        var userProfile = checkIfUserProfileExists(request);
+        var userProfile = monthlyGoalHelper.checkIfUserProfileExists(request);
 
-        if (checkLocalDateValidity(createGoalRequest.getEndDate())){
+        if (monthlyGoalHelper.checkLocalDateValidity(createGoalRequest.getEndDate())){
             throw new DateTimeException("The finish date should last minimum until the start of the next month.");
         }
 
@@ -52,7 +46,7 @@ public class MonthlyGoalService {
                 .exerciseType(createGoalRequest.getExerciseType())
                 .goalWeight(createGoalRequest.getGoalWeight())
                 .exercisesDone(0)
-                .exercisesRemaining(calculateExercisesToComplete(
+                .exercisesRemaining(monthlyGoalHelper.calculateExercisesToComplete(
                         createGoalRequest.getExerciseType(),
                         LocalDate.now(),
                         createGoalRequest.getEndDate()
@@ -68,7 +62,7 @@ public class MonthlyGoalService {
     @Transactional
     public String addExerciseToGoal(ExercisesDone exercisesDone,HttpServletRequest request){
 
-        var userProfile = checkIfUserProfileExists(request);
+        var userProfile = monthlyGoalHelper.checkIfUserProfileExists(request);
 
         var latestGoal = userProfile.getMonthlyGoals()
                 .stream().max(Comparator.comparing(MonthlyGoal::getStartDate))
@@ -89,7 +83,7 @@ public class MonthlyGoalService {
                         .orElse(true);
 
         if (needsNewWeeklyGoal){
-            addNewWeaklyGoalAndExercise(latestGoal,exercisesDone);
+            monthlyGoalHelper.addNewWeaklyGoalAndExercise(latestGoal,exercisesDone);
             return "New Weekly goal created!";
         }
 
@@ -99,34 +93,37 @@ public class MonthlyGoalService {
                 .stream()
                 .anyMatch(dg -> dg.getDateOfExercise().equals(LocalDate.now()));
         if (exercisedToday){
-            addExerciseToDailyGoal(currentWeeklyGoal,exercisesDone);
+            monthlyGoalHelper.addExerciseToDailyGoal(currentWeeklyGoal,exercisesDone);
             monthlyGoalRepository.save(latestGoal);
             return "New exercise saved to daily goals!";
         }
-        createDailyGoal(exercisesDone,currentWeeklyGoal);
+        monthlyGoalHelper.createDailyGoal(exercisesDone,currentWeeklyGoal);
         monthlyGoalRepository.save(latestGoal);
         return "New daily goal created!";
     }
 
     //--GETTER METHODS--//
     public MonthlyGoalDTO getMonthlyGoalById(Long id){
-        return monthlyGoalRepository.findById(id)
+        var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(id);
+        return goalConverter.monthlyGoalToMonthlyGoalDTO(monthlyGoal);
+    }
+
+    public List<MonthlyGoalDTO> getAllMonthlyGoals(HttpServletRequest request){
+        var user = jwtService.getUserFromRequest(request);
+        return monthlyGoalRepository.findAll()
+                .stream()
+                .filter(goal -> goal.getUserProfile().getUser().getUsername().equals(user.getUsername()))
                 .map(goalConverter::monthlyGoalToMonthlyGoalDTO)
-                .orElseThrow(() -> new GoalNotFoundException("There is no goal with that id "));
+                .toList();
+    }
+
+    public WeeklyGoalDTO getWeeklyGoalById(Long id){
+        var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(id);
+        return goalConverter.weeklyGoalToWeeklyGoalDTO(weeklyGoal);
     }
 
 
     //---DELETE METHODS---//
-    public String deleteDailyGoal(Long dailyGoalId){
-        var dailyGoal = dailyGoalRepository.findById(dailyGoalId)
-                .orElseThrow(()->new GoalNotFoundException("Daily Goal not found"));
-        var weeklyGoal = weeklyGoalRepository.findById(dailyGoal.getWeeklyGoal().getId())
-                .orElseThrow(()->new GoalNotFoundException("Weekly Goal not found"));
-        weeklyGoal.removeFromDailyGoals(dailyGoal);
-        dailyGoalRepository.deleteById(dailyGoalId);
-        return "Daily goal removed";
-    }
-
     public String deleteMonthlyGoal(Long monthlyGoalId){
         if (monthlyGoalRepository.existsById(monthlyGoalId)) {
             monthlyGoalRepository.deleteById(monthlyGoalId);
@@ -136,107 +133,28 @@ public class MonthlyGoalService {
     }
 
     public String deleteWeeklyGoal(Long weeklyGoalId){
-        var weeklyGoal = weeklyGoalRepository.findById(weeklyGoalId)
-                .orElseThrow(()->new GoalNotFoundException("Weekly Goal not found"));
-        var monthlyGoal = monthlyGoalRepository.findById(weeklyGoal.getMonthlyGoal().getMonthlyGoalId())
-                .orElseThrow(()->new GoalNotFoundException("Monthly Goal not found"));
+        var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(weeklyGoalId);
+        var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(weeklyGoal.getMonthlyGoal().getMonthlyGoalId());
         monthlyGoal.removeFromWeeklyGoals(weeklyGoal);
         weeklyGoalRepository.deleteById(weeklyGoalId);
         return "Weekly Goal successfully deleted";
     }
 
-    //---Helper Functions---//
-    private void addExerciseToDailyGoal(WeeklyGoal weeklyGoal, ExercisesDone exercisesDone){
-        var todayGoal = weeklyGoal.getDailyGoals()
-                .stream()
-                .filter(dg -> dg.getDateOfExercise().equals(LocalDate.now()))
-                .findFirst().get();
-        todayGoal.addToExercises(exercisesDone);
-        weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining()-1);
-        weeklyGoal.getMonthlyGoal().markExerciseDone();
+    public String deleteDailyGoal(Long dailyGoalId){
+        var dailyGoal = monthlyGoalHelper.fetchDailyGoalById(dailyGoalId);
+        var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(dailyGoal.getWeeklyGoal().getId());
+        weeklyGoal.removeFromDailyGoals(dailyGoal);
+        dailyGoalRepository.deleteById(dailyGoalId);
+        weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining() + 1);
+        weeklyGoal.getMonthlyGoal().markExerciseUnDone();
+        monthlyGoalRepository.save(dailyGoal.getWeeklyGoal().getMonthlyGoal());
+        return "Daily goal removed";
     }
 
-    private void createDailyGoal(ExercisesDone exercisesDone, WeeklyGoal weeklyGoal){
-        var newDailyGoal = DailyGoal.builder()
-                .exercisesDone(new ArrayList<>(List.of(exercisesDone)))
-                .dateOfExercise(LocalDate.now())
-                .build();
-        weeklyGoal.addToDailyGoals(newDailyGoal);
-        weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining()-1);
-        weeklyGoal.getMonthlyGoal().markExerciseDone();
-    }
-
-    private void addNewWeaklyGoalAndExercise(MonthlyGoal monthlyGoal, ExercisesDone exercisesDone){
-        int weeklyExercises = Math.max(
-                1,
-                calculateWeeklyExercises(
-                        monthlyGoal.getExerciseType(),
-                        monthlyGoal.getStartDate(),
-                        monthlyGoal.getFinishDate()
-                )
-        );
-
-        var newWeeklyGoal = WeeklyGoal.builder()
-                .startOfTheWeek(LocalDate.now())
-                .endOfTheWeek(LocalDate.now().with(nextOrSame(SUNDAY)))
-                .exercisesRemaining(weeklyExercises)
-                .dailyGoals(new ArrayList<>())
-                .build();
-
-        var newDailyGoal = DailyGoal.builder()
-                .exercisesDone(new ArrayList<>(List.of(exercisesDone)))
-                .dateOfExercise(LocalDate.now())
-                .build();
-
-        newWeeklyGoal.addToDailyGoals(newDailyGoal);
-        monthlyGoal.addToWeeklyGoals(newWeeklyGoal);
-        monthlyGoal.markExerciseDone();
-        monthlyGoalRepository.save(monthlyGoal);
-    }
-
-    private UserProfile checkIfUserProfileExists(HttpServletRequest request){
-        var user = jwtService.getUserFromRequest(request);
-        var userProfile = user.getUserProfile();
-        if (userProfile == null){
-            throw new ProfileNotFoundException("You have to create a profile before setting a goal!");
-        }
-        return userProfile;
-    }
-
-    private Boolean checkLocalDateValidity(LocalDate endDate){
-        return endDate.isBefore(LocalDate.now()) &&
-                endDate.lengthOfMonth() - LocalDate.now().getDayOfMonth() < 7;
-    }
-
-    private int calculateWeeklyExercises(ExerciseTypeCalc exerciseTypeCalc, LocalDate startDate, LocalDate endDate) {
-        int totalExercises = calculateExercisesToComplete(
-                exerciseTypeCalc, startDate, endDate
-        );
-
-        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-
-        int weeks = Math.max(1, (int) Math.ceil(daysBetween / 7.0));
-
-        return (int) Math.ceil((double) totalExercises / weeks);
-    }
-
-
-    private int calculateExercisesToComplete(ExerciseTypeCalc exerciseTypeCalc, LocalDate startDate, LocalDate endDate){
-        long daysBetween = ChronoUnit.DAYS.between(startDate,endDate);
-        int weeks = (int) daysBetween /7;
-        switch (exerciseTypeCalc){
-            case LIGHT -> {
-                return weeks * 2;
-            }
-            case MODERATE, ACTIVE -> {
-                return weeks * 4;
-            }
-            case VERY_ACTIVE,EXTRA_ACTIVE ->{
-                return weeks * 6;
-            }
-            case null, default -> {
-                return 0;
-            }
-        }
+    public String deleteFromDailyExerciseList(String exerciseId,Long dailyGoalId){
+        var dailyGoal = monthlyGoalHelper.fetchDailyGoalById(dailyGoalId);
+        dailyGoal.deleteFromExercises(exerciseId);
+        monthlyGoalRepository.save(dailyGoal.getWeeklyGoal().getMonthlyGoal());
+        return "Exercise deleted or decremented";
     }
 }
