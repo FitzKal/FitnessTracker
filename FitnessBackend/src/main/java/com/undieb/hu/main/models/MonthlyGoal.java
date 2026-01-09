@@ -48,6 +48,16 @@ public class MonthlyGoal {
         weeklyGoal.setMonthlyGoal(this);
     }
 
+    public void removeFromWeeklyGoals(WeeklyGoal weeklyGoal){
+        weeklyGoals.remove(weeklyGoal);
+        weeklyGoal.setMonthlyGoal(null);
+    }
+
+    public void markExerciseDone() {
+        this.exercisesDone++;
+        this.exercisesRemaining--;
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
