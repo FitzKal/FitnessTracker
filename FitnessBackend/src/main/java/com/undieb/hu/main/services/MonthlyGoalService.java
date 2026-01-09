@@ -29,7 +29,6 @@ public class MonthlyGoalService {
     private final JWTService jwtService;
     private final GoalConverter goalConverter;
     private final DailyGoalRepository dailyGoalRepository;
-    private final WeeklyGoalRepository weeklyGoalRepository;
     private final MonthlyGoalHelper monthlyGoalHelper;
 
 
@@ -117,12 +116,6 @@ public class MonthlyGoalService {
                 .toList();
     }
 
-    public WeeklyGoalDTO getWeeklyGoalById(Long id){
-        var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(id);
-        return goalConverter.weeklyGoalToWeeklyGoalDTO(weeklyGoal);
-    }
-
-
     //---DELETE METHODS---//
     public String deleteMonthlyGoal(Long monthlyGoalId){
         if (monthlyGoalRepository.existsById(monthlyGoalId)) {
@@ -130,14 +123,6 @@ public class MonthlyGoalService {
             return "Monthly goal removed";
         }
         throw new GoalNotFoundException("The monthly goal was not found");
-    }
-
-    public String deleteWeeklyGoal(Long weeklyGoalId){
-        var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(weeklyGoalId);
-        var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(weeklyGoal.getMonthlyGoal().getMonthlyGoalId());
-        monthlyGoal.removeFromWeeklyGoals(weeklyGoal);
-        weeklyGoalRepository.deleteById(weeklyGoalId);
-        return "Weekly Goal successfully deleted";
     }
 
     public String deleteDailyGoal(Long dailyGoalId){

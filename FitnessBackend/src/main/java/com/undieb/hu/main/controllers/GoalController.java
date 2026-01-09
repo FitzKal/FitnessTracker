@@ -40,12 +40,6 @@ public class GoalController {
         return ResponseEntity.ok(monthlyGoalService.getAllMonthlyGoals(request));
     }
 
-    @GetMapping("/weeklyGoal/{id}")
-    public ResponseEntity<WeeklyGoalDTO> getWeeklyGoalById(@PathVariable Long id){
-        return ResponseEntity.ok(monthlyGoalService.getWeeklyGoalById(id));
-    }
-
-
     //---Delete---//
     @DeleteMapping("/deleteDailyGoal/{dailyGoalId}")
     public ResponseEntity<String> deleteDailyGoal(@PathVariable Long dailyGoalId){
@@ -57,10 +51,6 @@ public class GoalController {
         return ResponseEntity.ok(monthlyGoalService.deleteMonthlyGoal(monthlyGoalId));
     }
 
-    @DeleteMapping ("/deleteWeeklyGoal/{weeklyGoalId}")
-    public ResponseEntity<String>deleteWeeklyGoal(@PathVariable Long weeklyGoalId){
-        return ResponseEntity.ok(monthlyGoalService.deleteWeeklyGoal(weeklyGoalId));
-    }
 
     @DeleteMapping("/deleteFromDailyExercises/{exerciseId}")
     public ResponseEntity<String>deleteFromDailyExercises(@PathVariable String exerciseId, @RequestParam Long dailyGoalId){
