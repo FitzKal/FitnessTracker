@@ -1,4 +1,4 @@
-package com.undieb.hu.main.services;
+package com.undieb.hu.main.services.goals;
 
 import com.undieb.hu.main.converters.GoalConverter;
 import com.undieb.hu.main.repositories.DailyGoalRepository;

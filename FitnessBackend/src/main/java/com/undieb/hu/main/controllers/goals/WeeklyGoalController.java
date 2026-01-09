@@ -1,7 +1,7 @@
-package com.undieb.hu.main.controllers;
+package com.undieb.hu.main.controllers.goals;
 
 import com.undieb.hu.main.controllers.DTOs.goals.WeeklyGoalDTO;
-import com.undieb.hu.main.services.WeeklyGoalService;
+import com.undieb.hu.main.services.goals.WeeklyGoalService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

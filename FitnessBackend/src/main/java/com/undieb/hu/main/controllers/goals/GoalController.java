@@ -1,9 +1,9 @@
-package com.undieb.hu.main.controllers;
+package com.undieb.hu.main.controllers.goals;
 
 import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
 import com.undieb.hu.main.models.ExercisesDone;
-import com.undieb.hu.main.services.MonthlyGoalService;
+import com.undieb.hu.main.services.goals.MonthlyGoalService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

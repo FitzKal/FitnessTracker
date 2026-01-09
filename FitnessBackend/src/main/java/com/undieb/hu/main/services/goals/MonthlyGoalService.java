@@ -1,4 +1,4 @@
-package com.undieb.hu.main.services;
+package com.undieb.hu.main.services.goals;
 
 import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
@@ -8,6 +8,7 @@ import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.MonthlyGoal;
 import com.undieb.hu.main.models.WeeklyGoal;
 import com.undieb.hu.main.repositories.MonthlyGoalRepository;
+import com.undieb.hu.main.services.JWTService;
 import com.undieb.hu.main.services.helpers.MonthlyGoalHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;

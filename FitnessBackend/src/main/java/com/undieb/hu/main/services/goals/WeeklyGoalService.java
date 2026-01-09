@@ -1,8 +1,9 @@
-package com.undieb.hu.main.services;
+package com.undieb.hu.main.services.goals;
 
 import com.undieb.hu.main.controllers.DTOs.goals.WeeklyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
 import com.undieb.hu.main.repositories.WeeklyGoalRepository;
+import com.undieb.hu.main.services.JWTService;
 import com.undieb.hu.main.services.helpers.MonthlyGoalHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
