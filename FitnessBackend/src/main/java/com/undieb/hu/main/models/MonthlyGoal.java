@@ -58,6 +58,11 @@ public class MonthlyGoal {
         this.exercisesRemaining--;
     }
 
+    public void markExerciseUnDone() {
+        this.exercisesDone--;
+        this.exercisesRemaining++;
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

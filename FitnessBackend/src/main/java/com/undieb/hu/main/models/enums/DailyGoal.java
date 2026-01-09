@@ -1,6 +1,7 @@
 package com.undieb.hu.main.models.enums;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.undieb.hu.main.exceptions.ExerciseNotFoundException;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.WeeklyGoal;
 import jakarta.persistence.*;
@@ -44,6 +45,22 @@ public class DailyGoal {
             exercisesDone.add(exerciseDone);
         }
 
+    }
+
+    public void deleteFromExercises(String id){
+        var exercise = exercisesDone.stream()
+                .filter(exercisesDone1 -> exercisesDone1.getExerciseId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new ExerciseNotFoundException("Exercise not Found"));
+        if (exercise.getNumberOfCompletion() > 1){
+            exercise.setNumberOfCompletion(exercise.getNumberOfCompletion()-1);
+        }else{
+            exercisesDone.remove(exercise);
+            if (exercisesDone.isEmpty()){
+                weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining() + 1);
+                weeklyGoal.getMonthlyGoal().markExerciseUnDone();
+            }
+        }
     }
 
     @Override

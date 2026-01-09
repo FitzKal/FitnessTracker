@@ -40,8 +40,6 @@ public class MonthlyGoalHelper {
                 .filter(dg -> dg.getDateOfExercise().equals(LocalDate.now()))
                 .findFirst().get();
         todayGoal.addToExercises(exercisesDone);
-        weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining()-1);
-        weeklyGoal.getMonthlyGoal().markExerciseDone();
     }
 
     // Create a new DailyGoal for today and add the first exercise
