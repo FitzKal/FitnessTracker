@@ -45,4 +45,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> goalNotFoundException(GoalNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+
+    @ExceptionHandler(ExerciseNotFoundException.class)
+    public ResponseEntity<String> exerciseNotFoundException(ExerciseNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
 }
