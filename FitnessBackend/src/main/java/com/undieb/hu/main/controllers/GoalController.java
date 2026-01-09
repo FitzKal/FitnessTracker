@@ -2,7 +2,6 @@ package com.undieb.hu.main.controllers;
 
 import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
-import com.undieb.hu.main.controllers.DTOs.goals.WeeklyGoalDTO;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.services.MonthlyGoalService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ public class GoalController {
     }
 
     @PostMapping("/addExercise")
-    public ResponseEntity<String> createGoal(@RequestBody ExercisesDone exercisesDone, HttpServletRequest request){
+    public ResponseEntity<String> addExercise(@RequestBody ExercisesDone exercisesDone, HttpServletRequest request){
         return ResponseEntity.ok(monthlyGoalService.addExerciseToGoal(exercisesDone,request));
     }
 
@@ -41,20 +40,9 @@ public class GoalController {
     }
 
     //---Delete---//
-    @DeleteMapping("/deleteDailyGoal/{dailyGoalId}")
-    public ResponseEntity<String> deleteDailyGoal(@PathVariable Long dailyGoalId){
-        return ResponseEntity.ok(monthlyGoalService.deleteDailyGoal(dailyGoalId));
-    }
-
     @DeleteMapping("/deleteMonthlyGoal/{monthlyGoalId}")
     public ResponseEntity<String>deleteMonthlyGoal(@PathVariable Long monthlyGoalId){
         return ResponseEntity.ok(monthlyGoalService.deleteMonthlyGoal(monthlyGoalId));
-    }
-
-
-    @DeleteMapping("/deleteFromDailyExercises/{exerciseId}")
-    public ResponseEntity<String>deleteFromDailyExercises(@PathVariable String exerciseId, @RequestParam Long dailyGoalId){
-        return ResponseEntity.ok(monthlyGoalService.deleteFromDailyExerciseList(exerciseId,dailyGoalId));
     }
 
 }

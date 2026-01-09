@@ -146,4 +146,10 @@ public class MonthlyGoalHelper {
         return monthlyGoalRepository.findById(id)
                 .orElseThrow(()->new GoalNotFoundException("Monthly Goal not found"));
     }
+
+    //---SAVE TO MONTHLY GOAL REPO---//
+
+    public void saveToMonthlyGoalRepository(MonthlyGoal monthlyGoal){
+        monthlyGoalRepository.save(monthlyGoal);
+    }
 }

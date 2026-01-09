@@ -2,15 +2,12 @@ package com.undieb.hu.main.services;
 
 import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
-import com.undieb.hu.main.controllers.DTOs.goals.WeeklyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
 import com.undieb.hu.main.exceptions.GoalNotFoundException;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.MonthlyGoal;
 import com.undieb.hu.main.models.WeeklyGoal;
-import com.undieb.hu.main.repositories.DailyGoalRepository;
 import com.undieb.hu.main.repositories.MonthlyGoalRepository;
-import com.undieb.hu.main.repositories.WeeklyGoalRepository;
 import com.undieb.hu.main.services.helpers.MonthlyGoalHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
@@ -28,7 +25,6 @@ public class MonthlyGoalService {
     private final MonthlyGoalRepository monthlyGoalRepository;
     private final JWTService jwtService;
     private final GoalConverter goalConverter;
-    private final DailyGoalRepository dailyGoalRepository;
     private final MonthlyGoalHelper monthlyGoalHelper;
 
 
@@ -125,21 +121,4 @@ public class MonthlyGoalService {
         throw new GoalNotFoundException("The monthly goal was not found");
     }
 
-    public String deleteDailyGoal(Long dailyGoalId){
-        var dailyGoal = monthlyGoalHelper.fetchDailyGoalById(dailyGoalId);
-        var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(dailyGoal.getWeeklyGoal().getId());
-        weeklyGoal.removeFromDailyGoals(dailyGoal);
-        dailyGoalRepository.deleteById(dailyGoalId);
-        weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining() + 1);
-        weeklyGoal.getMonthlyGoal().markExerciseUnDone();
-        monthlyGoalRepository.save(dailyGoal.getWeeklyGoal().getMonthlyGoal());
-        return "Daily goal removed";
-    }
-
-    public String deleteFromDailyExerciseList(String exerciseId,Long dailyGoalId){
-        var dailyGoal = monthlyGoalHelper.fetchDailyGoalById(dailyGoalId);
-        dailyGoal.deleteFromExercises(exerciseId);
-        monthlyGoalRepository.save(dailyGoal.getWeeklyGoal().getMonthlyGoal());
-        return "Exercise deleted or decremented";
-    }
 }
