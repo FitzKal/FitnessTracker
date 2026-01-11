@@ -148,8 +148,24 @@ public class MonthlyGoalHelper {
     }
 
     //---SAVE TO MONTHLY GOAL REPO---//
-
     public void saveToMonthlyGoalRepository(MonthlyGoal monthlyGoal){
         monthlyGoalRepository.save(monthlyGoal);
+    }
+
+    //---Count new number of exercises---//
+    public int countNewNumberOfExercises(ExerciseTypeCalc exerciseTypeCalc, MonthlyGoal monthlyGoal,
+    LocalDate newEndDate){
+        if (exerciseTypeCalc == ExerciseTypeCalc.SEDENTARY){
+            return 0;
+        }else {
+            int newTotal =
+                    calculateExercisesToComplete(
+                            exerciseTypeCalc,
+                            monthlyGoal.getStartDate(),
+                            newEndDate
+                    );
+
+           return newTotal-monthlyGoal.getExercisesDone();
+        }
     }
 }

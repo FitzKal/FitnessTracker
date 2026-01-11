@@ -7,6 +7,7 @@ import com.undieb.hu.main.exceptions.GoalNotFoundException;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.MonthlyGoal;
 import com.undieb.hu.main.models.WeeklyGoal;
+import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.repositories.MonthlyGoalRepository;
 import com.undieb.hu.main.services.JWTService;
 import com.undieb.hu.main.services.helpers.MonthlyGoalHelper;
@@ -29,7 +30,6 @@ public class MonthlyGoalService {
     private final MonthlyGoalHelper monthlyGoalHelper;
 
 
-    //---CREATE METHODS---//
     public MonthlyGoalDTO createGoal(CreateGoalRequest createGoalRequest, HttpServletRequest request){
         var userProfile = monthlyGoalHelper.checkIfUserProfileExists(request);
 
@@ -98,7 +98,6 @@ public class MonthlyGoalService {
         return "New daily goal created!";
     }
 
-    //--GETTER METHODS--//
     public MonthlyGoalDTO getMonthlyGoalById(Long id){
         var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(id);
         return goalConverter.monthlyGoalToMonthlyGoalDTO(monthlyGoal);
@@ -113,13 +112,33 @@ public class MonthlyGoalService {
                 .toList();
     }
 
-    //---DELETE METHODS---//
     public String deleteMonthlyGoal(Long monthlyGoalId){
         if (monthlyGoalRepository.existsById(monthlyGoalId)) {
             monthlyGoalRepository.deleteById(monthlyGoalId);
             return "Monthly goal removed";
         }
         throw new GoalNotFoundException("The monthly goal was not found");
+    }
+
+    public MonthlyGoalDTO updateMonthlyGoal(LocalDate newEndDate,ExerciseTypeCalc exerciseTypeCalc, Long monthlyGoalId){
+        var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(monthlyGoalId);
+        LocalDate endDate = monthlyGoal.getFinishDate();
+        if (newEndDate != null && !newEndDate.equals(monthlyGoal.getFinishDate())) {
+            if (!newEndDate.isAfter(LocalDate.now().plusDays(6))) {
+                throw new DateTimeException(
+                        "The given end date is incorrect. It must be at least a week after today."
+                );
+            }
+            monthlyGoal.setFinishDate(newEndDate);
+            endDate = monthlyGoal.getFinishDate();
+        }
+        if (exerciseTypeCalc != null && exerciseTypeCalc != monthlyGoal.getExerciseType()){
+            monthlyGoal.setExerciseType(exerciseTypeCalc);
+            int newRemainingExercises = monthlyGoalHelper.countNewNumberOfExercises(exerciseTypeCalc,monthlyGoal,endDate);
+            monthlyGoal.setExercisesRemaining(newRemainingExercises);
+        }
+        monthlyGoalRepository.save(monthlyGoal);
+        return goalConverter.monthlyGoalToMonthlyGoalDTO(monthlyGoal);
     }
 
 }
