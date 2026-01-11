@@ -2,7 +2,7 @@ import {Link, Outlet} from "react-router-dom";
 import {
     ArrowRightEndOnRectangleIcon,
     BoltIcon,
-    CalculatorIcon,
+    CalculatorIcon, CalendarDaysIcon,
     HomeIcon,
     TrophyIcon,
     UserIcon
@@ -75,7 +75,13 @@ export default function NavBar(){
                             <span className={"ml-11 mt-1 overflow-hidden"}>Workout Catalog</span>
                         </Link>
                     </li>
-
+                    <li className={"list-none m-[5px_0] hover:bg-[#06e6e6] mt-[10px] h-[50px]"}>
+                        <Link to={"/Fitness/goals"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
+                            "text-2xl"}>
+                            <CalendarDaysIcon className={"h-10 w-10 flex mr-1 fixed"}></CalendarDaysIcon>
+                            <span className={"ml-11 mt-1 overflow-hidden"}>Goals</span>
+                        </Link>
+                    </li>
                     <li className={"list-none m-[5px_0] hover:bg-[#06e6e6] absolute bottom-0 w-full"}>
                         <Link to={"/login"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
                             "text-2xl"} onClick={handleLogout}>

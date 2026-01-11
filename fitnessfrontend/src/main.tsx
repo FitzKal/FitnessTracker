@@ -16,6 +16,7 @@ import ProteinCalculator from "./components/Calculators/protein/ProteinCalculato
 import CalorieCalculator from "./components/Calculators/calories/CalorieCalculator.tsx";
 import DisplayWorkouts from "./components/workouts/DisplayWorkouts.tsx";
 import WorkoutPage from "./components/workouts/WorkoutPage.tsx";
+import DisplayGoals from "./components/goals/DisplayGoals.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
             {
                 path:"/Fitness/workouts/:params",
                 element:<WorkoutPage/>
+            },
+            {
+                path:"/Fitness/goals",
+                element:<DisplayGoals/>
             }
         ]
     }
