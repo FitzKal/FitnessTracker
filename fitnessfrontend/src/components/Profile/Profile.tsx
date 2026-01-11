@@ -1,123 +1,106 @@
-import {useQuery} from "@tanstack/react-query";
-import {UserStore} from "../../stores/UserStore.ts";
-import {getUserProfile} from "../../services/UserProfileService.ts";
-import {useEffect, useState} from "react";
+import { useQuery } from "@tanstack/react-query";
+import { UserStore } from "../../stores/UserStore.ts";
+import { getUserProfile } from "../../services/UserProfileService.ts";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import UpdateForm from "./UpdateForm.tsx";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import DeleteProfileForm from "./DeleteProfileForm.tsx";
 
-export default function Profile(){
-    const currentUser= UserStore.getState().user;
-    const [isUpdating,setIsUpdating] = useState<boolean>(false);
-    const [isDeleting,setIsDeleting] = useState<boolean>(false);
+export default function Profile() {
+    const currentUser = UserStore.getState().user;
+    const [isUpdating, setIsUpdating] = useState<boolean>(false);
+    const [isDeleting, setIsDeleting] = useState<boolean>(false);
     const navigate = useNavigate();
 
-    const {data, isLoading,isError,error} = useQuery({
-        queryKey:["profile", currentUser?.username],
-        queryFn : async() =>{
-            if (!currentUser?.accessToken){
-                throw new Error("Could not authenticate");
-            }
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ["profile", currentUser?.username],
+        queryFn: async () => {
+            if (!currentUser?.accessToken) throw new Error("Could not authenticate");
             return await getUserProfile();
         },
         enabled: !!currentUser?.accessToken,
-
-        retry:(failureCount,error) =>{
-            if (axios.isAxiosError(error) && error.response?.status === 404){
+        retry: (failureCount, error) => {
+            if (axios.isAxiosError(error) && error.response?.status === 404) {
                 navigate("/Fitness/CreateProfile");
                 return false;
             }
             toast.error(error.message);
             return failureCount < 3;
-        }
+        },
     });
 
     useEffect(() => {
         console.log(currentUser);
-    })
+    }, [currentUser]);
 
-    const missingProfile = isError && axios.isAxiosError(error) && error.response?.status === 404;
+    const missingProfile =
+        isError && axios.isAxiosError(error) && error.response?.status === 404;
 
-    const handleUpdating = () =>{
-        if (isUpdating){
-            setIsUpdating(false)
-        }else{
-            setIsUpdating(true);
-        }
+    const handleUpdating = () => setIsUpdating(!isUpdating);
+    const handleDeleting = () => setIsDeleting(!isDeleting);
+
+    if (isLoading && !missingProfile) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <h1 className="text-4xl font-semibold text-blue-800">Loading Profile...</h1>
+            </div>
+        );
     }
 
-    const handleDeleting = () =>{
-        if (isDeleting){
-            setIsDeleting(false)
-        }else{
-            setIsDeleting(true);
-        }
-    }
+    return (
+        <div className=" ml-10 min-h-screen bg-gradient-to-b from-white to-blue-100 p-8">
+            <UpdateForm isUpdating={isUpdating} updateHandler={handleUpdating} userData={data} />
+            <DeleteProfileForm isDeleting={isDeleting} deleteHandler={handleDeleting} />
 
-    if (isLoading && !missingProfile){
-        return(<div className={"flex justify-center"}>
-            <h1 className={"text-4xl text-center"}>Loading Profile....</h1>
-        </div>)
-    }else{
-        return (<div className={"text-center bg-gradient-to-b bg-white to-blue-300 min-h-screen"}>
-            <UpdateForm isUpdating={isUpdating} updateHandler={handleUpdating} userData={data}/>
-            <DeleteProfileForm isDeleting = {isDeleting} deleteHandler = {handleDeleting}/>
-            <h1 className={" text-4xl font-semibold font-mono mt-5"}>Your Profile</h1>
-            <div className={"flex flex-row "}>
-                <div className={"flex-col ml-20"}>
-                    <img src={data.profilePictureSrc} alt={currentUser?.username}
-                    className={"w-auto h-110 mt-10 border-4 rounded-2xl mb-3"}/>
-                    <span className={"ml-2 text-xl"}>{currentUser?.username}</span>
+            <h1 className="text-4xl font-bold text-center text-blue-900 mb-10">Your Profile</h1>
+
+            <div className="flex flex-col lg:flex-row gap-10 justify-start">
+                <div className="flex flex-col items-center">
+                    <img
+                        src={data?.profilePictureSrc}
+                        alt={currentUser?.username}
+                        className="55 h-100 object-cover rounded-2xl border-4 border-blue-300 shadow-lg mb-4"
+                    />
+                    <span className="text-2xl font-semibold">{currentUser?.username}</span>
                 </div>
 
-                <div className={"flex flex-col ml-20 mt-10 mb-7 gap-8 border-2 p-5 rounded-2xl bg-white"}>
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>First Name: </p>
-                        <span className={"ml-2"}>{data.firstName}</span>
-                    </div>
-
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>Last Name: </p>
-                        <span className={"ml-2"}>{data.lastName}</span>
-                    </div>
-
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>Username: </p>
-                        <span className={"ml-2"}>{currentUser?.username}</span>
-                    </div>
-
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>Height: </p>
-                        <span className={"ml-2"}>{data.height} m</span>
-                    </div>
-
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>Weight: </p>
-                        <span className={"ml-2"}>{data.weight} kg</span>
-                    </div>
-
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>Email: </p>
-                        <span className={"ml-2"}>{data.email}</span>
-                    </div>
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>Gender: </p>
-                        <span className={"ml-2"}>{data.gender}</span>
-                    </div>
-                    <div className={"flex flex-row text-2xl"}>
-                        <p>Age: </p>
-                        <span className={"ml-2"}>{data.age}</span>
+                    <div className={"sm:flex justify-center"}>
+                        <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 w-full max-w-lg ">
+                            {[
+                                { label: "First Name", value: data?.firstName },
+                                { label: "Last Name", value: data?.lastName },
+                                { label: "Username", value: currentUser?.username },
+                                { label: "Height", value: data?.height ? `${data.height} m` : "-" },
+                                { label: "Weight", value: data?.weight ? `${data.weight} kg` : "-" },
+                                { label: "Email", value: data?.email },
+                                { label: "Gender", value: data?.gender },
+                                { label: "Age", value: data?.age },
+                            ].map((item) => (
+                                <div key={item.label} className="flex justify-between text-lg font-medium">
+                                    <p className="text-gray-700">{item.label}:</p>
+                                    <span className="text-gray-900">{item.value || "-"}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className={"flex flex-row ml-25 mt-7 gap-45"}>
-                <button className={"border-2 p-3 rounded-2xl bg-blue-400 hover:bg-blue-500"}
-                        onClick={handleUpdating}>Update profile</button>
-                <button className={"border-2 p-3 rounded-2xl bg-red-500 hover:bg-red-600"}
-                onClick={handleDeleting}>Delete</button>
-            </div>
-        </div>)
-    }
+
+                <div className="flex gap-6 mt-10 lg:justify-start sm:justify-center">
+                    <button
+                        onClick={handleUpdating}
+                        className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
+                    >
+                        Update Profile
+                    </button>
+                    <button
+                        onClick={handleDeleting}
+                        className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
+                    >
+                        Delete Profile
+                    </button>
+                </div>
+        </div>
+    );
 }

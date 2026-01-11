@@ -50,7 +50,7 @@ export default function OwnBMI() {
         return (
             <div>
                 <h1 className={"text-center text-2xl mt-1"}>We have calculated your BMI according to your profile data!</h1>
-                <div className={"flex flex-row justify-between mx-20"}>
+                <div className={"grid lg:grid-cols-2 sm:grid-cols-1 justify-between mx-10"}>
                     <div className={"text-xl my-5"}>
                         <p>According to your personal statistics:</p>
                         <p>Your height is: {details.height} m</p>

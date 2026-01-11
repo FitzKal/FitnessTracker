@@ -31,7 +31,7 @@ export default function BMICalculator(){
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 px-4 md:px-8 mx-10">
+            <div className="grid lg:grid-cols-2 gap-6 md:grid-cols-2 md:gap-8 px-4 md:px-8 mx-10 sm:grid-cols-1">
                 <div className="border-2 mt-2 bg-green-200 rounded-md p-4 min-w-0">
                     {isOwnBMI ?
                     <OwnBMI/> :

@@ -85,7 +85,7 @@ export default function CustomProteinForm(props:{handleProteinIntakeChange:(stat
                         <div className={"flex flex-col"}>
                             <div className={"flex justify-center mt-3"}>
                                 <label className={"mr-1"}>Select your activity level:</label>
-                                <select {...register("exerciseType")} className={"bg-white border-1 rounded-md"} id={"ExType"}>
+                                <select {...register("exerciseTypeCalc")} className={"bg-white border-1 rounded-md"} id={"ExType"}>
                                     <option value={"SEDENTARY"}>Sedentary: Little to no exercise</option>
                                     <option value={"LIGHT"}>Light: Exercise 1-3 times a week</option>
                                     <option value={"MODERATE"}>Moderate: Exercise 4-5 times a week</option>
@@ -95,7 +95,7 @@ export default function CustomProteinForm(props:{handleProteinIntakeChange:(stat
                                 </select>
                             </div>
                             <div className={"text-red-500 text-xs mt-1 whitespace-nowrap h-4 text-center"}>
-                                {errors.exerciseType ? errors.exerciseType.message : "\u00A0"}
+                                {errors.exerciseTypeCalc ? errors.exerciseTypeCalc.message : "\u00A0"}
                             </div>
                             <div className={"flex justify-center"}>
                                 <button type={"submit"} className={"hover:bg-blue-400 rounded-md px-2 mb-2 border-2 bg-blue-300 mt-10"}

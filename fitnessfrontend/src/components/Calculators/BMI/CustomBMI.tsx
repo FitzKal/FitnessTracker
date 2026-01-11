@@ -40,7 +40,7 @@ export default function CustomBMI(){
           <div className={"text-center"}>
               <h1 className={"text-2xl"}>Calculate BMI by custom details</h1>
           </div>
-         <div className={"flex justify-between flex-row mx-20 sm:mx-10"}>
+         <div className={"grid lg:grid-cols-2 sm:grid-cols-1 mx-10 sm:mx-10"}>
              {!submittedShowing?
                  <CustomBMIForm handleCustomScore = {handleCustomBmiScoreChange} handleCustomDetails = {handleDetailsChange} customBMIDetails = {customBMIDetails}
                                 handleSubmittedShowing={handleSubmittedShowing} />

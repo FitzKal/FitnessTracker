@@ -91,7 +91,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                            <div className="flex flex-col sm:col-span-2 lg:col-span-3">
                                <label className="mb-1">Select your activity level:</label>
                                <select
-                                   {...register("exerciseType")}
+                                   {...register("exerciseTypeCalc")}
                                    className="bg-white border-2 h-8 rounded-lg"
                                    id="ExType"
                                >
@@ -103,7 +103,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                                    <option value="EXTRA_ACTIVE">Extra Active: Intense exercise daily or physical job</option>
                                </select>
                                <div className="text-red-500 text-xs mt-1 h-4">
-                                   {errors.exerciseType ? errors.exerciseType.message : "\u00A0"}
+                                   {errors.exerciseTypeCalc ? errors.exerciseTypeCalc.message : "\u00A0"}
                                </div>
                            </div>
                        </div>
