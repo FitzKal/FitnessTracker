@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,9 @@ public class DailyGoalService {
         return dailyGoalRepository.findAll().stream()
                 .filter(goal->goal.getWeeklyGoal().getMonthlyGoal()
                         .getUserProfile().getUser().getUsername().equals(username))
-                .map(goalConverter::dailyGoalToDailyGoalDTO).collect(Collectors.toList());
+                .map(goalConverter::dailyGoalToDailyGoalDTO).
+                sorted(Comparator.comparing(DailyGoalDTO::getDateOfExercise).reversed())
+                .collect(Collectors.toList());
     }
 
     public String deleteDailyGoal(Long dailyGoalId){

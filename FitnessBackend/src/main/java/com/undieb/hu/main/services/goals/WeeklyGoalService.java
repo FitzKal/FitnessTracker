@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,9 @@ public class WeeklyGoalService {
         var userName = jwtService.getUserFromRequest(request).getUsername();
         return weeklyGoalRepository.findAll().stream()
                 .filter(goal ->goal.getMonthlyGoal().getUserProfile().getUser().getUsername().equals(userName))
-                .map(goalConverter::weeklyGoalToWeeklyGoalDTO).collect(Collectors.toList());
+                .map(goalConverter::weeklyGoalToWeeklyGoalDTO)
+                .sorted(Comparator.comparing(WeeklyGoalDTO::getEndOfTheWeek).reversed())
+                .collect(Collectors.toList());
     }
 
     public String deleteWeeklyGoal(Long weeklyGoalId){

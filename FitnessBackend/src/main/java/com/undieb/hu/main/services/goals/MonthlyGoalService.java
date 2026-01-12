@@ -109,6 +109,7 @@ public class MonthlyGoalService {
                 .stream()
                 .filter(goal -> goal.getUserProfile().getUser().getUsername().equals(user.getUsername()))
                 .map(goalConverter::monthlyGoalToMonthlyGoalDTO)
+                .sorted(Comparator.comparing(MonthlyGoalDTO::getFinishDate).reversed())
                 .toList();
     }
 
