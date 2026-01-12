@@ -33,5 +33,11 @@ export interface MonthlyGoal{
 
 }
 
+export interface GoalProgressBarProps {
+    startDate: Date | string;
+    endDate: Date | string;
+}
+
+
 
 
