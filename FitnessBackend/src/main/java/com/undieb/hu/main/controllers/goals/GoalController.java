@@ -1,6 +1,7 @@
 package com.undieb.hu.main.controllers.goals;
 
 import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
+import com.undieb.hu.main.controllers.DTOs.goals.GoalUpdateRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
@@ -45,9 +46,7 @@ public class GoalController {
     }
 
     @PutMapping("/updateMonthlyGoal/{monthlyGoalId}")
-    public ResponseEntity<MonthlyGoalDTO> updateMonthlyGoal(@RequestParam(required = false) LocalDate newEndDate,
-                                                            @RequestParam(required = false) ExerciseTypeCalc exerciseTypeCalc,
-                                                            @PathVariable Long monthlyGoalId){
-        return ResponseEntity.ok(monthlyGoalService.updateMonthlyGoal(newEndDate,exerciseTypeCalc,monthlyGoalId));
+    public ResponseEntity<MonthlyGoalDTO> updateMonthlyGoal(GoalUpdateRequest goalUpdateRequest){
+        return ResponseEntity.ok(monthlyGoalService.updateMonthlyGoal(goalUpdateRequest));
     }
 }
