@@ -44,5 +44,9 @@ public class UserProfile {
         monthlyGoals.add(goal);
         goal.setUserProfile(this);
     }
+    public void removeMonthlyGoal(MonthlyGoal goal) {
+        monthlyGoals.remove(goal);
+        goal.setUserProfile(null);
+    }
 
 }

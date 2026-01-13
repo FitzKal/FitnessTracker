@@ -109,6 +109,9 @@ public class MonthlyGoalService {
 
     public List<MonthlyGoalDTO> getAllMonthlyGoals(HttpServletRequest request){
         var user = jwtService.getUserFromRequest(request);
+        if (user.getUserProfile().getMonthlyGoals().isEmpty()){
+            throw new GoalNotFoundException("You don't have any goals yet!");
+        }
         return monthlyGoalRepository.findAll()
                 .stream()
                 .filter(goal -> goal.getUserProfile().getUser().getUsername().equals(user.getUsername()))
@@ -119,6 +122,9 @@ public class MonthlyGoalService {
 
     public String deleteMonthlyGoal(Long monthlyGoalId){
         if (monthlyGoalRepository.existsById(monthlyGoalId)) {
+            var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(monthlyGoalId);
+            var owner = monthlyGoal.getUserProfile();
+            owner.removeMonthlyGoal(monthlyGoal);
             monthlyGoalRepository.deleteById(monthlyGoalId);
             return "Monthly goal removed";
         }
