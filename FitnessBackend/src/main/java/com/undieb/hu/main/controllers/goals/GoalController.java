@@ -42,8 +42,8 @@ public class GoalController {
         return ResponseEntity.ok(monthlyGoalService.deleteMonthlyGoal(monthlyGoalId));
     }
 
-    @PutMapping("/updateMonthlyGoal/{monthlyGoalId}")
-    public ResponseEntity<MonthlyGoalDTO> updateMonthlyGoal(GoalUpdateRequest goalUpdateRequest){
+    @PutMapping("/updateMonthlyGoal")
+    public ResponseEntity<MonthlyGoalDTO> updateMonthlyGoal(@RequestBody GoalUpdateRequest goalUpdateRequest){
         return ResponseEntity.ok(monthlyGoalService.updateMonthlyGoal(goalUpdateRequest));
     }
 }
