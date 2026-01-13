@@ -18,7 +18,8 @@ import DisplayWorkouts from "./components/workouts/DisplayWorkouts.tsx";
 import WorkoutPage from "./components/workouts/WorkoutPage.tsx";
 import DisplayGoals from "./components/goals/DisplayGoals.tsx";
 import GoalNavBar from "./components/goals/GoalNavBar.tsx";
-import ExtendedMonthlyGoal from "./components/goals/forms/monthlyGoals/ExtendedMonthlyGoal.tsx";
+import ExtendedMonthlyGoal from "./components/goals/monthlyGoals/ExtendedMonthlyGoal.tsx";
+import CreateFirstGoal from "./components/goals/CreateFirstGoal.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -93,6 +94,10 @@ const router = createBrowserRouter([
                         element:<ExtendedMonthlyGoal/>
                     }
                 ]
+            },
+            {
+                path:"/Fitness/createFirstGoal",
+                element:<CreateFirstGoal/>
             }
         ]
     }
