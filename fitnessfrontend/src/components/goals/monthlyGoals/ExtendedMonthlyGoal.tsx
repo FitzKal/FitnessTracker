@@ -1,19 +1,33 @@
-import {useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {getCurrentDateYYYYMMDD, getMonthlyGoalById, parseYYYYMMDDToDate} from "../../../services/GoalService.ts";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import GoalProgressBar from "../GoalProgressBar.tsx";
 import DateProgressBar from "../DateProgressBar.tsx";
 import type {weeklyGoal} from "../../../types/GoalType.ts";
 import WeeklyGoalShowcase from "../weeklyGoals/WeeklyGoalShowcase.tsx";
+import UpdateGoalForm from "../forms/UpdateGoalForm.tsx";
+import DeleteMonthlyGoalForm from "../forms/DeleteMonthlyGoalForm.tsx";
+import axios from "axios";
 
 export default function ExtendedMonthlyGoal(){
     const {params} = useParams();
+    const [isUpdating, setIsUpdating] = useState<boolean>(false);
+    const [isDeleting,setIsDeleting] = useState<boolean>(false);
     const goalId = params !== undefined ? String(params) : undefined;
+    const navigate = useNavigate();
     const {data, isLoading,error,isError} = useQuery({
         queryKey:["goalById",goalId],
         queryFn:async() => await getMonthlyGoalById(goalId),
+        retry: (failureCount, error) => {
+            if (axios.isAxiosError(error) && error.response?.status === 404) {
+                navigate("/Fitness/goals/monthlyGoals");
+                return false;
+            }
+            toast.error(error.message);
+            return failureCount < 3;
+        },
 
     })
 
@@ -24,9 +38,27 @@ export default function ExtendedMonthlyGoal(){
         }
     }, [error,isError]);
 
+    const handleUpdating = () => {
+        if (isUpdating){
+            setIsUpdating(false);
+        }else{
+            setIsUpdating(true);
+        }
+    }
+
+    const handleDeleting = () => {
+        if (isDeleting){
+            setIsDeleting(false);
+        }else{
+            setIsDeleting(true);
+        }
+    }
+
     if (isLoading) return <div className="text-center mt-20 text-xl">Loading...</div>;
     return (
         <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 p-6">
+            <UpdateGoalForm defaultGoalDetails={data} isUpdating={isUpdating} updateHandler={handleUpdating}/>
+            <DeleteMonthlyGoalForm goalDetails={data} isDeleting={isDeleting} deleteHandler={handleDeleting}/>
             <div>
                 <h1 className={"text-center text-4xl"}>Monthly Goal</h1>
                 <p className={"text-center text-4xl mt-2"}>From {data.startDate} To {data.finishDate}</p>
@@ -57,6 +89,13 @@ export default function ExtendedMonthlyGoal(){
                         <p>Remaining days to exercise: {data.exercisesRemaining}</p>
                         <p>Days exercised: {data.exercisesDone}</p>
                         <p>Current exercise style type selected: {data.exerciseType}</p>
+                    </div>
+                    <div className={"grid lg:grid-cols-3 justify-items-center sm:grid-cols-1 mt-5 sm: gap-y-2"}>
+                        <Link to={"/Fitness/workouts"} className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-2xl shadow-md transition-colors">Add new weekly goal</Link>
+                        <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
+                                onClick={handleUpdating} >Edit Goal</button>
+                        <button className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
+                                onClick={handleDeleting}>Delete Goal</button>
                     </div>
                </div>
             </div>

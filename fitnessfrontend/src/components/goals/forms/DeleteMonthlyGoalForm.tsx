@@ -10,6 +10,7 @@ export default function DeleteMonthlyGoalForm(prop:{goalDetails:MonthlyGoal, isD
         mutationFn:(id:number)=> deleteMonthlyGoal(id),
         onSuccess:()=>{
             queryClient.invalidateQueries({queryKey:["allGoals"],exact: false});
+            queryClient.invalidateQueries({queryKey:["goalById"],exact: false});
             toast.success("The goal has been removed!");
         },
         onError:(error) => {

@@ -29,6 +29,7 @@ export default function UpdateGoalForm(prop:{defaultGoalDetails:MonthlyGoal,isUp
         },
         onSuccess:() => {
             queryClient.invalidateQueries({queryKey:["allGoals"],exact: false});
+            queryClient.invalidateQueries({queryKey:["goalById"],exact: false});
             toast.success("The goal was successfully updated!");
             prop.updateHandler();
         },
