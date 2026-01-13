@@ -26,8 +26,7 @@ export default function CalculatorNavBar() {
                 </div>
             </div>
 
-            {/* Content below the fixed navbar */}
-            <div className="pt-[6vh]"> {/* Push content down so it’s not covered */}
+            <div className="pt-[6vh]">
                 <Outlet />
             </div>
         </div>
