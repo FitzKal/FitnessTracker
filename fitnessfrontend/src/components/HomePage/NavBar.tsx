@@ -76,7 +76,7 @@ export default function NavBar(){
                         </Link>
                     </li>
                     <li className={"list-none m-[5px_0] hover:bg-[#06e6e6] mt-[10px] h-[50px]"}>
-                        <Link to={"/Fitness/goals"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
+                        <Link to={"/Fitness/goals/monthlyGoals"} className={"text-white flex relative whitespace-nowrap decoration-0 " +
                             "text-2xl"}>
                             <CalendarDaysIcon className={"h-10 w-10 flex mr-1 fixed"}></CalendarDaysIcon>
                             <span className={"ml-11 mt-1 overflow-hidden"}>Goals</span>
