@@ -1,4 +1,4 @@
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {getCurrentDateYYYYMMDD, getMonthlyGoalById, parseYYYYMMDDToDate} from "../../services/GoalService.ts";
 import {useEffect} from "react";

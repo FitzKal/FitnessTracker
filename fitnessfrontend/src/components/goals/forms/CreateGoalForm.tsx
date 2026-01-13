@@ -1,11 +1,11 @@
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {createGoalRequestSchema, type createGoalRequestType} from "../../types/GoalType.ts";
+import {createGoalRequestSchema, type createGoalRequestType} from "../../../types/GoalType.ts";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {postMonthlyGoal} from "../../services/GoalService.ts";
+import {postMonthlyGoal} from "../../../services/GoalService.ts";
 import {toast} from "react-toastify";
 import type {AxiosError} from "axios";
-import type ApiResponseError from "../../types/ApiResponseError.ts";
+import type ApiResponseError from "../../../types/ApiResponseError.ts";
 
 
 export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:()=>void}){
