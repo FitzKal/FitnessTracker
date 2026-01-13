@@ -53,7 +53,16 @@ export default function CreateProfile(){
                     </h1>
                     <div className="flex justify-center">
                         <button
-                            className="text-xl sm:text-2xl px-6 py-3 border-2 rounded-2xl bg-green-400 hover:bg-green-500 transition-colors"
+                            className="
+                                text-xl sm:text-2xl
+                                px-6 sm:px-8 py-3
+                                bg-green-500 hover:bg-green-600
+                                text-white font-semibold
+                                rounded-2xl shadow-lg
+                                transition-all duration-300
+                                transform hover:-translate-y-1 hover:scale-105
+                                focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2
+                                         "
                             onClick={() => setIsCreating(true)}
                         >
                             Create Profile
