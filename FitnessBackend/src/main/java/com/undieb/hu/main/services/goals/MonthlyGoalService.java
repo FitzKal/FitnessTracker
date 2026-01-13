@@ -6,6 +6,7 @@ import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
 import com.undieb.hu.main.exceptions.GoalInvalidDateException;
 import com.undieb.hu.main.exceptions.GoalNotFoundException;
+import com.undieb.hu.main.exceptions.ProfileNotFoundException;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.MonthlyGoal;
 import com.undieb.hu.main.models.WeeklyGoal;
@@ -109,6 +110,11 @@ public class MonthlyGoalService {
 
     public List<MonthlyGoalDTO> getAllMonthlyGoals(HttpServletRequest request){
         var user = jwtService.getUserFromRequest(request);
+
+        if (user.getUserProfile() == null){
+            throw new ProfileNotFoundException("Please create a profile before creating a goal!");
+        }
+
         if (user.getUserProfile().getMonthlyGoals().isEmpty()){
             throw new GoalNotFoundException("You don't have any goals yet!");
         }
