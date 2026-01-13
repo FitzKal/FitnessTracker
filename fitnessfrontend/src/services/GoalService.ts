@@ -1,5 +1,5 @@
 import api from "./AxiosConfig.ts";
-import type {createGoalRequestType} from "../types/GoalType.ts";
+import type {createGoalRequestType, updateGoalRequestType} from "../types/GoalType.ts";
 import {AxiosError} from "axios";
 
 //------------- GetAllGoals -------------
@@ -33,6 +33,20 @@ export const postMonthlyGoal = async (goalData:createGoalRequestType)=> {
         return api.post("/goal", goalData)
             .then(res => res.data)
     } catch (error) {
+        if (error instanceof AxiosError) {
+            const axiosError = error.response?.data.message;
+            throw new Error(axiosError);
+        }
+        throw error;
+    }
+}
+
+//------------- UpdateMonthlyGoal -------------
+export const updateMonthlyGoal = async (updateData:updateGoalRequestType) => {
+    try{
+        return api.put(`/goal/updateMonthlyGoal`,updateData)
+            .then(res => res.data)
+    }catch (error) {
         if (error instanceof AxiosError) {
             const axiosError = error.response?.data.message;
             throw new Error(axiosError);

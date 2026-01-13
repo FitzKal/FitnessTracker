@@ -1,4 +1,4 @@
-import {use, useState} from "react";
+import {useState} from "react";
 import {getAllGoals, getCurrentDateYYYYMMDD, parseYYYYMMDDToDate} from "../../services/GoalService.ts";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
@@ -7,6 +7,7 @@ import GoalProgressBar from "./GoalProgressBar.tsx";
 import DateProgressBar from "./DateProgressBar.tsx";
 import {Link} from "react-router-dom";
 import CreateGoalForm from "./forms/CreateGoalForm.tsx";
+import UpdateGoalForm from "./forms/UpdateGoalForm.tsx";
 
 export default function DisplayGoals(){
 
@@ -50,7 +51,8 @@ export default function DisplayGoals(){
    }else{
        return (
          <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
-             <CreateGoalForm isUpdating={isCreating} updateHandler={handleCreating}/>
+             <CreateGoalForm isCreating={isCreating} createHandler={handleCreating}/>
+             <UpdateGoalForm defaultGoalDetails={data[0]} isUpdating={isUpdating} updateHandler={handleUpdating}/>
              <div className={"text-center text-4xl"}>
                  <p>Welcome to the goal tracker!</p>
              </div>
@@ -92,7 +94,7 @@ export default function DisplayGoals(){
                      <div className={"grid lg:grid-cols-3 justify-items-center sm:grid-cols-1 mt-5 sm: gap-y-2"}>
                          <Link to={"/Fitness/workouts"} className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-2xl shadow-md transition-colors">Add new weekly goal</Link>
                          <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
-                         >Edit Goal</button>
+                         onClick={handleUpdating} >Edit Goal</button>
                          <button className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors">Delete Goal</button>
                      </div>
                      <div className={"mt-5"}>
