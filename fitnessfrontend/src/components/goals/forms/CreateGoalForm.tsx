@@ -8,7 +8,7 @@ import type {AxiosError} from "axios";
 import type ApiResponseError from "../../../types/ApiResponseError.ts";
 
 
-export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:()=>void}){
+export default function CreateGoalForm(prop:{isCreating:boolean, createHandler:()=>void}){
     const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm<createGoalRequestType>({
        resolver:zodResolver(createGoalRequestSchema),
     })
@@ -20,7 +20,7 @@ export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:(
             queryClient.invalidateQueries({queryKey:["allGoals"],exact: false});
             toast.success("The goal was successfully created!");
             console.log(result)
-            prop.updateHandler();
+            prop.createHandler();
         },
         onError:(error) => {
             if (error instanceof Error){
@@ -42,10 +42,10 @@ export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:(
         <>
             <div
                 className={`fixed inset-0 bg-black/40 transition-opacity duration-300 z-40 ${
-                    prop.isUpdating ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                    prop.isCreating ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
-                onClick={prop.updateHandler}
-                aria-hidden={!prop.isUpdating}
+                onClick={prop.createHandler}
+                aria-hidden={!prop.isCreating}
             />
 
             <div
@@ -63,7 +63,7 @@ export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:(
             bg-white border-2 rounded-2xl p-5 sm:p-8
             text-center
             transition-all duration-500 ease-out
-            ${prop.isUpdating
+            ${prop.isCreating
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 -translate-y-10 pointer-events-none'}
         `}
@@ -91,6 +91,7 @@ export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:(
                                 placeholder="70 kg"
                                 required
                                 className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                type={"number"}
                             />
                             {errors.goalWeight && (
                                 <div className="text-red-500 text-xs mt-1">
@@ -144,7 +145,7 @@ export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:(
                         <button
                             type="button"
                             className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition-colors"
-                            onClick={prop.updateHandler}
+                            onClick={prop.createHandler}
                         >
                             Cancel
                         </button>
@@ -159,7 +160,7 @@ export default function CreateGoalForm(prop:{isUpdating:boolean, updateHandler:(
                         transition-colors shadow-lg
                     "
                         >
-                            {isSubmitting ? 'Saving...' : 'Save Changes'}
+                            {isSubmitting ? 'Creating...' : 'Create'}
                         </button>
                     </div>
                 </form>
