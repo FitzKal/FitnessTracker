@@ -1,14 +1,14 @@
 import {useState} from "react";
-import {getAllGoals, getCurrentDateYYYYMMDD, parseYYYYMMDDToDate} from "../../services/GoalService.ts";
+import {getAllGoals} from "../../services/GoalService.ts";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import {toast} from "react-toastify";
 import GoalProgressBar from "./GoalProgressBar.tsx";
-import DateProgressBar from "./DateProgressBar.tsx";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import CreateGoalForm from "./forms/CreateGoalForm.tsx";
 import UpdateGoalForm from "./forms/UpdateGoalForm.tsx";
 import DeleteMonthlyGoalForm from "./forms/DeleteMonthlyGoalForm.tsx";
+import LatestMonthlyGoal from "./monthlyGoals/LatestMonthlyGoal.tsx";
 
 export default function DisplayGoals(){
 
@@ -85,37 +85,7 @@ export default function DisplayGoals(){
              </div>
 
              <div className={"flex justify-center my-10 flex-col mx-20"}>
-                 <div className="relative border-2 border-black p-6 rounded-md bg-white shadow-md">
-                              <Link to={`/Fitness/goals/monthlyGoals/${data[0].monthlyGoalId}`}
-                                    className="absolute -top-3 left-4 bg-red-100 px-3 rounded-full text-sm font-semibold hover:text-blue-700">
-                                Your current Monthly goal
-                              </Link>
-                     <div className="flex flex-col text-center lg:flex-row lg:justify-between">
-                         <p>Start date: {data[0].startDate}</p>
-                         <p>Current date: {getCurrentDateYYYYMMDD()}</p>
-                         <p>Finish date: {data[0].finishDate}</p>
-                     </div>
-                     <div>
-                         <DateProgressBar startDate={data[0].startDate} endDate={parseYYYYMMDDToDate(data[0].finishDate)}/>
-                     </div>
-                     <div>
-                         <p>Remaining days to exercise: {data[0].exercisesRemaining}</p>
-                         <p>Days exercised: {data[0].exercisesDone}</p>
-                         <p>Recorded weeks: {data[0].weeklyGoals.length}</p>
-                         <p>Current exercise style type selected: {data[0].exerciseType}</p>
-                     </div>
-                     <div className={"grid lg:grid-cols-3 justify-items-center sm:grid-cols-1 mt-5 sm: gap-y-2"}>
-                         <Link to={"/Fitness/workouts"} className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-2xl shadow-md transition-colors">Add new weekly goal</Link>
-                         <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
-                         onClick={handleUpdating} >Edit Goal</button>
-                         <button className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
-                         onClick={handleDeleting}>Delete Goal</button>
-                     </div>
-                     <div className={"mt-5"}>
-                         <Link to={`/Fitness/goals/monthlyGoals/${data[0].monthlyGoalId}`}
-                         className={"hover:text-blue-700"}>To check out your detailed progress statistics for ths goal click here, or the goal name!</Link>
-                     </div>
-                 </div>
+                <LatestMonthlyGoal latestGoalDetail={data[0]} handleUpdating={handleUpdating} handleDeleting={handleDeleting}/>
              </div>
          </div>
        );

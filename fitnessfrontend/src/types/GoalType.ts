@@ -30,7 +30,7 @@ export interface MonthlyGoal{
     exercisesDone:number,
     exercisesRemaining:number,
     currentWeight:number,
-    weeklyGoals:weeklyGoal
+    weeklyGoals:weeklyGoal[]
 
 }
 

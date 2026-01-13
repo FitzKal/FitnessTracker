@@ -65,14 +65,21 @@ export default function ExtendedMonthlyGoal(){
                     className="absolute -top-3 left-4 bg-red-100 px-3 rounded-full text-sm font-semibold">
                     Your Weekly goals
                 </p>
-                {data.weeklyGoals.map((weeklyGoal:weeklyGoal,index:number) => {
-                   return(
-                       <div>
-                           <h2 className={"text-xl"}>Week {index+1}</h2>
-                           <WeeklyGoalShowcase weeklyGoal={weeklyGoal}/>
-                       </div>
-                       )
-                })}
+                {
+                    data.weeklyGoals.length < 1?
+                        <div>
+                            <p>You have not recorded an exercise this week!</p>
+                        </div>
+                        :
+                        data.weeklyGoals.map((weeklyGoal:weeklyGoal,index:number) => {
+                                return(
+                                    <div>
+                                        <h2 className={"text-xl"}>Week {index+1}</h2>
+                                        <WeeklyGoalShowcase weeklyGoal={weeklyGoal}/>
+                                    </div>
+                                )
+                            })
+                }
             </div>
         </div>
     );
