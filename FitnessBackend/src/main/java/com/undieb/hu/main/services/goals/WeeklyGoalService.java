@@ -39,8 +39,13 @@ public class WeeklyGoalService {
     public String deleteWeeklyGoal(Long weeklyGoalId){
         var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(weeklyGoalId);
         var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(weeklyGoal.getMonthlyGoal().getMonthlyGoalId());
+        int allExercisesDone = weeklyGoal.getDailyGoals().size() + weeklyGoal.getExercisesRemaining();
+        monthlyGoal.setExercisesRemaining(
+                monthlyGoal.getExercisesRemaining() + weeklyGoal.getExercisesRemaining()
+        );
         monthlyGoal.removeFromWeeklyGoals(weeklyGoal);
         weeklyGoalRepository.deleteById(weeklyGoalId);
+        monthlyGoalHelper.saveToMonthlyGoalRepository(monthlyGoal);
         return "Weekly Goal successfully deleted";
     }
 
