@@ -59,10 +59,12 @@ export default function ExtendedMonthlyGoal(){
         <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 p-6">
             <UpdateGoalForm defaultGoalDetails={data} isUpdating={isUpdating} updateHandler={handleUpdating}/>
             <DeleteMonthlyGoalForm goalDetails={data} isDeleting={isDeleting} deleteHandler={handleDeleting}/>
+
             <div>
                 <h1 className={"text-center text-4xl"}>Monthly Goal</h1>
                 <p className={"text-center text-4xl mt-2"}>From {data.startDate} To {data.finishDate}</p>
             </div>
+
             <div className={"flex justify-center mx-30 text-center flex-col"}>
                 <p className={"text-2xl mt-2"}>Your weight goal</p>
                 <div className={"flex justify-between"}>
@@ -71,55 +73,64 @@ export default function ExtendedMonthlyGoal(){
                 </div>
                 <GoalProgressBar currentWeight={data.currentWeight} goalWeight={data.goalWeight}/>
             </div>
+
             <div className={"flex justify-center my-10 flex-col mx-20"}>
-                <div className="relative border-2 border-black p-6 rounded-md bg-white shadow-md">
-                    <p
-                          className="absolute -top-3 left-4 bg-red-100 px-3 rounded-full text-sm font-semibold">
+
+                {/* SECTION 1: MONTHLY GOAL */}
+                <fieldset className="border-2 border-black p-6 rounded-md bg-white shadow-md">
+                    <legend className="bg-red-100 px-3 rounded-full text-sm font-semibold ml-4">
                         Your Monthly goal
-                    </p>
+                    </legend>
+
                     <div className="flex flex-col text-center lg:flex-row lg:justify-between">
                         <p>Start date: {data.startDate}</p>
                         <p>Current date: {getCurrentDateYYYYMMDD()}</p>
                         <p>Finish date: {data.finishDate}</p>
                     </div>
+
                     <div>
                         <DateProgressBar startDate={data.startDate} endDate={parseYYYYMMDDToDate(data.finishDate)}/>
                     </div>
+
                     <div>
                         <p>Remaining days to exercise: {data.exercisesRemaining}</p>
                         <p>Days exercised: {data.exercisesDone}</p>
                         <p>Current exercise style type selected: {data.exerciseType}</p>
                     </div>
-                    <div className={"grid lg:grid-cols-3 justify-items-center sm:grid-cols-1 mt-5 sm: gap-y-2"}>
+
+                    <div className={"grid lg:grid-cols-3 justify-items-center sm:grid-cols-1 mt-5 gap-y-2"}>
                         <Link to={"/Fitness/workouts"} className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-2xl shadow-md transition-colors">Add new weekly goal</Link>
                         <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
                                 onClick={handleUpdating} >Edit Goal</button>
                         <button className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
                                 onClick={handleDeleting}>Delete Goal</button>
                     </div>
-               </div>
+                </fieldset>
+
             </div>
-            <div className="relative border-2 border-black p-6 rounded-md bg-white shadow-md mx-20">
-                <p
-                    className="absolute -top-3 left-4 bg-red-100 px-3 rounded-full text-sm font-semibold">
+            <fieldset className="border-2 border-black p-6 rounded-md bg-white shadow-md mx-20 mb-10">
+                <legend className="bg-red-100 px-3 rounded-full text-sm font-semibold ml-4">
                     Your Weekly goals
-                </p>
+                </legend>
+
                 {
-                    data.weeklyGoals.length < 1?
+                    data.weeklyGoals.length < 1 ?
                         <div>
                             <p>You have not recorded an exercise this week!</p>
                         </div>
                         :
-                        data.weeklyGoals.map((weeklyGoal:weeklyGoal,index:number) => {
-                                return(
-                                    <div>
-                                        <h2 className={"text-xl"}>Week {index+1}</h2>
-                                        <WeeklyGoalShowcase weeklyGoal={weeklyGoal}/>
-                                    </div>
-                                )
-                            })
+                        data.weeklyGoals.map((weeklyGoal: weeklyGoal, index: number) => {
+                            return(
+                                <div key={index} className={"mb-5"}>
+                                    <h2 className={"text-xl"}>Week {index+1}</h2>
+                                    <WeeklyGoalShowcase weeklyGoal={weeklyGoal}/>
+                                </div>
+                            )
+                        })
                 }
-            </div>
+
+            </fieldset>
+
         </div>
     );
 }
