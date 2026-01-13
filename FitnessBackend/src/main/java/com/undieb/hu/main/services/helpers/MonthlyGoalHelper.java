@@ -18,7 +18,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import static java.time.DayOfWeek.SUNDAY;
 import static java.time.temporal.TemporalAdjusters.nextOrSame;
@@ -93,9 +95,29 @@ public class MonthlyGoalHelper {
     }
 
     // Validate the provided end date
-    public Boolean checkLocalDateValidity(LocalDate endDate){
-        return endDate.isBefore(LocalDate.now()) &&
-                endDate.lengthOfMonth() - LocalDate.now().getDayOfMonth() < 7;
+    public boolean checkLocalDateValidity(LocalDate endDate) {
+
+        if (endDate == null) {
+            return false;
+        }
+
+        long daysFromNow = ChronoUnit.DAYS.between(LocalDate.now(), endDate);
+        if (daysFromNow < 7) {
+            return false;
+        }
+
+        Optional<MonthlyGoal> latestGoalOpt =
+                monthlyGoalRepository.findAll()
+                        .stream()
+                        .max(Comparator.comparing(MonthlyGoal::getFinishDate));
+
+        if (latestGoalOpt.isEmpty()) {
+            return true;
+        }
+
+        LocalDate latestFinishDate = latestGoalOpt.get().getFinishDate();
+
+        return endDate.isAfter(latestFinishDate);
     }
 
     // Calculate planned exercises per week

@@ -4,14 +4,11 @@ import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.GoalUpdateRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
 import com.undieb.hu.main.models.ExercisesDone;
-import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.services.goals.MonthlyGoalService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController

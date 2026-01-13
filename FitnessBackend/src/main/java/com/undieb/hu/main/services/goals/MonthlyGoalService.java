@@ -4,11 +4,11 @@ import com.undieb.hu.main.controllers.DTOs.goals.CreateGoalRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.GoalUpdateRequest;
 import com.undieb.hu.main.controllers.DTOs.goals.MonthlyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
+import com.undieb.hu.main.exceptions.GoalInvalidDateException;
 import com.undieb.hu.main.exceptions.GoalNotFoundException;
 import com.undieb.hu.main.models.ExercisesDone;
 import com.undieb.hu.main.models.MonthlyGoal;
 import com.undieb.hu.main.models.WeeklyGoal;
-import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.repositories.MonthlyGoalRepository;
 import com.undieb.hu.main.repositories.UserProfileRepository;
 import com.undieb.hu.main.services.JWTService;
@@ -36,8 +36,9 @@ public class MonthlyGoalService {
     public MonthlyGoalDTO createGoal(CreateGoalRequest createGoalRequest, HttpServletRequest request){
         var userProfile = monthlyGoalHelper.checkIfUserProfileExists(request);
 
-        if (monthlyGoalHelper.checkLocalDateValidity(createGoalRequest.getEndDate())){
-            throw new DateTimeException("The finish date should last minimum until the start of the next month.");
+        if (!monthlyGoalHelper.checkLocalDateValidity(createGoalRequest.getEndDate())){
+            throw new GoalInvalidDateException("The finish date should last minimum until the start of the next month,or you might " +
+                    "have an ongoing goal already");
         }
 
         var newGoal = MonthlyGoal.builder().startDate(LocalDate.now())
@@ -68,7 +69,7 @@ public class MonthlyGoalService {
                 .orElseThrow(() ->new GoalNotFoundException("You have no goals created"));
 
         if (LocalDate.now().isAfter(latestGoal.getFinishDate())){
-            throw new RuntimeException("You cannot add exercise to an already expired goal");
+            throw new GoalInvalidDateException("You cannot add exercise to an already expired goal");
         }
 
         var weeklyGoal = latestGoal.getWeeklyGoals();
@@ -129,7 +130,7 @@ public class MonthlyGoalService {
         LocalDate endDate = monthlyGoal.getFinishDate();
         if (goalUpdateRequest.getNewEndDate() != null && !goalUpdateRequest.getNewEndDate().equals(monthlyGoal.getFinishDate())) {
             if (!goalUpdateRequest.getNewEndDate().isAfter(LocalDate.now().plusDays(6))) {
-                throw new DateTimeException(
+                throw new GoalInvalidDateException(
                         "The given end date is incorrect. It must be at least a week after today."
                 );
             }
