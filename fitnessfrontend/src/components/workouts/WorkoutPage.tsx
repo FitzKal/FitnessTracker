@@ -1,18 +1,41 @@
 import {useParams} from "react-router-dom";
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {getWorkoutById} from "../../services/WorkoutService.ts";
 import {useEffect, useState} from "react";
 import type {WorkoutById} from "../../types/WorkoutType.ts";
+import type {ExerciseDone} from "../../types/GoalType.ts";
+import {addExerciseToGoal} from "../../services/GoalService.ts";
+import {toast} from "react-toastify";
 
 export default function WorkoutPage() {
     const {params} = useParams();
     const excId = params !== undefined ? String(params) : undefined;
     const [workoutData, setWorkoutData] = useState<WorkoutById>();
+    const exerciseDetails:ExerciseDone = {
+        exerciseId:workoutData?.exerciseId,
+        exerciseName:workoutData?.name
+    }
 
     const {data, isLoading, isSuccess} = useQuery({
         queryKey: ["workoutById", excId],
         queryFn: async () => {
             return await getWorkoutById(excId);
+        }
+    })
+
+    const addExerciseMutation = useMutation({
+        mutationFn:(details:ExerciseDone)=>addExerciseToGoal(details),
+        onSuccess:(result) => {
+            toast.success(result)
+        },
+        onError:(error) => {
+            if (error instanceof Error){
+                console.log(error);
+                toast.error(error.message);
+            }
+            else {
+                console.log(error)
+            }
         }
     })
 
@@ -30,7 +53,7 @@ export default function WorkoutPage() {
                 <div className={"text-center bg-slate-200 rounded-2xl shadow-sm w-full py-2"}>
                     <h1 className={"text-4xl"}>{workoutData?.name}</h1>
                 </div>
-                <div className={"grid grid-cols-2 gap-10 md:grid-cols-1 lg:grid-cols-2 mx-20 mt-5"}>
+                <div className={"grid grid-cols-1 gap-10 md:grid-cols-1 lg:grid-cols-2 mx-20 mt-5"}>
                     <div className={"bg-slate-100 relative border rounded-l shadow-2xl md:shrink-0"}>
                         <img className="w-full h-full object-cover"
                              src={workoutData?.imageUrls["720p"]} alt={workoutData?.name}/>
@@ -104,10 +127,23 @@ export default function WorkoutPage() {
                 <div className={"flex justify-center"}>
                     <div className={"text-center"}>
                         <h2 className={"text-xl mb-2"}>Video for presentation</h2>
-                        <div className={"border rounded-md md:shrink-0"}>
-                            <video src={workoutData?.videoUrl} autoPlay={false} controls>
+                        <div className={"border rounded-md md:shrink-0 lg:shrink-0"}>
+                            <video  src={workoutData?.videoUrl} autoPlay={false} controls>
                             </video>
                         </div>
+                    </div>
+                </div>
+                <div className={"flex justify-center mt-5"}>
+                    <div className={"flex justify-center mt-5"}>
+                        <button  className="
+                        px-6 py-2 rounded-xl
+                        bg-green-500 hover:bg-green-600
+                        text-white font-bold
+                        transition-colors shadow-lg
+                    "
+                     onClick={() =>{
+                         addExerciseMutation.mutate(exerciseDetails)
+                     }}   >I have done this workout today!</button>
                     </div>
                 </div>
             </div>

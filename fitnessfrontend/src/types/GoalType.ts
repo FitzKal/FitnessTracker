@@ -56,6 +56,11 @@ export const updateGoalRequestSchema = z.object({
     newCurrentWeight:z.number("Current Weight is required").min(40,"Target Weight should be higher"),
 })
 
+export interface ExerciseDone {
+    exerciseName?:string
+    exerciseId?:string
+}
+
 export type updateGoalRequestType = z.infer<typeof updateGoalRequestSchema>;
 
 

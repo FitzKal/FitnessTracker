@@ -1,5 +1,5 @@
 import api from "./AxiosConfig.ts";
-import type {createGoalRequestType, updateGoalRequestType} from "../types/GoalType.ts";
+import type {createGoalRequestType, ExerciseDone, updateGoalRequestType} from "../types/GoalType.ts";
 import {AxiosError} from "axios";
 
 //------------- GetAllGoals -------------
@@ -62,6 +62,19 @@ export const deleteMonthlyGoal = async (goalId:number) => {
             .then(res => res.data)
     }catch (error){
         if (error instanceof Error){
+            throw new Error(error.message);
+        }
+        throw error;
+    }
+}
+
+//------------- AddExerciseToGoal -------------
+export const addExerciseToGoal = async (workoutDetails:ExerciseDone) => {
+    try {
+        return api.post("/goal/addExercise", workoutDetails)
+            .then(res => res.data)
+    } catch (error) {
+        if (error instanceof Error) {
             throw new Error(error.message);
         }
         throw error;
