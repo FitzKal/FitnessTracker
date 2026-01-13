@@ -67,11 +67,11 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
     return (
         <>
             <div
-                className={`fixed inset-0 bg-black/40 transition-opacity duration-300 ${
+                className={`fixed inset-0 bg-black/40 transition-opacity duration-300 z-40 ${
                     prop.isUpdating ? 'opacity-100' : 'opacity-0 pointer-events-none'
                 }`}
                 onClick={prop.updateHandler}
-                aria-hidden={prop.isUpdating ? 'false' : 'true'}
+                aria-hidden={!prop.isUpdating}
             />
 
             <div
@@ -79,117 +79,164 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                 aria-modal="true"
                 aria-label="Update Profile Details"
                 className={`
-        text-center bg-white h-150 w-200 border-2 rounded-2xl p-5
-        fixed left-1/2 -translate-x-1/2 top-6 z-50
-        transition-transform opacity duration-500 ease-out will-change-transform
-        ${prop.isUpdating ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}
-      `}
+            fixed z-50
+            left-1/2 -translate-x-1/2
+            top-4 sm:top-10
+            w-[95%] sm:w-auto
+            max-w-4xl
+            max-h-[90vh]
+            overflow-y-auto
+            bg-white border-2 rounded-2xl
+            p-5 sm:p-8
+            text-center
+            transition-all duration-500 ease-out
+            ${prop.isUpdating
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 -translate-y-10 pointer-events-none'}
+        `}
             >
-                <h1 className="text-3xl">Update Profile Details</h1>
-                <form className="mt-10" onSubmit={handleSubmit(onSubmit)}>
-                    <div className={"flex flex-wrap justify-center gap-x-10 gap-y-8"}>
+                <h1 className="text-2xl sm:text-3xl font-semibold">
+                    Update Profile Details
+                </h1>
 
-                        <div className={"flex flex-col text-left relative"}>
-                            <label className="text-sm font-semibold ml-1 mb-1">First Name</label>
-                            <input {...register("firstName")} placeholder={"First name"}
-                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
+                    <div
+                        className="
+                    grid grid-cols-1
+                    sm:grid-cols-2
+                    lg:grid-cols-3
+                    gap-x-8 gap-y-6
+                    justify-items-center
+                "
+                    >
+                        <div className="flex flex-col text-left relative w-full max-w-xs">
+                            <label className="text-sm font-semibold mb-1">First Name</label>
+                            <input
+                                {...register("firstName")}
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                            />
                             {errors.firstName && (
-                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                <p className="text-red-500 text-xs mt-1">
                                     {errors.firstName.message}
-                                </div>
+                                </p>
                             )}
                         </div>
 
-                        <div className={"flex flex-col text-left relative"}>
-                            <label className="text-sm font-semibold ml-1 mb-1">Last Name</label>
-                            <input {...register("lastName")} placeholder={"Last name"}
-                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                        <div className="flex flex-col text-left relative w-full max-w-xs">
+                            <label className="text-sm font-semibold mb-1">Last Name</label>
+                            <input
+                                {...register("lastName")}
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                            />
                             {errors.lastName && (
-                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                <p className="text-red-500 text-xs mt-1">
                                     {errors.lastName.message}
-                                </div>
+                                </p>
                             )}
                         </div>
 
-                        <div className={"flex flex-col text-left relative"}>
-                            <label className="text-sm font-semibold ml-1 mb-1">Height (cm)</label>
-                            <input {...register("height", { valueAsNumber: true })} type="number" placeholder={"175"}
-                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                        <div className="flex flex-col text-left relative w-full max-w-xs">
+                            <label className="text-sm font-semibold mb-1">Height (cm)</label>
+                            <input
+                                type="number"
+                                {...register("height", { valueAsNumber: true })}
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                            />
                             {errors.height && (
-                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                <p className="text-red-500 text-xs mt-1">
                                     {errors.height.message}
-                                </div>
+                                </p>
                             )}
                         </div>
 
-                        <div className={"flex flex-col text-left relative"}>
-                            <label className="text-sm font-semibold ml-1 mb-1">Weight (kg)</label>
-                            <input {...register("weight", { valueAsNumber: true })} type="number" placeholder={"70"}
-                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
+                        {/* Weight */}
+                        <div className="flex flex-col text-left relative w-full max-w-xs">
+                            <label className="text-sm font-semibold mb-1">Weight (kg)</label>
+                            <input
+                                type="number"
+                                {...register("weight", { valueAsNumber: true })}
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                            />
                             {errors.weight && (
-                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
+                                <p className="text-red-500 text-xs mt-1">
                                     {errors.weight.message}
-                                </div>
+                                </p>
                             )}
                         </div>
 
-                        <div className={"flex flex-col text-left relative"}>
-                            <label className="text-sm font-semibold ml-1 mb-1">Age</label>
-                            <input {...register("age", { valueAsNumber: true })} type="number" placeholder={"18"}
-                                   className={"p-2 border-2 rounded-lg w-64 focus:border-orange-400 outline-none"} />
-                            {errors.weight && (
-                                <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
-                                    {errors.weight.message}
-                                </div>
+                        {/* Age */}
+                        <div className="flex flex-col text-left relative w-full max-w-xs">
+                            <label className="text-sm font-semibold mb-1">Age</label>
+                            <input
+                                type="number"
+                                {...register("age", { valueAsNumber: true })}
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                            />
+                            {errors.age && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.age.message}
+                                </p>
                             )}
                         </div>
 
-                        <div className={"flex flex-col text-left relative"}>
-                            <label className={"pt-1"}>Choose your gender: </label>
-                            <select{...register("gender",{
-                                required:true,
-                            })} className={"bg-white border-2 h-8"}>
+                        <div className="flex flex-col text-left relative w-full max-w-xs">
+                            <label className="text-sm font-semibold mb-1">Gender</label>
+                            <select
+                                {...register("gender")}
+                                className="border-2 h-10 rounded-lg px-2 bg-white"
+                            >
                                 <option value="MALE">Male</option>
-                                <option value="FENALE">Female</option>
+                                <option value="FEMALE">Female</option>
                             </select>
-
                         </div>
 
-                        <div className={"flex flex-col w-full max-w-xl text-left relative"}>
-                            <label className={"text-sm font-semibold ml-1 mb-1"}>Profile Picture</label>
-                            <div>
-                                <input {...register("image")} type={"file"}
-                                       className="block w-full text-sm text-gray-500
-                                       file:mr-4 file:py-2 file:px-4
-                                       file:rounded-full file:border-0
-                                       file:text-sm file:font-semibold
-                                       file:bg-violet-50 file:text-violet-700
-                                       hover:file:bg-violet-100
-                                       cursor-pointer border border-gray-300 rounded-lg"
-                                       accept={"image/jpeg,image/jpg,image/png,image/webp"}/>
-                                {errors.image && (
-                                    <div className={"text-red-500 text-xs mt-1 absolute top-full left-0 whitespace-nowrap"}>
-                                        {errors.image.message as string}
-                                    </div>
-                                )}
-                            </div>
+                        {/* Image upload (full width) */}
+                        <div className="flex flex-col text-left relative w-full sm:col-span-2 lg:col-span-3">
+                            <label className="text-sm font-semibold mb-1">
+                                Profile Picture
+                            </label>
+                            <input
+                                type="file"
+                                {...register("image")}
+                                accept="image/jpeg,image/png,image/webp"
+                                className="
+                            block w-full text-sm text-gray-500
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-violet-50 file:text-violet-700
+                            hover:file:bg-violet-100
+                            border border-gray-300 rounded-lg
+                        "
+                            />
+                            {errors.image && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.image.message as string}
+                                </p>
+                            )}
                         </div>
                     </div>
-                    <div className="flex flex-row mt-15 justify-center gap-6">
+
+                    <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
                         <button
                             type="button"
-                            className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition-colors"
                             onClick={prop.updateHandler}
+                            className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold"
                         >
                             Cancel
                         </button>
-                        <button type="button" className="px-6 py-2 rounded-xl bg-yellow-300 hover:bg-yellow-400 font-semibold transition-colors">
+
+                        <button
+                            type="button"
+                            className="px-6 py-2 rounded-xl bg-yellow-300 hover:bg-yellow-400 font-semibold"
+                        >
                             Change Password
                         </button>
+
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="px-6 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold transition-colors shadow-lg"
+                            className="px-6 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold shadow-lg"
                         >
                             {isSubmitting ? 'Saving...' : 'Save Changes'}
                         </button>
