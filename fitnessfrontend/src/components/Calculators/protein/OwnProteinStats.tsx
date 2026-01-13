@@ -35,7 +35,7 @@ export default function OwnProteinStats(props:{handleProteinIntakeChange:(intake
         return (
             <div className={"flex flex-col text-center justify-center"}>
                 <p className={"text-2xl"}>It seems like you have not created a profile yet!</p>
-                <p className={"text-lg mt-5"}>To have your BMI calculated from your profile, please create one!</p>
+                <p className={"text-sm mt-5 lg:text-xl"}>To have your protein intake calculated from your profile, please create one!</p>
                 <div className={"flex justify-center mt-5"}>
                     <Link to={"/Fitness/CreateProfile"} className={"rounded-xl hover:bg-blue-300 font-semibold transition-colors px-6 py-2"}>Create my profile</Link>
                 </div>
