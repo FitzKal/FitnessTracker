@@ -1,6 +1,6 @@
-import type {dailyGoal, weeklyGoal} from "../../types/GoalType.ts";
-import DateProgressBar from "./DateProgressBar.tsx";
-import DailyGoalShowcase from "./DailyGoalShowcase.tsx";
+import type {dailyGoal, weeklyGoal} from "../../../../types/GoalType.ts";
+import DateProgressBar from "../../DateProgressBar.tsx";
+import DailyGoalShowcase from "../dailyGoals/DailyGoalShowcase.tsx";
 
 export default function WeeklyGoalShowcase(prop:{weeklyGoal:weeklyGoal}){
     return(

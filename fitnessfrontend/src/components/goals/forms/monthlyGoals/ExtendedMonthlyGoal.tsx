@@ -1,12 +1,12 @@
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {getCurrentDateYYYYMMDD, getMonthlyGoalById, parseYYYYMMDDToDate} from "../../services/GoalService.ts";
+import {getCurrentDateYYYYMMDD, getMonthlyGoalById, parseYYYYMMDDToDate} from "../../../../services/GoalService.ts";
 import {useEffect} from "react";
 import {toast} from "react-toastify";
-import GoalProgressBar from "./GoalProgressBar.tsx";
-import DateProgressBar from "./DateProgressBar.tsx";
-import type {weeklyGoal} from "../../types/GoalType.ts";
-import WeeklyGoalShowcase from "./WeeklyGoalShowcase.tsx";
+import GoalProgressBar from "../../GoalProgressBar.tsx";
+import DateProgressBar from "../../DateProgressBar.tsx";
+import type {weeklyGoal} from "../../../../types/GoalType.ts";
+import WeeklyGoalShowcase from "../weeklyGoals/WeeklyGoalShowcase.tsx";
 
 export default function ExtendedMonthlyGoal(){
     const {params} = useParams();
