@@ -9,6 +9,8 @@ import CreateGoalForm from "./forms/CreateGoalForm.tsx";
 import UpdateGoalForm from "./forms/UpdateGoalForm.tsx";
 import DeleteMonthlyGoalForm from "./forms/DeleteMonthlyGoalForm.tsx";
 import LatestMonthlyGoal from "./monthlyGoals/LatestMonthlyGoal.tsx";
+import MonthyGoalShowCase from "./monthlyGoals/MonthyGoalShowCase.tsx";
+import type {MonthlyGoal} from "../../types/GoalType.ts";
 
 export default function DisplayGoals(){
 
@@ -62,7 +64,7 @@ export default function DisplayGoals(){
        );
    }else{
        return (
-         <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
+         <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100 p-5"}>
              <CreateGoalForm isCreating={isCreating} createHandler={handleCreating}/>
              <UpdateGoalForm defaultGoalDetails={data[0]} isUpdating={isUpdating} updateHandler={handleUpdating}/>
              <DeleteMonthlyGoalForm goalDetails={data[0]} isDeleting={isDeleting} deleteHandler={handleDeleting}/>
@@ -86,6 +88,24 @@ export default function DisplayGoals(){
 
              <div className={"flex justify-center my-10 flex-col mx-20"}>
                 <LatestMonthlyGoal latestGoalDetail={data[0]} handleUpdating={handleUpdating} handleDeleting={handleDeleting}/>
+                 <div>
+                     <p className={"mt-5 text-xl border-b-2 border-slate-800"}>Previously set goals</p>
+                 </div>
+                 <div className={"flex justify-center flex-col mt-5"}>
+                     {
+                         data.map((monthlyGoal:MonthlyGoal,index:number)=> {
+                             if (index === 3){
+                                 index++
+                             }else{
+                                 return(
+                                     <div className={"mb-5"}>
+                                         <MonthyGoalShowCase latestGoalDetail={monthlyGoal} handleDeleting={handleDeleting}/>
+                                     </div>
+                                 )
+                             }
+                         })
+                     }
+                 </div>
              </div>
          </div>
        );
