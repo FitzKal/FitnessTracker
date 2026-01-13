@@ -12,7 +12,7 @@ export default function GoalNavBar(){
                         All monthly goals
                     </Link>
                     <Link
-                        to="/Fitness/calculator/protein"
+                        to="/Fitness/goals/weeklyGoals"
                         className="text-lg font-medium px-4 py-2 rounded-lg hover:bg-red-900 transition-colors"
                     >
                         All weekly goals
