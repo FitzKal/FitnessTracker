@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {use, useState} from "react";
 import {getAllGoals, getCurrentDateYYYYMMDD, parseYYYYMMDDToDate} from "../../services/GoalService.ts";
 import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
@@ -6,11 +6,12 @@ import {toast} from "react-toastify";
 import GoalProgressBar from "./GoalProgressBar.tsx";
 import DateProgressBar from "./DateProgressBar.tsx";
 import {Link} from "react-router-dom";
-import CreateGoalForm from "./CreateGoalForm.tsx";
+import CreateGoalForm from "./forms/CreateGoalForm.tsx";
 
 export default function DisplayGoals(){
 
-    const [isUpdating,setUpdating] = useState<boolean>(false);
+    const [isCreating,setIsCreating] = useState<boolean>(false);
+    const [isUpdating, setIsUpdating] = useState<boolean>(false);
     const {data, isLoading,isError,error} = useQuery({
         queryKey:["allGoals"],
         queryFn:async() => await getAllGoals(),
@@ -23,11 +24,19 @@ export default function DisplayGoals(){
         },
     })
 
+    const handleCreating = () => {
+        if (isCreating){
+            setIsCreating(false);
+        }else{
+            setIsCreating(true);
+        }
+    }
+
     const handleUpdating = () => {
         if (isUpdating){
-            setUpdating(false);
+            setIsUpdating(false);
         }else{
-            setUpdating(true);
+            setIsUpdating(true);
         }
     }
 
@@ -41,7 +50,7 @@ export default function DisplayGoals(){
    }else{
        return (
          <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
-             <CreateGoalForm isUpdating={isUpdating} updateHandler={handleUpdating}/>
+             <CreateGoalForm isUpdating={isCreating} updateHandler={handleCreating}/>
              <div className={"text-center text-4xl"}>
                  <p>Welcome to the goal tracker!</p>
              </div>
@@ -57,7 +66,7 @@ export default function DisplayGoals(){
              <div className={"flex justify-center"}>
                  <button
                      className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-2xl shadow-md transition-colors mt-5"
-                     onClick={handleUpdating}>Add new goal</button>
+                     onClick={handleCreating}>Add new goal</button>
              </div>
 
              <div className={"flex justify-center my-10 flex-col mx-20"}>
