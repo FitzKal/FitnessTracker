@@ -1,4 +1,5 @@
 import {ExerciseTypeCalc} from "./ExerciseTypeCalc.ts";
+import {z} from "zod";
 
 export interface dailyGoal {
     id:number,
@@ -37,6 +38,15 @@ export interface GoalProgressBarProps {
     startDate: Date | string;
     endDate: Date | string;
 }
+
+
+export const createGoalRequestSchema = z.object({
+    exerciseType : z.enum(ExerciseTypeCalc),
+    goalWeight:z.number("Goal Weight is required").min(40),
+    endDate:z.date("Date is required for setting up a goal")
+})
+
+export type createGoalRequestType = z.infer<typeof createGoalRequestSchema>;
 
 
 
