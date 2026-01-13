@@ -5,7 +5,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import GoalProgressBar from "./GoalProgressBar.tsx";
 import DateProgressBar from "./DateProgressBar.tsx";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import CreateGoalForm from "./forms/CreateGoalForm.tsx";
 import UpdateGoalForm from "./forms/UpdateGoalForm.tsx";
 import DeleteMonthlyGoalForm from "./forms/DeleteMonthlyGoalForm.tsx";
@@ -15,11 +15,13 @@ export default function DisplayGoals(){
     const [isCreating,setIsCreating] = useState<boolean>(false);
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
     const [isDeleting,setIsDeleting] = useState<boolean>(false);
+    const navigate = useNavigate();
     const {data, isLoading,isError,error} = useQuery({
         queryKey:["allGoals"],
         queryFn:async() => await getAllGoals(),
         retry: (failureCount, error) => {
             if (axios.isAxiosError(error) && error.response?.status === 404) {
+                navigate("/Fitness/createFirstGoal");
                 return false;
             }
             toast.error(error.message);

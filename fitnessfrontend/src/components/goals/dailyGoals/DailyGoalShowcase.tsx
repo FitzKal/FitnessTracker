@@ -1,4 +1,4 @@
-import type {dailyGoal} from "../../../../types/GoalType.ts";
+import type {dailyGoal} from "../../../types/GoalType.ts";
 
 export default function DailyGoalShowcase(prop:{dailyGoal:dailyGoal}){
     return (
