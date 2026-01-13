@@ -55,6 +55,19 @@ export const updateMonthlyGoal = async (updateData:updateGoalRequestType) => {
     }
 }
 
+//------------- DeleteMonthlyGoal -------------
+export const deleteMonthlyGoal = async (goalId:number) => {
+    try{
+        return api.delete(`/goal/deleteMonthlyGoal/${goalId}`)
+            .then(res => res.data)
+    }catch (error){
+        if (error instanceof Error){
+            throw new Error(error.message);
+        }
+        throw error;
+    }
+}
+
 export function getCurrentDateYYYYMMDD(): string {
     const now = new Date();
     return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;

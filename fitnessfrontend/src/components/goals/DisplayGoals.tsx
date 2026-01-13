@@ -8,11 +8,13 @@ import DateProgressBar from "./DateProgressBar.tsx";
 import {Link} from "react-router-dom";
 import CreateGoalForm from "./forms/CreateGoalForm.tsx";
 import UpdateGoalForm from "./forms/UpdateGoalForm.tsx";
+import DeleteMonthlyGoalForm from "./forms/DeleteMonthlyGoalForm.tsx";
 
 export default function DisplayGoals(){
 
     const [isCreating,setIsCreating] = useState<boolean>(false);
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
+    const [isDeleting,setIsDeleting] = useState<boolean>(false);
     const {data, isLoading,isError,error} = useQuery({
         queryKey:["allGoals"],
         queryFn:async() => await getAllGoals(),
@@ -41,6 +43,14 @@ export default function DisplayGoals(){
         }
     }
 
+    const handleDeleting = () => {
+        if (isDeleting){
+            setIsDeleting(false);
+        }else{
+            setIsDeleting(true);
+        }
+    }
+
     const missingGoal = isError && axios.isAxiosError(error) && error.response?.status === 404;
    if (isLoading && !missingGoal){
        return (
@@ -53,6 +63,7 @@ export default function DisplayGoals(){
          <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
              <CreateGoalForm isCreating={isCreating} createHandler={handleCreating}/>
              <UpdateGoalForm defaultGoalDetails={data[0]} isUpdating={isUpdating} updateHandler={handleUpdating}/>
+             <DeleteMonthlyGoalForm goalDetails={data[0]} isDeleting={isDeleting} deleteHandler={handleDeleting}/>
              <div className={"text-center text-4xl"}>
                  <p>Welcome to the goal tracker!</p>
              </div>
@@ -95,7 +106,8 @@ export default function DisplayGoals(){
                          <Link to={"/Fitness/workouts"} className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-2xl shadow-md transition-colors">Add new weekly goal</Link>
                          <button className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
                          onClick={handleUpdating} >Edit Goal</button>
-                         <button className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors">Delete Goal</button>
+                         <button className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
+                         onClick={handleDeleting}>Delete Goal</button>
                      </div>
                      <div className={"mt-5"}>
                          <Link to={`/Fitness/goals/monthlyGoals/${data[0].monthlyGoalId}`}
