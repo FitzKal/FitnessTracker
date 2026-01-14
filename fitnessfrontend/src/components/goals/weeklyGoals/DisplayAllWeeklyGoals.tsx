@@ -24,11 +24,11 @@ export default function DisplayAllWeeklyGoals(){
        return <div className="text-center mt-20 text-xl">Loading...</div>
     }else {
         return(
-            <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
-                <div className={"text-center my-5 text-xl lg:text-4xl"}>
+            <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100 "}>
+                <div className={"text-center text-xl lg:text-4xl "}>
                     <h1>All of your recorded weekly goals</h1>
                 </div>
-                <div className={"mx-20 grid grid-cols-1 lg:grid-cols-3 lg:gap-5"}>
+                <div className={"mx-20 grid grid-cols-1 lg:grid-cols-3 lg:gap-5 mt-10"}>
                     {
                         data.map((weeklyGoal:weeklyGoal) =>{
                             return(
