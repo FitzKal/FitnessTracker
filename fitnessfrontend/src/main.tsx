@@ -23,6 +23,8 @@ import CreateFirstGoal from "./components/goals/CreateFirstGoal.tsx";
 import DisplayAllWeeklyGoals from "./components/goals/weeklyGoals/DisplayAllWeeklyGoals.tsx";
 import DisplayAllDailyGoals from "./components/goals/dailyGoals/DisplayAllDailyGoals.tsx";
 import PreviousExtendedMonthlyGoal from "./components/goals/monthlyGoals/PreviousExtendedMonthlyGoal.tsx";
+import ExtendedWeeklyGoal from "./components/goals/weeklyGoals/ExtendedWeeklyGoal.tsx";
+import ExtendedDailyGoal from "./components/goals/dailyGoals/ExtendedDailyGoal.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -105,9 +107,17 @@ const router = createBrowserRouter([
                         element:<DisplayAllWeeklyGoals/>
                     },
                     {
+                        path:"/Fitness/goals/weeklyGoals/:params",
+                        element:<ExtendedWeeklyGoal/>
+                    },
+                    {
                         path:"/Fitness/goals/dailyGoals",
                         element:<DisplayAllDailyGoals/>
-                    }
+                    },
+                    {
+                        path:"/Fitness/goals/dailyGoals/:params",
+                        element:<ExtendedDailyGoal/>
+                    },
                 ]
             },
             {
