@@ -50,7 +50,7 @@ export default function Profile() {
     }
 
     return (
-        <div className=" ml-10 min-h-screen bg-gradient-to-b from-white to-blue-100 p-8">
+        <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 p-8">
             <UpdateForm isUpdating={isUpdating} updateHandler={handleUpdating} userData={data} />
             <DeleteProfileForm isDeleting={isDeleting} deleteHandler={handleDeleting} />
 

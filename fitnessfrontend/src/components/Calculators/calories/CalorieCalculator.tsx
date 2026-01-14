@@ -21,7 +21,7 @@ export default function CalorieCalculator() {
                 </h1>
             </div>
 
-            <div className="flex justify-center mt-8 sm:ml-10">
+            <div className="flex justify-center mt-8 ">
                 <div className="bg-[#C4A484] w-full max-w-6xl mx-auto border-2 rounded-md pb-4 sm:pb-2">
 
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-12 justify-center bg-[#9E7B59] p-4 sm:p-0 rounded-t-md">
@@ -44,7 +44,6 @@ export default function CalorieCalculator() {
                             Calculate Custom Calorie Consumption
                         </button>
                     </div>
-
                     <div>
                         <h1 className="text-center text-xl sm:text-2xl border-b-2 py-2 bg-[#C4AD97] font-medium">
                             {isOwnCalorieIntake
@@ -54,7 +53,7 @@ export default function CalorieCalculator() {
                     </div>
 
                     <div className="grid lg:grid-cols-2 sm:grid-cols-1 border-b-2 py-4 gap-4">
-                        <div className="flex justify-center">
+                        <div className="flex justify-center lg:mr-auto sm:mr-3">
                             {isOwnCalorieIntake ? (
                                 <CalorieStats handleCalorieIntakeChange={handleCalorieIntakeChange} />
                             ) : (

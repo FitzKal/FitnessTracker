@@ -22,7 +22,7 @@ export default function ProteinCalculator() {
                 </h1>
             </div>
 
-            <div className="flex justify-center mt-8 sm:ml-10">
+            <div className="flex justify-center mt-8 ">
                 <div className="bg-gray-300 w-full max-w-6xl mx-auto border-2 rounded-md pb-4 sm:pb-2">
 
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-12 justify-center bg-gray-400 p-4 sm:p-0 rounded-t-md">
