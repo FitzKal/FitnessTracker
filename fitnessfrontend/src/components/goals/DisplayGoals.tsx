@@ -94,7 +94,7 @@ export default function DisplayGoals(){
                  <div className={"flex justify-center flex-col mt-5"}>
                      {
                          data.map((monthlyGoal:MonthlyGoal,index:number)=> {
-                             if (index === 3){
+                             if (index === 0){
                                  index++
                              }else{
                                  return(
