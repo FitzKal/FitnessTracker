@@ -20,12 +20,6 @@ export default function DisplayAllWeeklyGoals(){
         }
     }, [error,isError]);
 
-    useEffect(() => {
-        if (!isLoading){
-            console.log(data);
-        }
-    }, [isLoading,data]);
-
     if (isLoading){
        return <div className="text-center mt-20 text-xl">Loading...</div>
     }else {

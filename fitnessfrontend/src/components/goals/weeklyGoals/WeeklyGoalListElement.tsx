@@ -7,7 +7,7 @@ export default function WeeklyGoalListElement(prop:{weeklyGoal:weeklyGoal}){
         <div>
             <fieldset className={"border-2 p-6 shadow-md bg-white"}>
                 <legend className={"ml-4 px-2 bg-red-200 rounded-md hover:text-blue-700 hover:bg-red-300"}>
-                <Link to={"/"}>{prop.weeklyGoal.startOfTheWeek.toString()} to {prop.weeklyGoal.endOfTheWeek.toString()}</Link>
+                <Link to={`/Fitness/goals/weeklyGoals/${prop.weeklyGoal.id}`}>{prop.weeklyGoal.startOfTheWeek.toString()} to {prop.weeklyGoal.endOfTheWeek.toString()}</Link>
                 </legend>
                 <div>
                     <div className={"hidden lg:flex lg:justify-between"}>
