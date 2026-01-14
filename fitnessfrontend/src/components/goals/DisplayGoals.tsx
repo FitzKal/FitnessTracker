@@ -64,7 +64,7 @@ export default function DisplayGoals(){
        );
    }else{
        return (
-         <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100 p-5"}>
+         <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100 pb-5"}>
              <CreateGoalForm isCreating={isCreating} createHandler={handleCreating}/>
              <UpdateGoalForm defaultGoalDetails={data[0]} isUpdating={isUpdating} updateHandler={handleUpdating}/>
              <DeleteMonthlyGoalForm goalDetails={data[0]} isDeleting={isDeleting} deleteHandler={handleDeleting}/>

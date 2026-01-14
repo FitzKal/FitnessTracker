@@ -1,10 +1,23 @@
 import type {weeklyGoal} from "../../../types/GoalType.ts";
 import {Link} from "react-router-dom";
 import DateProgressBar from "../DateProgressBar.tsx";
+import {useState} from "react";
+import DeleteWeeklyGoalForm from "../forms/DeleteWeeklyGoalForm.tsx";
 
 export default function WeeklyGoalListElement(prop:{weeklyGoal:weeklyGoal}){
+    const [isDeleting,setIsDeleting] = useState<boolean>(false);
+
+    const deleteHandler = () => {
+        if (isDeleting){
+            setIsDeleting(false)
+        }else {
+            setIsDeleting(true)
+        }
+    }
+
     return(
         <div>
+            <DeleteWeeklyGoalForm goalDetails={prop.weeklyGoal} isDeleting={isDeleting} deleteHandler={deleteHandler}/>
             <fieldset className={"border-2 p-6 shadow-md bg-white"}>
                 <legend className={"ml-4 px-2 bg-red-200 rounded-md hover:text-blue-700 hover:bg-red-300"}>
                 <Link to={`/Fitness/goals/weeklyGoals/${prop.weeklyGoal.id}`}>{prop.weeklyGoal.startOfTheWeek.toString()} to {prop.weeklyGoal.endOfTheWeek.toString()}</Link>
@@ -22,7 +35,8 @@ export default function WeeklyGoalListElement(prop:{weeklyGoal:weeklyGoal}){
                     <span>Days exercised: {prop.weeklyGoal.dailyGoals.length} </span>
                 </div>
                 <div className={"mt-2 flex justify-center"}>
-                    <button className={"px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"}>
+                    <button className={"px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"}
+                    onClick={deleteHandler}>
                         Delete goal
                     </button>
                 </div>
