@@ -75,8 +75,6 @@ export default function ExtendedMonthlyGoal(){
             </div>
 
             <div className={"flex justify-center my-10 flex-col mx-20"}>
-
-                {/* SECTION 1: MONTHLY GOAL */}
                 <fieldset className="border-2 border-black p-6 rounded-md bg-white shadow-md">
                     <legend className="bg-red-100 px-3 rounded-full text-sm font-semibold ml-4">
                         Your Monthly goal
@@ -122,7 +120,7 @@ export default function ExtendedMonthlyGoal(){
                         data.weeklyGoals.map((weeklyGoal: weeklyGoal, index: number) => {
                             return(
                                 <div key={index} className={"mb-5"}>
-                                    <h2 className={"text-xl"}>Week {index+1}</h2>
+                                    <Link to={`/Fitness/goals/weeklyGoals/${weeklyGoal.id}`} className={"text-xl hover:text-blue-700"}>Week {index+1}</Link>
                                     <WeeklyGoalShowcase weeklyGoal={weeklyGoal}/>
                                 </div>
                             )

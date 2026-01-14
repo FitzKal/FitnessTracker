@@ -16,14 +16,19 @@ export default function WeeklyGoalShowcase(prop:{weeklyGoal:weeklyGoal}){
                 <p>Remaining days to exercise: {prop.weeklyGoal.exercisesRemaining}</p>
             </div>
             <div className={"mt-2"}>
-                <p className={"text-lg"}>Recorded Days exercised: </p>
-                {
-                    prop.weeklyGoal.dailyGoals.map((dailyGoal:dailyGoal) => {
-                        return(
-                            <DailyGoalShowcase dailyGoal={dailyGoal}/>
-                        )
-                    })
-                }
+                <p className={"text-lg text-center lg:text-left"}>Recorded Days exercised: </p>
+               <div className={"grid grid-cols-1 justify-items-center mt-3 lg:grid-cols-4 "}>
+                   {
+                       prop.weeklyGoal.dailyGoals.map((dailyGoal:dailyGoal) => {
+                           return(
+                               <div className={"mb-4"}>
+                                   <DailyGoalShowcase dailyGoal={dailyGoal}/>
+                               </div>
+                           )
+                       })
+                   }
+
+               </div>
             </div>
         </div>
     );

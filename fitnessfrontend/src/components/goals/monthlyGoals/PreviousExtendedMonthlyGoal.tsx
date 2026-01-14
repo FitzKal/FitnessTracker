@@ -102,7 +102,7 @@ export default function PreviousExtendedMonthlyGoal(){
                         data.weeklyGoals.map((weeklyGoal:weeklyGoal, index:number) => {
                             return(
                                 <div key={index}>
-                                    <h2 className={"text-xl"}>Week {index+1}</h2>
+                                    <Link to={`/Fitness/goals/weeklyGoals/${weeklyGoal.id}`} className={"text-xl hover:text-blue-700"}>Week {index+1}</Link>
                                     <WeeklyGoalShowcase weeklyGoal={weeklyGoal}/>
                                 </div>
                             )
