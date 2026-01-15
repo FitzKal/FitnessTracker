@@ -25,14 +25,20 @@ public class WeeklyGoalService {
 
     public WeeklyGoalDTO getWeeklyGoalById(Long id){
         var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(id);
-        return goalConverter.weeklyGoalToWeeklyGoalDTO(weeklyGoal);
+        var convertedWeeklyGoal = goalConverter.weeklyGoalToWeeklyGoalDTO(weeklyGoal);
+        convertedWeeklyGoal.setParentMonthId(weeklyGoal.getMonthlyGoal().getMonthlyGoalId());
+        return convertedWeeklyGoal;
     }
 
     public List<WeeklyGoalDTO> getAllWeeklyGoals(HttpServletRequest request){
         var userName = jwtService.getUserFromRequest(request).getUsername();
         return weeklyGoalRepository.findAll().stream()
                 .filter(goal ->goal.getMonthlyGoal().getUserProfile().getUser().getUsername().equals(userName))
-                .map(goalConverter::weeklyGoalToWeeklyGoalDTO)
+                .map(weeklyGoal -> {
+                    var convertedWeeklyGoal = goalConverter.weeklyGoalToWeeklyGoalDTO(weeklyGoal);
+                    convertedWeeklyGoal.setParentMonthId(weeklyGoal.getMonthlyGoal().getMonthlyGoalId());
+                    return convertedWeeklyGoal;
+                })
                 .sorted(Comparator.comparing(WeeklyGoalDTO::getEndOfTheWeek).reversed())
                 .collect(Collectors.toList());
     }

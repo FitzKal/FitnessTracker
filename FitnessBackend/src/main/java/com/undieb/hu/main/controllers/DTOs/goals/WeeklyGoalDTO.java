@@ -18,4 +18,5 @@ public class WeeklyGoalDTO {
     private LocalDate startOfTheWeek;
     private LocalDate endOfTheWeek;
     private List<DailyGoalDTO> dailyGoals;
+    private Long parentMonthId;
 }
