@@ -56,7 +56,7 @@ export default function ExtendedMonthlyGoal(){
 
     if (isLoading) return <div className="text-center mt-20 text-xl">Loading...</div>;
     return (
-        <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 p-6">
+        <div className="min-h-screen bg-gray-50 p-6">
             <UpdateGoalForm defaultGoalDetails={data} isUpdating={isUpdating} updateHandler={handleUpdating}/>
             <DeleteMonthlyGoalForm goalDetails={data} isDeleting={isDeleting} deleteHandler={handleDeleting}/>
 

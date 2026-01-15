@@ -8,6 +8,7 @@ import type {dailyGoal} from "../../../types/GoalType.ts";
 import DailyGoalListed from "../dailyGoals/DailyGoalListed.tsx";
 import axios from "axios";
 import DeleteWeeklyGoalForm from "../forms/DeleteWeeklyGoalForm.tsx";
+import {ChevronLeftIcon} from "@heroicons/react/16/solid";
 
 export default function ExtendedWeeklyGoal(){
     const {params} = useParams();
@@ -38,13 +39,29 @@ export default function ExtendedWeeklyGoal(){
         return <div className="text-center mt-20 text-xl">Loading...</div>
     }else {
         return (
-            <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 p-6">
+            <div className="min-h-screen bg-gray-50 pb-10">
                 <DeleteWeeklyGoalForm goalDetails={data} isDeleting={isDeleting} deleteHandler={deleteHandler}/>
-                <div className={"flex flex-col text-center mb-5"}>
-                    <h1 className={"text-xl lg:text-4xl"}>Weekly goal</h1>
-                    <h2 className={"text-lg mt-5 lg:text-2xl"}>{data.startOfTheWeek} - {data.endOfTheWeek}</h2>
+                <div className="bg-white shadow-sm border-b border-gray-200">
+                    <div className="max-w-3xl mx-auto px-4 py-6">
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                            <div>
+                                <h1 className="text-3xl font-bold text-gray-900">Weekly Goal</h1>
+                                <div className={"flex space-x-1"}>
+                                    <p className="text-blue-600 font-medium mt-1 text-lg">{data.startOfTheWeek.toString()} - </p>
+                                    <p className="text-blue-600 font-medium mt-1 text-lg">{data.endOfTheWeek.toString()}</p>
+                                </div>
+                            </div>
+                            <div className="flex space-x-3 text-sm font-medium">
+                                <Link to={`/Fitness/goals/monthlyGoals/${data.parentMonthId}`} className="flex items-center text-gray-500 hover:text-blue-600 transition-colors">
+                                    <ChevronLeftIcon className="w-4 h-4 mr-1" />
+                                    Month
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className={"mx-20"}>
+
+                <div className={"mx-20 mt-10"}>
                     <fieldset className={"border-2 p-6 shadow-md border-slate-200 bg-white"}>
                         <legend className={"ml-4 px-2 bg-blue-200 rounded-md"}>
                             <p>Weekly goal</p>
