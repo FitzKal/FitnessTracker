@@ -24,7 +24,10 @@ public class DailyGoalService {
 
     public DailyGoalDTO getDailyGoalById(Long id){
         var dailyGoal = monthlyGoalHelper.fetchDailyGoalById(id);
-        return goalConverter.dailyGoalToDailyGoalDTO(dailyGoal);
+        var convertedDailyGoal = goalConverter.dailyGoalToDailyGoalDTO(dailyGoal);
+        convertedDailyGoal.setParentWeekId(dailyGoal.getWeeklyGoal().getId());
+        convertedDailyGoal.setParentMonthId(dailyGoal.getWeeklyGoal().getMonthlyGoal().getMonthlyGoalId());
+        return convertedDailyGoal;
     }
 
     public List<DailyGoalDTO> getAllDailyGoals(HttpServletRequest request){
@@ -32,7 +35,12 @@ public class DailyGoalService {
         return dailyGoalRepository.findAll().stream()
                 .filter(goal->goal.getWeeklyGoal().getMonthlyGoal()
                         .getUserProfile().getUser().getUsername().equals(username))
-                .map(goalConverter::dailyGoalToDailyGoalDTO).
+                .map(dailyGoal -> {
+                    var convertedDailyGoal = goalConverter.dailyGoalToDailyGoalDTO(dailyGoal);
+                    convertedDailyGoal.setParentWeekId(dailyGoal.getWeeklyGoal().getId());
+                    convertedDailyGoal.setParentMonthId(dailyGoal.getWeeklyGoal().getMonthlyGoal().getMonthlyGoalId());
+                    return convertedDailyGoal;
+                }).
                 sorted(Comparator.comparing(DailyGoalDTO::getDateOfExercise).reversed())
                 .collect(Collectors.toList());
     }

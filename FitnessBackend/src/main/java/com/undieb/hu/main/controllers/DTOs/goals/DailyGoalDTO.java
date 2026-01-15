@@ -17,4 +17,6 @@ public class DailyGoalDTO {
     private Long id;
     private LocalDate dateOfExercise;
     private List<ExercisesDone> exercisesDone;
+    private Long parentWeekId;
+    private Long parentMonthId;
 }
