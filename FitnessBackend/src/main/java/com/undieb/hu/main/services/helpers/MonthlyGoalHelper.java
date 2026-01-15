@@ -58,7 +58,7 @@ public class MonthlyGoalHelper {
     // Create a new WeeklyGoal starting today and add today's DailyGoal with one exercise
     public void addNewWeaklyGoalAndExercise(MonthlyGoal monthlyGoal, ExercisesDone exercisesDone){
         int weeklyExercises = Math.max(
-                1,
+                0,
                 calculateWeeklyExercises(
                         monthlyGoal.getExerciseType(),
                         monthlyGoal.getStartDate(),

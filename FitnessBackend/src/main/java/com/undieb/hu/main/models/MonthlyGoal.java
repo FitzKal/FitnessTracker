@@ -56,11 +56,21 @@ public class MonthlyGoal {
     public void markExerciseDone() {
         this.exercisesDone++;
         this.exercisesRemaining--;
+        if (this.exercisesRemaining < 0){
+            setExercisesRemaining(0);
+        }
     }
 
     public void markExerciseUnDone() {
         this.exercisesDone--;
-        this.exercisesRemaining++;
+        if (this.exercisesRemaining == 0){
+            setExercisesRemaining(0);
+        }else {
+            this.exercisesRemaining++;
+        }
+        if (this.exercisesDone < 0){
+            setExercisesDone(0);
+        }
     }
 
     @Override

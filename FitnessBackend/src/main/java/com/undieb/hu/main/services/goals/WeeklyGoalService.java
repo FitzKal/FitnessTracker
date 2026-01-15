@@ -2,6 +2,7 @@ package com.undieb.hu.main.services.goals;
 
 import com.undieb.hu.main.controllers.DTOs.goals.WeeklyGoalDTO;
 import com.undieb.hu.main.converters.GoalConverter;
+import com.undieb.hu.main.models.enums.ExerciseTypeCalc;
 import com.undieb.hu.main.repositories.WeeklyGoalRepository;
 import com.undieb.hu.main.services.JWTService;
 import com.undieb.hu.main.services.helpers.MonthlyGoalHelper;
@@ -39,9 +40,14 @@ public class WeeklyGoalService {
     public String deleteWeeklyGoal(Long weeklyGoalId){
         var weeklyGoal = monthlyGoalHelper.fetchWeeklyGoalById(weeklyGoalId);
         var monthlyGoal = monthlyGoalHelper.fetchMonthlyGoalById(weeklyGoal.getMonthlyGoal().getMonthlyGoalId());
-        int allExercisesDone = weeklyGoal.getDailyGoals().size() + weeklyGoal.getExercisesRemaining();
-        monthlyGoal.setExercisesRemaining(
-                monthlyGoal.getExercisesRemaining() + weeklyGoal.getExercisesRemaining()
+        int allExercisesDone = weeklyGoal.getDailyGoals().size();
+        if (!(monthlyGoal.getExercisesRemaining() == 0 && monthlyGoal.getExerciseType()== ExerciseTypeCalc.SEDENTARY)){
+            monthlyGoal.setExercisesRemaining(
+                    monthlyGoal.getExercisesRemaining() + allExercisesDone
+            );
+        }
+        monthlyGoal.setExercisesDone(
+                monthlyGoal.getExercisesDone() -  allExercisesDone
         );
         monthlyGoal.removeFromWeeklyGoals(weeklyGoal);
         weeklyGoalRepository.deleteById(weeklyGoalId);
