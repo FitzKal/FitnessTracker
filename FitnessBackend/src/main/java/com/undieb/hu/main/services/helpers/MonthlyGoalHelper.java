@@ -51,7 +51,9 @@ public class MonthlyGoalHelper {
                 .dateOfExercise(LocalDate.now())
                 .build();
         weeklyGoal.addToDailyGoals(newDailyGoal);
-        weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining()-1);
+        if (weeklyGoal.getExercisesRemaining() != 0){
+            weeklyGoal.setExercisesRemaining(weeklyGoal.getExercisesRemaining()-1);
+        }
         weeklyGoal.getMonthlyGoal().markExerciseDone();
     }
 
