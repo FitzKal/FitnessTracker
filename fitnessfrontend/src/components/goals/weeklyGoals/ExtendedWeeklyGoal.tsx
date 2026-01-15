@@ -78,10 +78,7 @@ export default function ExtendedWeeklyGoal(){
                             <span>Days to exercise remaining: {data.exercisesRemaining}</span>
                             <span>Days exercised: {data.dailyGoals.length} </span>
                         </div>
-                        <div className={"mt-2 grid grid-cols-1 lg:grid-cols-2 text-center justify-items-center"}>
-                            <Link to={`/Fitness/goals/monthlyGoals/${data.parentMonthId}`}
-                                  className={"px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-2xl shadow-md transition-colors mt-2 lg:mt-0"}
-                            >To Parent month</Link>
+                        <div className={"mt-2 flex justify-center"}>
                             <button className={"px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors mt-2 lg:mt-0"}
                             onClick={deleteHandler}>
                                 Delete goal
