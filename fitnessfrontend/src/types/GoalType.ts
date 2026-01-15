@@ -5,6 +5,8 @@ export interface dailyGoal {
     id:number,
     dateOfExercise:Date,
     exercisesDone:ExercisesDone[]
+    parentWeekId?:number,
+    parentMonthId?:number
 }
 
 export type ExercisesDone = {
@@ -18,7 +20,8 @@ export interface weeklyGoal {
     exercisesRemaining:number,
     startOfTheWeek:Date,
     endOfTheWeek:Date,
-    dailyGoals:dailyGoal[]
+    dailyGoals:dailyGoal[],
+    parentMonthId?:number
 }
 
 export interface MonthlyGoal{
