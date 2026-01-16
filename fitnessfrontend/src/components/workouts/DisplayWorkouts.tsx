@@ -108,9 +108,9 @@ export default function DisplayWorkouts(){
                         <p>You can check out the list of all the available workouts, or <strong>search</strong> your desired workout!</p>
                     </div>
                     <div className={"flex justify-center gap-x-5 my-2"}>
-                        <button className={`${!searchByName?"bg-green-300 ":"bg-green-500"} px-5 rounded-lg transition delay-50 ease-in-out hover:bg-green-500`}
+                        <button className={`${!searchByName?"bg-green-300 dark:bg-green-600 ":"bg-green-600 dark:bg-green-900"} px-5 rounded-lg transition delay-50 ease-in-out hover:bg-green-600 dark:hover:bg-green-900 `}
                         onClick={handleSearchChange}>Search by name</button>
-                        <button className={`${!isInDepthFiltered?"bg-blue-300":"bg-blue-500"} px-5 rounded-lg transition delay-50 ease-in-out hover:bg-blue-500`}
+                        <button className={`${!isInDepthFiltered?"bg-blue-300 dark:bg-blue-600":"bg-blue-500 dark:bg-blue-900"} px-5 rounded-lg transition delay-50 ease-in-out hover:bg-blue-500 dark:hover:bg-blue-900`}
                                 onClick={handleFilterChange}>More in-depth filtering </button>
                     </div>
                     {
@@ -142,10 +142,10 @@ export default function DisplayWorkouts(){
                       </div>
                    </ul>
                     <div className={"flex justify-center gap-x-20 pb-2"}>
-                        <button className={"bg-red-300 px-5 rounded-lg transition delay-50 ease-in-out hover:bg-red-500"}
+                        <button className={"bg-red-300 dark:bg-red-500 px-5 rounded-lg transition delay-50 ease-in-out hover:bg-red-500 dark:hover:bg-red-800"}
                                 onClick={handlePageBackward} disabled={isSearchEnabled}>page back</button>
-                        <span className={"bg-white border border-slate-300 rounded-2xl px-5"}>Page number {page}</span>
-                        <button className={"bg-red-300 px-5 rounded-lg transition delay-50 ease-in-out hover:bg-red-500"}
+                        <span className={"bg-white border border-slate-300 dark:bg-surface dark:border-surface-border dark:border-surface-border rounded-2xl px-5"}>Page number {page}</span>
+                        <button className={"bg-red-300 dark:bg-red-500 px-5 rounded-lg transition delay-50 ease-in-out hover:bg-red-500 dark:hover:bg-red-800"}
                                 onClick={handlePageForward} disabled={isSearchEnabled}>next page</button>
                     </div>
                 </div>

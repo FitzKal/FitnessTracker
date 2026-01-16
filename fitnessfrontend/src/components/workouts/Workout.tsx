@@ -20,7 +20,8 @@ export default function Workout(prop: { workoutDetails: WorkoutListElement }) {
 
     return (
         <div className="w-full max-w-6xl mx-auto p-4">
-            <div className="bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col md:flex-row items-stretch">
+            <div className="bg-white border border-slate-200
+            dark:border-surface-border dark:bg-surface rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden flex flex-col md:flex-row items-stretch">
 
                 <div className="relative w-full md:w-64 h-48 md:h-auto shrink-0 bg-slate-100">
                     <img
@@ -35,7 +36,7 @@ export default function Workout(prop: { workoutDetails: WorkoutListElement }) {
                     <div className="lg:col-span-1">
                         <Label>Workout Name</Label>
                         <Link to={`/Fitness/workouts/${workoutDetails.exerciseId}`}
-                              className="text-xl font-black text-slate-800 leading-tight transition delay-25 ease-in-out hover:text-blue-600">
+                              className="text-xl font-black leading-tight transition delay-25 ease-in-out hover:text-blue-600">
                             {workoutDetails.name}
                         </Link>
                     </div>
