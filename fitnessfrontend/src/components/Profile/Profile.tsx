@@ -51,7 +51,7 @@ export default function Profile() {
     if ((isLoading && !missingProfile) || latestGoalLoading) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <h1 className="text-4xl font-semibold text-blue-800">Loading Profile...</h1>
+                <h1 className="text-4xl font-semibold ">Loading Profile...</h1>
             </div>
         );
     }

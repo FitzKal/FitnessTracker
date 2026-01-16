@@ -6,12 +6,12 @@ import type {MonthlyGoal} from "../../../types/GoalType.ts";
 export default function LatestMonthlyGoal(prop:{latestGoalDetail:MonthlyGoal, handleUpdating:() => void, handleDeleting:() => void}){
     return(
         <div className="w-full">
-            <fieldset className="border-2 border-black rounded-md bg-white shadow-md p-6">
+            <fieldset className="border-2 border-black rounded-md bg-white dark:bg-surface dark:border-surface-border shadow-md p-6">
 
                 <legend className="px-2 ml-4">
                     <Link
                         to={`/Fitness/goals/monthlyGoals/${prop.latestGoalDetail.monthlyGoalId}`}
-                        className="bg-red-100 px-3 py-1 rounded-full text-sm font-semibold hover:text-blue-700"
+                        className="bg-red-100 dark:bg-red-600 px-3 py-1 rounded-full text-sm font-semibold hover:text-blue-700"
                     >
                         Your current Monthly goal
                     </Link>

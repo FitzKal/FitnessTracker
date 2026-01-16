@@ -58,13 +58,13 @@ export default function DisplayGoals(){
     const missingGoal = isError && axios.isAxiosError(error) && error.response?.status === 404;
    if (isLoading && !missingGoal){
        return (
-           <div className="flex justify-center text-center h-screen">
+           <div className="flex justify-center text-center h-screen dark:bg-background">
                <h1 className="text-4xl font-semibold text-blue-800">Loading Goals...</h1>
            </div>
        );
    }else{
        return (
-         <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100 pb-5"}>
+         <div className={"min-h-screen pb-5"}>
              <CreateGoalForm isCreating={isCreating} createHandler={handleCreating}/>
              <UpdateGoalForm defaultGoalDetails={data[0]} isUpdating={isUpdating} updateHandler={handleUpdating}/>
              <DeleteMonthlyGoalForm goalDetails={data[0]} isDeleting={isDeleting} deleteHandler={handleDeleting}/>
@@ -82,7 +82,7 @@ export default function DisplayGoals(){
 
              <div className={"flex justify-center"}>
                  <button
-                     className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-2xl shadow-md transition-colors mt-5"
+                     className="px-6 py-3 bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700 text-white font-semibold rounded-2xl shadow-md transition-colors mt-5"
                      onClick={handleCreating}>Add new goal</button>
              </div>
 
@@ -94,7 +94,7 @@ export default function DisplayGoals(){
                  <div className={"flex justify-center flex-col mt-5"}>
                      {
                          data.map((monthlyGoal:MonthlyGoal,index:number)=> {
-                             if (index === 0){
+                             if (index === 5){
                                  index++
                              }else{
                                  return(

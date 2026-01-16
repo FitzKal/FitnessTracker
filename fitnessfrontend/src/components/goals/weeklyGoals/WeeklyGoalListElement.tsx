@@ -18,8 +18,8 @@ export default function WeeklyGoalListElement(prop:{weeklyGoal:weeklyGoal}){
     return(
         <div>
             <DeleteWeeklyGoalForm goalDetails={prop.weeklyGoal} isDeleting={isDeleting} deleteHandler={deleteHandler}/>
-            <fieldset className={"border-2 p-6 shadow-md bg-white"}>
-                <legend className={"ml-4 px-2 bg-red-200 rounded-md hover:text-blue-700 hover:bg-red-300"}>
+            <fieldset className={"border-2 p-6 shadow-md bg-white dark:bg-surface dark:border-surface-border"}>
+                <legend className={"ml-4 px-2 bg-red-200 dark:bg-red-600 rounded-md hover:text-blue-700 hover:bg-red-300"}>
                 <Link to={`/Fitness/goals/weeklyGoals/${prop.weeklyGoal.id}`}>{prop.weeklyGoal.startOfTheWeek.toString()} to {prop.weeklyGoal.endOfTheWeek.toString()}</Link>
                 </legend>
                 <div>

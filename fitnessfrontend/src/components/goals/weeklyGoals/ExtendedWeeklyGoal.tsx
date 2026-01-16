@@ -39,13 +39,13 @@ export default function ExtendedWeeklyGoal(){
         return <div className="text-center mt-20 text-xl">Loading...</div>
     }else {
         return (
-            <div className="min-h-screen bg-gray-50 pb-10">
+            <div className="min-h-screen pb-10">
                 <DeleteWeeklyGoalForm goalDetails={data} isDeleting={isDeleting} deleteHandler={deleteHandler}/>
-                <div className="bg-white shadow-sm border-b border-gray-200">
+                <div className="bg-white shadow-sm border-b border-gray-200 dark:border-surface-border dark:bg-surface">
                     <div className="max-w-3xl mx-auto px-4 py-6">
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                             <div>
-                                <h1 className="text-3xl font-bold text-gray-900">Weekly Goal</h1>
+                                <h1 className="text-3xl font-bold ">Weekly Goal</h1>
                                 <div className={"flex space-x-1"}>
                                     <p className="text-blue-600 font-medium mt-1 text-lg">{data.startOfTheWeek.toString()} - </p>
                                     <p className="text-blue-600 font-medium mt-1 text-lg">{data.endOfTheWeek.toString()}</p>
@@ -62,8 +62,8 @@ export default function ExtendedWeeklyGoal(){
                 </div>
 
                 <div className={"mx-20 mt-10"}>
-                    <fieldset className={"border-2 p-6 shadow-md border-slate-200 bg-white"}>
-                        <legend className={"ml-4 px-2 bg-blue-200 rounded-md"}>
+                    <fieldset className={"border-2 p-6 shadow-md border-slate-200 dark:bg-surface dark:border-surface-border bg-white"}>
+                        <legend className={"ml-4 px-2 bg-blue-200 dark:bg-blue-700 rounded-md"}>
                             <p>Weekly goal</p>
                         </legend>
                         <div>
@@ -73,8 +73,7 @@ export default function ExtendedWeeklyGoal(){
                             </div>
                             <DateProgressBar startDate={data.startOfTheWeek} endDate={data.endOfTheWeek}/>
                         </div>
-                        <div
-                            className={"grid grid-cols-1 text-center mt-2 lg:grid-cols-2 lg:gap-5 sm:justify-items-center lg:text-left"}>
+                        <div className={"grid grid-cols-1 text-center mt-2 lg:grid-cols-2 lg:gap-5 sm:justify-items-center lg:text-left"}>
                             <span>Days to exercise remaining: {data.exercisesRemaining}</span>
                             <span>Days exercised: {data.dailyGoals.length} </span>
                         </div>
@@ -85,7 +84,7 @@ export default function ExtendedWeeklyGoal(){
                             </button>
                         </div>
                     </fieldset>
-                    <div className={"border-b-2 mt-10"}>
+                    <div className={"border-b-2 dark:border-surface-border mt-10"}>
                         <h3 className={"text-xl"}>Recorded days exercised this week</h3>
                     </div>
                     <div className={"grid grid-cols-1 mt-5 lg:grid-cols-3 gap-5"}>

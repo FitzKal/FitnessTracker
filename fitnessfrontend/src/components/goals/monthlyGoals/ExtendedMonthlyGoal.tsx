@@ -56,7 +56,7 @@ export default function ExtendedMonthlyGoal(){
 
     if (isLoading) return <div className="text-center mt-20 text-xl">Loading...</div>;
     return (
-        <div className="min-h-screen bg-gray-50 p-6">
+        <div className="min-h-screen  p-6">
             <UpdateGoalForm defaultGoalDetails={data} isUpdating={isUpdating} updateHandler={handleUpdating}/>
             <DeleteMonthlyGoalForm goalDetails={data} isDeleting={isDeleting} deleteHandler={handleDeleting}/>
 
@@ -75,8 +75,8 @@ export default function ExtendedMonthlyGoal(){
             </div>
 
             <div className={"flex justify-center my-10 flex-col mx-20"}>
-                <fieldset className="border-2 border-black p-6 rounded-md bg-white shadow-md">
-                    <legend className="bg-red-100 px-3 rounded-full text-sm font-semibold ml-4">
+                <fieldset className="border-2 border-black p-6 rounded-md bg-white dark:bg-surface dark:border-surface-border shadow-md">
+                    <legend className="bg-red-100 dark:bg-red-600 px-3 rounded-full text-sm font-semibold ml-4">
                         Your Monthly goal
                     </legend>
 
@@ -106,8 +106,8 @@ export default function ExtendedMonthlyGoal(){
                 </fieldset>
 
             </div>
-            <fieldset className="border-2 border-black p-6 rounded-md bg-white shadow-md mx-20 mb-10">
-                <legend className="bg-red-100 px-3 rounded-full text-sm font-semibold ml-4">
+            <fieldset className="border-2 dark:bg-surface dark:border-surface-border border-black p-6 rounded-md bg-white shadow-md mx-20 mb-10">
+                <legend className="bg-red-100 dark:bg-red-600 px-3 rounded-full text-sm font-semibold ml-4">
                     Your Weekly goals
                 </legend>
 

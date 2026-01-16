@@ -6,11 +6,11 @@ import type {MonthlyGoal} from "../../../types/GoalType.ts";
 export default function MonthlyGoalShowCase(prop:{latestGoalDetail:MonthlyGoal, handleDeleting:() => void}){
     return(
         <div>
-            <fieldset className="border-2 border-black p-6 rounded-md bg-white shadow-md">
+            <fieldset className="border-2 border-black p-6 dark:bg-surface dark:border-surface-border rounded-md bg-white shadow-md">
                 <legend className="px-2 ml-4">
                     <Link
                         to={`/Fitness/goals/monthlyGoals/previous/${prop.latestGoalDetail.monthlyGoalId}`}
-                        className="bg-red-100 px-3 py-1 rounded-full text-sm font-semibold hover:text-blue-700"
+                        className="bg-red-100 dark:bg-red-600 px-3 py-1 rounded-full text-sm font-semibold hover:text-blue-700"
                     >
                         Monthly goal
                     </Link>

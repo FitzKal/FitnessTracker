@@ -14,7 +14,7 @@ export default function DailyGoalListElement(prop:{dailyGoal:dailyGoal}){
 
     return (
         <div>
-            <div className={"border-2 border-slate-200 p-5 shadow-md bg-white h-[300px] flex flex-col justify-between mb-5"}>
+            <div className={"border-2 border-slate-200 p-5 shadow-md bg-white dark:bg-surface dark:border-surface-border h-[300px] flex flex-col justify-between mb-5"}>
                 <DeleteDailyGoalForm goalDetails={prop.dailyGoal} isDeleting={isDeleting} deleteHandler={deleteHandler}/>
                 <div>
                     <div className={"text-center"}>

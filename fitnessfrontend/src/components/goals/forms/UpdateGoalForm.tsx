@@ -72,6 +72,7 @@ export default function UpdateGoalForm(prop:{defaultGoalDetails:MonthlyGoal,isUp
             max-h-[90vh]
             overflow-y-auto
             bg-white border-2 rounded-2xl p-5 sm:p-8
+            dark:border-surface-border dark:bg-surface
             text-center
             transition-all duration-500 ease-out
             ${prop.isUpdating
@@ -95,7 +96,7 @@ export default function UpdateGoalForm(prop:{defaultGoalDetails:MonthlyGoal,isUp
                                 type="number"
                                 placeholder="70 kg"
                                 required
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none bg-white text-black"
                             />
                             <div className="absolute top-full left-0 text-red-500 text-xs mt-1 h-4">
                                 {errors.newGoalWeight?.message}
@@ -111,7 +112,7 @@ export default function UpdateGoalForm(prop:{defaultGoalDetails:MonthlyGoal,isUp
                                 type="number"
                                 placeholder="70 kg"
                                 required
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none bg-white text-black"
                             />
                             <div className="absolute top-full left-0 text-red-500 text-xs mt-1 h-4">
                                 {errors.newCurrentWeight?.message}
@@ -124,7 +125,7 @@ export default function UpdateGoalForm(prop:{defaultGoalDetails:MonthlyGoal,isUp
                             </label>
                             <select
                                 {...register("exerciseTypeCalc")}
-                                className="bg-white border-2 h-10 rounded-lg px-2"
+                                className="bg-white border-2 h-10 rounded-lg px-2  text-black"
                             >
                                 <option value="SEDENTARY">Sedentary</option>
                                 <option value="LIGHT">Light</option>
@@ -142,7 +143,7 @@ export default function UpdateGoalForm(prop:{defaultGoalDetails:MonthlyGoal,isUp
                             <input
                                 type="date"
                                 {...register("newEndDate", { valueAsDate: true })}
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none bg-white text-black"
                             />
                             <div className="absolute top-full left-0 text-red-500 text-xs mt-1 h-4">
                                 {errors.newEndDate?.message}
@@ -153,7 +154,7 @@ export default function UpdateGoalForm(prop:{defaultGoalDetails:MonthlyGoal,isUp
                     <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
                         <button
                             type="button"
-                            className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition-colors"
+                            className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 font-semibold transition-colors"
                             onClick={prop.updateHandler}
                         >
                             Cancel

@@ -14,7 +14,7 @@ export default function GoalProgressBar(prop:{currentWeight:number, goalWeight:n
     };
 
     return (
-        <div className="w-full h-5 bg-gray-200 rounded-md overflow-hidden border-2">
+        <div className="w-full h-5 bg-gray-200 dark:border-surface-border rounded-md overflow-hidden border-2">
             <div
                 className={`h-full ${returnBarColour(prop.currentWeight,prop.goalWeight)} transition-all duration-300 ease-out`}
                 style={{ width: `${returnPercentage(prop.currentWeight,prop.goalWeight)}%` }}

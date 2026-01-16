@@ -67,20 +67,20 @@ export default function ExtendedDailyGoal() {
 
     if (isLoading) {
         return (
-            <div className="flex h-screen items-center justify-center bg-gray-50">
+            <div className="flex h-screen items-center justify-center">
                 <div className="animate-pulse text-xl text-blue-600 font-medium">Loading Goal...</div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-10">
+        <div className="min-h-screen pb-10">
             <DeleteDailyGoalForm goalDetails={data} isDeleting={isDeleting} deleteHandler={deleteHandler}/>
-            <div className="bg-white shadow-sm border-b border-gray-200">
+            <div className="bg-white shadow-sm border-b border-gray-200 dark:bg-surface dark:border-surface-border">
                 <div className="max-w-3xl mx-auto px-4 py-6">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div>
-                            <h1 className="text-3xl font-bold text-gray-900">Daily Goal</h1>
+                            <h1 className="text-3xl font-bold ">Daily Goal</h1>
                             <p className="text-blue-600 font-medium mt-1 text-lg">{data.dateOfExercise}</p>
                         </div>
                         <div className="flex space-x-3 text-sm font-medium">
@@ -98,10 +98,10 @@ export default function ExtendedDailyGoal() {
                 </div>
             </div>
 
-            <main className="max-w-3xl mx-auto px-4 mt-8">
-                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                        <h3 className="font-semibold text-gray-700">Exercises Completed</h3>
+            <main className="max-w-3xl mx-auto px-4 mt-8 ">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 dark:bg-surface dark:border-surface-border overflow-hidden">
+                    <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex dark:bg-surface dark:border-surface-border justify-between items-center">
+                        <h3 className="font-semibold ">Exercises Completed</h3>
                         <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2.5 py-0.5 rounded-full">
                             {data.exercisesDone.length} Total
                         </span>
@@ -109,16 +109,16 @@ export default function ExtendedDailyGoal() {
 
                     <div className="divide-y divide-gray-100">
                         {data.exercisesDone.map((exercise: ExercisesDone) => (
-                            <div key={exercise.exerciseId} className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 hover:bg-gray-50 transition-colors">
+                            <div key={exercise.exerciseId} className="group flex flex-col sm:flex-row sm:items-center justify-between p-5 hover:bg-gray-50 dark:hover:bg-surface transition-colors">
                                 <div className="flex-1">
                                     <Link
                                         to={`/Fitness/workouts/${exercise.exerciseId}`}
-                                        className="text-lg font-medium text-gray-900 hover:text-blue-600 transition-colors block"
+                                        className="text-lg font-medium  hover:text-blue-600 dark:hover:text-white transition-colors block"
                                     >
                                         {exercise.exerciseName}
                                     </Link>
-                                    <p className="text-sm text-gray-500 mt-1">
-                                        Completed: <span className="font-semibold text-gray-700">{exercise.numberOfCompletion}</span>
+                                    <p className="text-sm text-gray-500 mt-1 dark:text-white">
+                                        Completed: <span className="font-semibold text-gray-700 dark:text-white">{exercise.numberOfCompletion}</span>
                                     </p>
                                 </div>
 
@@ -144,7 +144,7 @@ export default function ExtendedDailyGoal() {
                 <div className="mt-8 flex justify-center">
                     <button
                         onClick={deleteHandler}
-                        className="flex items-center px-6 py-3 text-red-600 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 font-semibold rounded-xl shadow-sm transition-all"
+                        className="flex items-center px-6 py-3 dark:bg-red-600 dark:border-surface-border dark:text-white dark:hover:bg-red-700 dark:hover:border-surface-border text-red-600 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 font-semibold rounded-xl shadow-sm transition-all"
                     >
                         <TrashIcon className="w-5 h-5 mr-2" />
                         Delete Entire Goal

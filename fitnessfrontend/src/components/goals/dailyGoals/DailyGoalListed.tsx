@@ -7,7 +7,7 @@ export default function DailyGoalListed(prop:{dailyGoal:dailyGoal}){
 
     return (
         <div>
-            <div className={"border-2 border-slate-200 bg-white p-5 h-[250px] flex flex-col"}>
+            <div className={"border-2 border-slate-200 bg-white dark:border-surface-border dark:bg-surface p-5 h-[250px] flex flex-col"}>
 
                 <div className={"flex justify-center text-lg mb-2"}>
                     <Link to={`/Fitness/goals/dailyGoals/${prop.dailyGoal.id}`} className={"hover:text-blue-700 font-semibold"}>
@@ -17,7 +17,7 @@ export default function DailyGoalListed(prop:{dailyGoal:dailyGoal}){
 
                 <div className="flex-1">
                     <div>
-                        <p className={"text-center lg:text-left text-sm text-gray-600"}>
+                        <p className={"text-center lg:text-left text-sm text-gray-600 dark:text-white"}>
                             Number of exercises done: {prop.dailyGoal.exercisesDone.length}
                         </p>
                         <p className={"text-center lg:text-left mt-2 font-medium"}>Exercises Done:</p>

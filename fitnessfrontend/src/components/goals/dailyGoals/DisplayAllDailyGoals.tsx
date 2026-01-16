@@ -24,7 +24,7 @@ export default function DisplayAllDailyGoals(){
         return <div className="text-center mt-20 text-xl">Loading...</div>
     }else {
         return (
-            <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
+            <div className={"min-h-screen"}>
                 <div className={"text-center"}>
                     <h1 className={"text-2xl lg:text-4xl"}>All Recorded Daily Goals</h1>
                 </div>

@@ -45,6 +45,7 @@ export default function DeleteMonthlyGoalForm(prop:{goalDetails:MonthlyGoal, isD
             max-h-[90vh]
             overflow-y-auto
             bg-white border-2 rounded-2xl p-5 sm:p-8
+            dark:bg-surface dark:border-surface-border
             text-center
             transition-all duration-500 ease-out
             ${prop.isDeleting
@@ -65,7 +66,7 @@ export default function DeleteMonthlyGoalForm(prop:{goalDetails:MonthlyGoal, isD
                 <div className="flex flex-col sm:flex-row justify-center sm:justify-between gap-4 sm:gap-10">
                     <button
                         type="button"
-                        className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition-colors w-full sm:w-auto"
+                        className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 font-semibold transition-colors w-full sm:w-auto"
                         onClick={prop.deleteHandler}
                     >
                         Cancel
