@@ -60,21 +60,21 @@ export default function RegisterForm(){
                 <div className={"flex flex-row gap-10 mt-15"}>
                     <div className={"flex flex-col"}>
                     <input {...register("username")} placeholder={"username"}
-                       className={"border-2 rounded-md text-center w-75 h-10"}/>
+                       className={"text-black bg-white border-2 rounded-md text-center w-75 h-10"}/>
                 <div className={"text-red-500 h-5"}>{errors.username?.message}</div>
                     </div>
                     <div className={"flex flex-col relative"}>
                 <input {...register("email")} placeholder={"email"}
-                       className={"border-2 rounded-md text-center w-75 h-10"}/>
+                       className={"text-black bg-white border-2 rounded-md text-center w-75 h-10"}/>
                 <div className={"text-red-500 h-5"}>{errors.email?.message}</div>
                     </div>
                 </div>
                 <div className={"flex flex-col justify-center"}>
                     <input{...register("password")} placeholder={"password"} id={"password"}
-                          className={"flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
+                          className={"text-black bg-white flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
                     <div className={"self-center mr-20 text-center text-red-500 h-5 w-75"}>{errors.password?.message}</div>
                     <input placeholder={"Confirm Password"} id={"confirm"}
-                          className={"flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
+                          className={"text-black bg-white flex self-center border-2 mr-20 mt-10 rounded-md text-center w-75 h-10"} type={"password"}/>
                     <div className={"self-center mr-20 text-center text-red-500 h-5 w-75"}>{passwordError ? "The entered passwords don't match" : ""}</div>
                 </div>
                 <button className={"border-2 rounded-2xl mr-20 mt-10 w-25 h-10 self-center font-semibold " +
@@ -86,7 +86,7 @@ export default function RegisterForm(){
                 </button>
             </form>
             <div className={"ml-15"}>
-                <p>Already have an account?</p>
+                <p className={"text-black"}>Already have an account?</p>
                 <button className={"border-2 rounded-2xl mt-2 w-25 self-center font-semibold " +
                     "bg-gradient-to-b from-red-500 to-black text-white " +
                     "transition duration-300 ease-in-out " +

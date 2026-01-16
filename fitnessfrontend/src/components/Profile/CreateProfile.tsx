@@ -47,7 +47,7 @@ export default function CreateProfile(){
     return(
         <>
             {!isCreating ? (
-                <div className="bg-gradient-to-b from-white to-blue-300 min-h-screen pt-10 px-5 mt-10">
+                <div className="min-h-screen pt-10 px-5 mt-10">
                     <h1 className="text-2xl lg:text-4xl text-center mb-6">
                         You have not created a profile! Please create one!
                     </h1>
@@ -70,8 +70,8 @@ export default function CreateProfile(){
                     </div>
                 </div>
             ) : (
-                <div className="flex justify-center bg-gradient-to-b from-white to-blue-300 min-h-screen p-5">
-                    <div className="w-full sm:w-[600px] bg-white border-2 rounded-2xl p-5 sm:p-8 shadow-md">
+                <div className="flex justify-center min-h-screen p-5">
+                    <div className="w-full sm:w-[600px] bg-white dark:bg-surface dark:border-surface-border border-2 rounded-2xl p-5 sm:p-8 shadow-md">
                         <h1 className="text-2xl sm:text-3xl font-semibold text-center mb-6">
                             Register your user profile
                         </h1>
@@ -83,7 +83,7 @@ export default function CreateProfile(){
                                     <input
                                         {...register("firstName")}
                                         placeholder="First name"
-                                        className="p-2 border-2 rounded-lg w-full focus:border-orange-400 outline-none"
+                                        className="p-2 border-2 text-black bg-white rounded-lg w-full focus:border-orange-400 outline-none"
                                     />
                                     {errors.firstName && (
                                         <span className="text-red-500 text-xs mt-1">
@@ -97,7 +97,7 @@ export default function CreateProfile(){
                                     <input
                                         {...register("lastName")}
                                         placeholder="Last name"
-                                        className="p-2 border-2 rounded-lg w-full focus:border-orange-400 outline-none"
+                                        className="p-2 text-black bg-white border-2 rounded-lg w-full focus:border-orange-400 outline-none"
                                     />
                                     {errors.lastName && (
                                         <span className="text-red-500 text-xs mt-1">
@@ -112,7 +112,7 @@ export default function CreateProfile(){
                                         {...register("height", { valueAsNumber: true })}
                                         type="number"
                                         placeholder="175"
-                                        className="p-2 border-2 rounded-lg w-full focus:border-orange-400 outline-none"
+                                        className="p-2 border-2 text-black bg-white rounded-lg w-full focus:border-orange-400 outline-none"
                                     />
                                     {errors.height && (
                                         <span className="text-red-500 text-xs mt-1">
@@ -127,7 +127,7 @@ export default function CreateProfile(){
                                         {...register("weight", { valueAsNumber: true })}
                                         type="number"
                                         placeholder="70"
-                                        className="p-2 border-2 rounded-lg w-full focus:border-orange-400 outline-none"
+                                        className="p-2 border-2 text-black bg-white rounded-lg w-full focus:border-orange-400 outline-none"
                                     />
                                     {errors.weight && (
                                         <span className="text-red-500 text-xs mt-1">
@@ -142,7 +142,7 @@ export default function CreateProfile(){
                                         {...register("age", { valueAsNumber: true })}
                                         type="number"
                                         placeholder="25"
-                                        className="p-2 border-2 rounded-lg w-full focus:border-orange-400 outline-none"
+                                        className="p-2 border-2 text-black bg-white rounded-lg w-full focus:border-orange-400 outline-none"
                                     />
                                     {errors.age && (
                                         <span className="text-red-500 text-xs mt-1">
@@ -155,7 +155,7 @@ export default function CreateProfile(){
                                     <label className="text-sm font-semibold mb-1">Gender</label>
                                     <select
                                         {...register("gender", { required: true })}
-                                        className="p-2 border-2 rounded-lg w-full"
+                                        className="p-2 border-2 text-black bg-white rounded-lg w-full"
                                     >
                                         <option value="MALE">Male</option>
                                         <option value="FEMALE">Female</option>
@@ -168,7 +168,7 @@ export default function CreateProfile(){
                                         {...register("image")}
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png,image/webp"
-                                        className="block w-full text-sm text-gray-500
+                                        className="block text-black bg-white w-full text-sm text-gray-500
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-full file:border-0
                   file:text-sm file:font-semibold

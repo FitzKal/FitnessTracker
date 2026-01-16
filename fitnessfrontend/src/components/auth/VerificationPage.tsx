@@ -83,8 +83,8 @@ function VerificationPage(){
         <div className={"flex flex-col self-center border-2 rounded-md bg-white h-100 w-130"}>
             <form className={"flex flex-col self-center mt-22"} onSubmit={handleSubmit(onSubmit)}>
                 <input {...register("verificationCode")} placeholder={"Verification code"}
-                className={"border-2 mb-10 ml-13 rounded-md text-center w-75 h-10"}/>
-                <p className={"flex flex-wrap text-center mb-5 w-100"}>The verification code is only available for 30 minutes! Resend the code if it is expired!</p>
+                className={"border-2 mb-10 ml-13 rounded-md text-center w-75 h-10 text-black bg-white"}/>
+                <p className={"flex flex-wrap text-center mb-5 w-100 text-black"}>The verification code is only available for 30 minutes! Resend the code if it is expired!</p>
                 <button type={"submit"} className={"self-center bg-linear-to-b from-blue-500 to-black border-2 " +
                     "text-white rounded-md w-25 h-10 transition duration-300 ease-in-out hover:from-green-600 hover:to-black"}
                 >{isSubmitting ? "Loading..." : "Confirm"}</button>

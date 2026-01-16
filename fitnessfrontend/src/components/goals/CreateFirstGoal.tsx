@@ -45,7 +45,7 @@ export default function CreateFirstGoal(){
 
     if (!isCreating){
         return (
-            <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
+            <div className={"min-h-screen"}>
                 <div className={"mt-10"}>
                     <h1 className="text-2xl lg:text-4xl text-center mb-6">
                         You have not set a fitness goal yet!
@@ -72,9 +72,9 @@ export default function CreateFirstGoal(){
         )
     }else{
         return (
-            <div className={"min-h-screen bg-gradient-to-b from-white to-blue-100"}>
+            <div className={"min-h-screen"}>
                 <div className={"flex justify-center"}>
-                    <div className={"border-2 p-5 bg-white shadow-md border-slate-200 lg:translate-y-1/2"}>
+                    <div className={"border-2 p-5 bg-white shadow-md border-slate-200 dark:bg-surface dark:border-surface-border lg:translate-y-1/2"}>
                         <h1 className={"text-center lg:text-4xl md:2xl"}>Create your first Fitness goal!</h1>
                         <form className="mt-8" onSubmit={handleSubmit(onSubmit)}>
                             <div
@@ -95,7 +95,7 @@ export default function CreateFirstGoal(){
                                         {...register("goalWeight", { valueAsNumber: true })}
                                         placeholder="70 kg"
                                         required
-                                        className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none bg-white"
+                                        className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none bg-white text-black bg-white"
                                         type={"number"}
                                     />
                                     {errors.goalWeight && (
@@ -111,7 +111,7 @@ export default function CreateFirstGoal(){
                                     </label>
                                     <select
                                         {...register("exerciseType")}
-                                        className="bg-white border-2 h-10 rounded-lg px-2"
+                                        className="border-2 h-10 rounded-lg px-2 text-black bg-white"
                                     >
                                         <option value={"SEDENTARY"}>Sedentary: Little to no exercise</option>
                                         <option value={"LIGHT"}>Light: Exercise 1-3 times a week</option>
@@ -129,7 +129,7 @@ export default function CreateFirstGoal(){
                                     <input
                                         type="date"
                                         {...register("endDate", { valueAsDate: true })}
-                                        className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none bg-white"
+                                        className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none text-black bg-white"
                                     />
                                     {errors.endDate && (
                                         <div className="text-red-500 text-xs mt-1">
