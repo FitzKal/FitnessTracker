@@ -46,7 +46,7 @@ export default function CustomBMIForm(props:{handleCustomScore:(fetchedScore:num
                                 <input {...register("weight")} className={"bg-white text-black rounded-md border-1"} type={"number"} required={true}/>
                             </div>
                             <div className={"flex justify-center"}>
-                                <button type={"submit"} className={"rounded-xl bg-red-400 hover:bg-red-500 font-semibold transition-colors px-6 py-2"}>Calculate BMI</button>
+                                <button type={"submit"} className={"rounded-xl bg-red-400 hover:bg-red-500 font-semibold transition-colors px-6 py-2 dark:bg-red-800 dark:hover:bg-red-900"}>Calculate BMI</button>
                             </div>
                         </div>
                     </form>

@@ -15,7 +15,7 @@ export default function ProteinCalculator() {
     };
 
     return (
-        <div className="bg-gradient-to-b from-white to-blue-300 min-h-screen p-4 sm:p-8">
+        <div className=" min-h-screen p-4 sm:p-8">
             <div className="flex justify-center">
                 <h1 className="text-3xl sm:text-4xl font-semibold mt-8 text-center">
                     Welcome to the Protein Intake Calculator!
@@ -23,11 +23,11 @@ export default function ProteinCalculator() {
             </div>
 
             <div className="flex justify-center mt-8 ">
-                <div className="bg-gray-300 w-full max-w-6xl mx-auto border-2 rounded-md pb-4 sm:pb-2">
+                <div className="bg-gray-300 dark:bg-gray-600 w-full max-w-6xl mx-auto border-2 dark:border-surface-border rounded-md pb-4 sm:pb-2">
 
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-12 justify-center bg-gray-400 p-4 sm:p-0 rounded-t-md">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-12 justify-center bg-gray-400 dark:bg-gray-800 p-4 sm:p-0 rounded-t-md">
                         <button
-                            className="transition-colors hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-600 rounded-md px-4 py-2 sm:px-2 sm:py-1 font-medium"
+                            className="transition-colors hover:bg-gray-600 dark:hover:bg-gray-900 dark:focus:bg-gray-900 active:bg-gray-600 rounded-md px-4 py-2 sm:px-2 sm:py-1 font-medium"
                             onClick={() => {
                                 setIsOwnProteinIntake(true);
                                 setProteinIntake(undefined);
@@ -36,7 +36,7 @@ export default function ProteinCalculator() {
                             Calculate My Protein Intake
                         </button>
                         <button
-                            className="transition-colors hover:bg-gray-500 focus:bg-gray-500 active:bg-gray-600 rounded-md px-4 py-2 sm:px-2 sm:py-1 font-medium"
+                            className="transition-colors hover:bg-gray-600 dark:hover:bg-gray-900 dark:focus:bg-gray-900 active:bg-gray-600 rounded-md px-4 py-2 sm:px-2 sm:py-1 font-medium"
                             onClick={() => {
                                 setIsOwnProteinIntake(false);
                                 setProteinIntake(undefined);
@@ -46,7 +46,7 @@ export default function ProteinCalculator() {
                         </button>
                     </div>
 
-                    <div className="border-b-2 bg-gray-200">
+                    <div className="border-b-2 bg-gray-200 dark:bg-gray-700 dark:border-surface-border">
                         {isOwnProteinIntake ? (
                             <OwnProteinStats handleProteinIntakeChange={handleProteinIntakeChange} />
                         ) : (

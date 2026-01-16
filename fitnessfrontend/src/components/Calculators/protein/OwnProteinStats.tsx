@@ -45,7 +45,7 @@ export default function OwnProteinStats(props:{handleProteinIntakeChange:(intake
 
     return (
         <div>
-            <h1 className={"text-center text-2xl border-b-2 py-2 bg-gray-200"}>We have imported your personal details from your profile!</h1>
+            <h1 className={"text-center text-2xl border-b-2 py-2 bg-gray-200 dark:bg-gray-600 dark:border-surface-border"}>We have imported your personal details from your profile!</h1>
             <div className={"flex flex-row gap-9 mx-20 mt-5"}>
                 <p>According to your personal statistics:</p>
                 <p>Your height is: {details.height} m</p>
@@ -55,7 +55,7 @@ export default function OwnProteinStats(props:{handleProteinIntakeChange:(intake
             </div>
             <div className={"flex justify-center mt-5"}>
                 <label className={"mr-1"}>Select your activity level:</label>
-                <select className={"bg-white border-1 rounded-md"} id={"ExType"}>
+                <select className={"bg-white border-1 rounded-md dark:border-surface-border text-black"} id={"ExType"}>
                     <option value={"SEDENTARY"}>Sedentary: Little to no exercise</option>
                     <option value={"LIGHT"}>Light: Exercise 1-3 times a week</option>
                     <option value={"MODERATE"}>Moderate: Exercise 4-5 times a week</option>
@@ -65,7 +65,7 @@ export default function OwnProteinStats(props:{handleProteinIntakeChange:(intake
                 </select>
             </div>
             <div className={"flex justify-center mt-5"}>
-                <button className={"hover:bg-blue-400 rounded-md px-2 mb-2 border-2 bg-blue-300"}
+                <button className={"hover:bg-blue-400 rounded-md px-2 mb-2 border-2 bg-blue-300 dark:bg-blue-600 dark:hover:bg-blue-800 dark:border-surface-border"}
                         onClick={() => {
                             const rollDown = document.getElementById("ExType") as HTMLSelectElement;
                             const value = rollDown.value;

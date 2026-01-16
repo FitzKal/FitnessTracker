@@ -1,9 +1,9 @@
 export default function ProteinImportance(){
     return (
-        <div className="relative border-2 border-black p-6 rounded-md">
-                              <span className="absolute -top-3 left-4 bg-gray-300 px-3 rounded-full text-sm font-semibold">
+        <fieldset className="border-2 border-black p-6 rounded-md">
+                              <legend className="bg-gray-300 dark:bg-gray-800 px-3 rounded-full text-sm font-semibold">
                                 Why is protein intake important?
-                              </span>
+                              </legend>
             <p>
                 Proteins are one of three primary macronutrients that provide energy to the human body, along with fats and carbohydrates.
                 Proteins are also responsible for a large portion of the work that is done in cells; they are necessary for proper structure and function of tissues and organs, and also act to regulate them.
@@ -34,6 +34,6 @@ export default function ProteinImportance(){
             </ul>
             <br/>
             <p>As can be seen, proteins have many important roles throughout the body, and as such, it is important to provide sufficient nutrition to the body to maintain healthy protein levels.</p>
-        </div>
+        </fieldset>
     );
 }
