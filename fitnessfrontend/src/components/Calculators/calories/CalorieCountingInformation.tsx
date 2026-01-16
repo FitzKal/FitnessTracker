@@ -1,7 +1,7 @@
 export default function CalorieCountingInformation(){
     return(
-        <div className="relative border-2 border-black p-6 rounded-md mx-3 bg-[#C4AD97]">
-                              <span className="absolute -top-3 left-4 bg-gray-300 px-3 rounded-full text-sm font-semibold">
+        <div className="relative border-2 border-black p-6 rounded-md mx-3 bg-[#C4AD97] dark:bg-[#2F2A24] dark:border-surface-border">
+                              <span className="absolute -top-3 left-4 bg-gray-300 dark:bg-gray-600 px-3 rounded-full text-sm font-semibold">
                                 How is calorie intake calculated?
                               </span>
             <p>This Calorie Calculator is based on several equations, and the results of the calculator are based on an estimated average.</p>

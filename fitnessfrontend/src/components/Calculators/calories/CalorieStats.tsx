@@ -39,15 +39,15 @@ export default function CalorieStats(props:{handleCalorieIntakeChange:(intake:ca
     else {
         return (<div>
             <div className={"flex flex-row ml-3"}>
-                <div className={"border-2 mt-2 rounded-lg p-2 bg-[#C4AD97]"}>
+                <div className={"border-2 mt-2 rounded-lg p-2 bg-[#C4AD97] dark:bg-[#2F2A24] dark:border-surface-border"}>
                     <p>According to your personal statistics:</p>
                     <p>Your height is: {details.height} m</p>
                     <p>Your weight is: {details.weight} kg</p>
                     <p>Your age is: {details.age}</p>
                     <p>Your gender is: {details.gender}</p>
-                    <div className={"flex justify-center mt-5"}>
+                    <div className={"flex justify-center mt-5 "}>
                         <label className={"mr-1"}>Select your activity level:</label>
-                        <select className={"bg-white border-1 rounded-md"} id={"ExType"}>
+                        <select className={"bg-white border-1 rounded-md text-black"} id={"ExType"}>
                             <option value={"SEDENTARY"}>Sedentary: Little to no exercise</option>
                             <option value={"LIGHT"}>Light: Exercise 1-3 times a week</option>
                             <option value={"MODERATE"}>Moderate: Exercise 4-5 times a week</option>
@@ -57,7 +57,8 @@ export default function CalorieStats(props:{handleCalorieIntakeChange:(intake:ca
                         </select>
                     </div>
                     <div className={"flex justify-center mt-5"}>
-                        <button className={"hover:bg-blue-400 rounded-md px-2 mb-2 border-2 bg-blue-300"}
+                        <button className={"hover:bg-blue-400 rounded-md px-2 mb-2 border-2 bg-blue-300 dark:border-surface-border " +
+                            "dark:bg-blue-600 dark:hover:bg-blue-800"}
                                 onClick={() => {
                                     const rollDown = document.getElementById("ExType") as HTMLSelectElement;
                                     const value = rollDown.value;

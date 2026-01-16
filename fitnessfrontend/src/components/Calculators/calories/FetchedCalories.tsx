@@ -2,16 +2,16 @@ import type {calorieResponse} from "../../../types/CalculatorTypes.ts";
 
 export default function FetchedCalories(prop:{calorieIntake:calorieResponse}){
     return (
-        <div className={"border-2 mt-2 rounded-lg p-2 bg-[#C4AD97]"}>
+        <div className={"border-2 mt-2 rounded-lg p-2 bg-[#C4AD97] dark:border-surface-border dark:bg-[#2F2A24]"}>
             <h1 className={"text-lg text-center"}>Your calculated calorie statistics:</h1>
             <div>
                 <table className={"bg-white mt-2 h-70"}>
-                    <tbody className={"border-2"}>
-                    <tr className={"bg-yellow-200"}>
-                        <td className={"border-r 1 px-2"}>Weight loss Classification</td>
+                    <tbody className={"border-2 dark:border-surface-border text-black"}>
+                    <tr className={"bg-yellow-200 dark:bg-yellow-700 dark:border-surface-border"}>
+                        <td className={"border-r 1 px-2 dark:border-surface-border"}>Weight loss Classification</td>
                         <td className={"pl-1 px-2"}>Required daily calories</td>
                     </tr>
-                    <tr className={"border"}>
+                    <tr className={"border dark:border-surface-border"}>
                         <td className={"border-r 1 pl-1"}>Extreme weight loss</td>
                         <td className={"pl-1"}>{prop.calorieIntake.extremeWeightLossCalories}</td>
                     </tr>

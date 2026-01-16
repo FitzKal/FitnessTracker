@@ -14,7 +14,7 @@ export default function CalorieCalculator() {
     };
 
     return (
-        <div className="bg-gradient-to-b from-white to-blue-300 min-h-screen p-4 sm:p-8">
+        <div className="min-h-screen p-4 sm:p-8">
             <div className="flex justify-center">
                 <h1 className="text-3xl sm:text-4xl font-semibold mt-8 text-center">
                     Welcome to the Calorie Calculator!
@@ -22,9 +22,9 @@ export default function CalorieCalculator() {
             </div>
 
             <div className="flex justify-center mt-8 ">
-                <div className="bg-[#C4A484] w-full max-w-6xl mx-auto border-2 rounded-md pb-4 sm:pb-2">
+                <div className="bg-[#C4A484] dark:bg-[#3E3226] w-full max-w-6xl mx-auto border-2 rounded-md pb-4 sm:pb-2 dark:border-surface-border">
 
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-12 justify-center bg-[#9E7B59] p-4 sm:p-0 rounded-t-md">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-12 justify-center bg-[#9E7B59] dark:bg-[#2B2118] p-4 sm:p-0 rounded-t-md">
                         <button
                             className="transition-colors hover:bg-[#68523B] focus:bg-[#68523B] active:bg-[#55432A] rounded-md px-4 py-2 sm:px-2 sm:py-1 font-medium text-white text-center"
                             onClick={() => {
@@ -45,14 +45,15 @@ export default function CalorieCalculator() {
                         </button>
                     </div>
                     <div>
-                        <h1 className="text-center text-xl sm:text-2xl border-b-2 py-2 bg-[#C4AD97] font-medium">
+                        <h1 className="text-center text-xl sm:text-2xl border-b-2 py-2 bg-[#C4AD97] dark:bg-[#2F2A24] font-medium
+                        dark:border-surface-border">
                             {isOwnCalorieIntake
                                 ? "We have imported your personal details from your profile!"
                                 : "Calculate Custom Calorie Intake!"}
                         </h1>
                     </div>
 
-                    <div className="grid lg:grid-cols-2 sm:grid-cols-1 border-b-2 py-4 gap-4">
+                    <div className="grid lg:grid-cols-2 sm:grid-cols-1 border-b-2 py-4 gap-4 dark:border-surface-border">
                         <div className="flex justify-center lg:mr-auto sm:mr-3">
                             {isOwnCalorieIntake ? (
                                 <CalorieStats handleCalorieIntakeChange={handleCalorieIntakeChange} />
@@ -68,7 +69,6 @@ export default function CalorieCalculator() {
                         )}
                     </div>
 
-                    {/* Calorie Information */}
                     <div className="mt-5 px-4 sm:px-8">
                         <CalorieCountingInformation />
                     </div>

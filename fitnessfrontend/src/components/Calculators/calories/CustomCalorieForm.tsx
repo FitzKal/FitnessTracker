@@ -38,7 +38,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                                    {...register("height",{ valueAsNumber: true })}
                                    type="number"
                                    required
-                                   className="border-2 rounded-lg focus:border-orange-400 outline-none bg-white px-2 py-1"
+                                   className="border-2 rounded-lg focus:border-orange-400 outline-none bg-white px-2 py-1 text-black"
                                    placeholder="171"
                                />
                                <div className="text-red-500 text-xs mt-1 h-4">
@@ -52,7 +52,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                                    {...register("weight",{ valueAsNumber: true })}
                                    type="number"
                                    required
-                                   className="border-2 rounded-lg focus:border-orange-400 outline-none bg-white px-2 py-1"
+                                   className="border-2 rounded-lg focus:border-orange-400 outline-none bg-white px-2 py-1 text-black"
                                    placeholder="71"
                                />
                                <div className="text-red-500 text-xs mt-1 h-4">
@@ -66,7 +66,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                                    {...register("age",{ valueAsNumber: true })}
                                    type="number"
                                    required
-                                   className="border-2 rounded-lg focus:border-orange-400 outline-none bg-white px-2 py-1"
+                                   className="border-2 rounded-lg focus:border-orange-400 outline-none bg-white px-2 py-1 text-black"
                                    placeholder="21"
                                />
                                <div className="text-red-500 text-xs mt-1 h-4">
@@ -78,7 +78,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                                <label className="mb-1">Gender</label>
                                <select
                                    {...register("gender", { required: true })}
-                                   className="bg-white border-2 h-8 rounded-lg"
+                                   className="bg-white border-2 h-8 rounded-lg text-black"
                                >
                                    <option value="MALE">Male</option>
                                    <option value="FEMALE">Female</option>
@@ -92,7 +92,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                                <label className="mb-1">Select your activity level:</label>
                                <select
                                    {...register("exerciseTypeCalc")}
-                                   className="bg-white border-2 h-8 rounded-lg"
+                                   className="bg-white border-2 h-8 rounded-lg text-black"
                                    id="ExType"
                                >
                                    <option value="SEDENTARY">Sedentary: Little to no exercise</option>
@@ -111,7 +111,7 @@ export default function CustomCalorieForm(props:{handleCalorieIntakeChange:(inta
                        <div className="flex justify-center">
                            <button
                                type="submit"
-                               className="hover:bg-blue-400 rounded-md px-3 py-2 mb-2 border-2 bg-blue-300 mt-6"
+                               className="hover:bg-blue-400 rounded-md px-3 py-2 mb-2 border-2 bg-blue-300 mt-6 dark:border-surface-border dark:bg-blue-600 dark:hover:bg-blue-800  "
                            >
                                Calculate daily calorie intake!
                            </button>
