@@ -165,4 +165,14 @@ public class MonthlyGoalService {
         return goalConverter.monthlyGoalToMonthlyGoalDTO(monthlyGoal);
     }
 
+    public MonthlyGoalDTO getLatestGoal(HttpServletRequest request){
+        var profileId = jwtService.getUserFromRequest(request).getUserProfile().getProfileId();
+        return monthlyGoalRepository.findAll()
+                .stream()
+                .filter(monthlyGoal -> monthlyGoal.getUserProfile().getProfileId().equals(profileId))
+                .sorted(Comparator.comparing(MonthlyGoal::getFinishDate).reversed())
+                .map(goalConverter::monthlyGoalToMonthlyGoalDTO).findFirst()
+                .orElseThrow(()-> new GoalNotFoundException("You have not created a goal yet"));
+    }
+
 }

@@ -37,6 +37,11 @@ public class GoalController {
         return ResponseEntity.ok(monthlyGoalService.getAllMonthlyGoals(request));
     }
 
+    @GetMapping("/getLatestGoal")
+    public ResponseEntity<MonthlyGoalDTO> getLatestMonthlyGoal(HttpServletRequest request){
+        return ResponseEntity.ok(monthlyGoalService.getLatestGoal(request));
+    }
+
     @DeleteMapping("/deleteMonthlyGoal/{monthlyGoalId}")
     public ResponseEntity<String>deleteMonthlyGoal(@PathVariable Long monthlyGoalId){
         return ResponseEntity.ok(monthlyGoalService.deleteMonthlyGoal(monthlyGoalId));
