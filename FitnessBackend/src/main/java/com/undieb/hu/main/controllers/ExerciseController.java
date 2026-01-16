@@ -8,6 +8,7 @@ import com.undieb.hu.main.exercises.types.Equipment;
 import com.undieb.hu.main.exercises.types.ExerciseType;
 import com.undieb.hu.main.exercises.types.Muscles;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,14 +16,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @RestController
 @RequestMapping("/api/fitness/exercise")
-@AllArgsConstructor
 public class ExerciseController {
 
     private final String host = "exercisedb-api1.p.rapidapi.com";
     private final String scheme = "https";
     private final String basePath = "/api/v1/";
-    private WebClient webClient;
+    private final WebClient webClient;
 
+    public ExerciseController(
+            @Qualifier("exerciseWebClient")WebClient webClient) {
+        this.webClient = webClient;
+    }
 
     @GetMapping
     public ResponseEntity<ResponseFromAPI> getAllExercises(
