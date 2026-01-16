@@ -25,6 +25,9 @@ public class WebClientConfig {
     ){
 
         return WebClient.builder().defaultHeader("x-api-key",apiKey)
+                .codecs(codecs -> codecs
+                        .defaultCodecs()
+                        .maxInMemorySize(500 * 1024))
                 .build();
     }
 }
