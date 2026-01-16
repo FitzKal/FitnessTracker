@@ -56,7 +56,7 @@ export default function Profile() {
         );
     }
     return (
-        <div className="min-h-screen bg-gradient-to-b from-white to-blue-100 p-8">
+        <div className="min-h-screen p-8">
             <UpdateForm isUpdating={isUpdating} updateHandler={handleUpdating} userData={data} />
             <DeleteProfileForm isDeleting={isDeleting} deleteHandler={handleDeleting} />
 
@@ -73,7 +73,9 @@ export default function Profile() {
                 </div>
 
                     <div className={"sm:flex justify-center"}>
-                        <div className="flex flex-col gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 w-full max-w-lg ">
+                        <div className="flex flex-col gap-4 p-6 rounded-2xl shadow-md border border-gray-200 w-full max-w-lg
+                          dark:border-surface-border
+                          dark:bg-surface">
                             {[
                                 { label: "First Name", value: data?.firstName },
                                 { label: "Last Name", value: data?.lastName },
@@ -85,13 +87,14 @@ export default function Profile() {
                                 { label: "Age", value: data?.age },
                             ].map((item) => (
                                 <div key={item.label} className="flex justify-between text-lg font-medium">
-                                    <p className="text-gray-700">{item.label}:</p>
-                                    <span className="text-gray-900"> {item.value || "-"}</span>
+                                    <p>{item.label}:</p>
+                                    <span > {item.value || "-"}</span>
                                 </div>
                             ))}
                         </div>
                     </div>
-                    <div className={"p-6 rounded-2xl bg-white shadow-md border border-gray-200 w-full max-w-lg ml-13 lg:ml-0"}>
+                    <div className={"p-6 rounded-2xl shadow-md border border-gray-200 w-full max-w-lg ml-13 lg:ml-0 " +
+                        "dark:bg-surface dark:border-surface-border"}>
                         {
                             hasGoal?
                                 <DisplayLatestProfileGoal latestGoalData={latestGoalData}/>:

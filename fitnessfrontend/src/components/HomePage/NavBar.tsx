@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logoutUser } from "../../services/AuthService.ts";
 import { UserStore } from "../../stores/UserStore.ts";
 import { toast } from "react-toastify";
+import ThemeToggle from "./ThemeToggle.tsx";
 
 export default function NavBar() {
 
@@ -40,6 +41,7 @@ export default function NavBar() {
                     <BoltIcon className="h-8 w-8 text-[#06e6e6]" />
                     <span className="font-bold text-xl">FitnessTracker</span>
                 </div>
+                <ThemeToggle/>
                <Link to={"/login"}>
                    <button onClick={handleLogout} className="text-white p-2 hover:bg-red-500 rounded-full transition-colors">
                        <ArrowRightEndOnRectangleIcon className="h-6 w-6" />
@@ -78,6 +80,7 @@ export default function NavBar() {
                 shadow-[0_0_15px_rgba(0,0,0,0.5)]
                 overflow-hidden group
             `}>
+                <ThemeToggle/>
                 <ul className="flex flex-col h-full w-full">
                     <li className="h-[70px] flex items-center pl-[10px] mb-8 border-b border-gray-700 whitespace-nowrap overflow-hidden">
                         <BoltIcon className="h-10 w-10 text-white min-w-[40px] mr-4" />
