@@ -86,7 +86,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
             max-w-4xl
             max-h-[90vh]
             overflow-y-auto
-            bg-white border-2 rounded-2xl
+            bg-white dark:bg-surface dark:border-surface-border border-2 rounded-2xl
             p-5 sm:p-8
             text-center
             transition-all duration-500 ease-out
@@ -113,7 +113,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                             <label className="text-sm font-semibold mb-1">First Name</label>
                             <input
                                 {...register("firstName")}
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg bg-white text-black focus:border-orange-400 outline-none"
                             />
                             {errors.firstName && (
                                 <p className="text-red-500 text-xs mt-1">
@@ -126,7 +126,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                             <label className="text-sm font-semibold mb-1">Last Name</label>
                             <input
                                 {...register("lastName")}
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg bg-white text-black focus:border-orange-400 outline-none"
                             />
                             {errors.lastName && (
                                 <p className="text-red-500 text-xs mt-1">
@@ -140,7 +140,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                             <input
                                 type="number"
                                 {...register("height", { valueAsNumber: true })}
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg bg-white text-black focus:border-orange-400 outline-none"
                             />
                             {errors.height && (
                                 <p className="text-red-500 text-xs mt-1">
@@ -155,7 +155,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                             <input
                                 type="number"
                                 {...register("weight", { valueAsNumber: true })}
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg bg-white text-black focus:border-orange-400 outline-none"
                             />
                             {errors.weight && (
                                 <p className="text-red-500 text-xs mt-1">
@@ -164,13 +164,12 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                             )}
                         </div>
 
-                        {/* Age */}
                         <div className="flex flex-col text-left relative w-full max-w-xs">
                             <label className="text-sm font-semibold mb-1">Age</label>
                             <input
                                 type="number"
                                 {...register("age", { valueAsNumber: true })}
-                                className="p-2 border-2 rounded-lg focus:border-orange-400 outline-none"
+                                className="p-2 border-2 rounded-lg bg-white text-black focus:border-orange-400 outline-none"
                             />
                             {errors.age && (
                                 <p className="text-red-500 text-xs mt-1">
@@ -183,14 +182,13 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                             <label className="text-sm font-semibold mb-1">Gender</label>
                             <select
                                 {...register("gender")}
-                                className="border-2 h-10 rounded-lg px-2 bg-white"
+                                className="border-2 h-10 rounded-lg px-2 bg-white text-black"
                             >
                                 <option value="MALE">Male</option>
                                 <option value="FEMALE">Female</option>
                             </select>
                         </div>
 
-                        {/* Image upload (full width) */}
                         <div className="flex flex-col text-left relative w-full sm:col-span-2 lg:col-span-3">
                             <label className="text-sm font-semibold mb-1">
                                 Profile Picture
@@ -200,12 +198,13 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                                 {...register("image")}
                                 accept="image/jpeg,image/png,image/webp"
                                 className="
-                            block w-full text-sm text-gray-500
+                            block w-full text-sm
                             file:mr-4 file:py-2 file:px-4
                             file:rounded-full file:border-0
                             file:text-sm file:font-semibold
                             file:bg-violet-50 file:text-violet-700
                             hover:file:bg-violet-100
+                            bg-white text-black
                             border border-gray-300 rounded-lg
                         "
                             />
@@ -221,14 +220,14 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                         <button
                             type="button"
                             onClick={prop.updateHandler}
-                            className="px-6 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold"
+                            className="px-6 py-2 rounded-xl bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-700 hover:bg-gray-300 font-semibold"
                         >
                             Cancel
                         </button>
 
                         <button
                             type="button"
-                            className="px-6 py-2 rounded-xl bg-yellow-300 hover:bg-yellow-400 font-semibold"
+                            className="px-6 py-2 rounded-xl bg-yellow-300 dark:bg-yellow-600 hover:bg-yellow-400 dark:hover:bg-yellow-800 font-semibold"
                         >
                             Change Password
                         </button>
@@ -236,7 +235,7 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="px-6 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold shadow-lg"
+                            className="px-6 py-2 rounded-xl dark:bg-green-600 dark:hover:bg-green-800 bg-green-500 hover:bg-green-600 text-white font-bold shadow-lg"
                         >
                             {isSubmitting ? 'Saving...' : 'Save Changes'}
                         </button>
