@@ -3,7 +3,7 @@ import { Link, Outlet } from "react-router-dom";
 export default function CalculatorNavBar() {
     return (
         <div>
-            <div className="relative lg:fixed top-0 w-full bg-blue-800 text-white lg:h-[6vh] flex items-center justify-center shadow-md">
+            <div className="relative lg:fixed top-0 w-full bg-blue-800 dark:bg-blue-900 text-white lg:h-[6vh] flex items-center justify-center shadow-md">
                 <div className="flex flex-wrap justify-center gap-6">
                     <Link
                         to="/Fitness/calculator/bmi"

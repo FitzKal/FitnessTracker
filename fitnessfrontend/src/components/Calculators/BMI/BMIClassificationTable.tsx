@@ -4,10 +4,10 @@ export default function BMIClassificationTable(){
             <div className={"flex justify-center mb-5"}>
                 <h1 className={"text-2xl"}>BMI classification table for adults</h1>
             </div>
-            <div className={"flex justify-center"}>
+            <div className={"flex justify-center text-black "}>
                 <table className={"w-[300px] bg-white"}>
                     <tbody className={"border-1"}>
-                    <tr className={"bg-blue-300"}>
+                    <tr className={"bg-blue-300 dark:bg-blue-900 dark:text-primary"}>
                         <td className={"border-r 1 pl-1"}>Classification</td>
                         <td className={"pl-1"}>BMI range</td>
                     </tr>

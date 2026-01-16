@@ -39,11 +39,11 @@ export default function CustomBMIForm(props:{handleCustomScore:(fetchedScore:num
                         <div className={"flex flex-col gap-y-7 mt-10"}>
                             <div className={"flex flex-row gap-1"}>
                                 <label>Height: </label>
-                                <input {...register("height")} className={"bg-white rounded-md border-1"} type={"number"} required={true}/>
+                                <input {...register("height")} className={"bg-white text-black rounded-md border-1"} type={"number"} required={true}/>
                             </div>
                             <div className={"flex flex-row gap-1"}>
                                 <label>Weight: </label>
-                                <input {...register("weight")} className={"bg-white rounded-md border-1"} type={"number"} required={true}/>
+                                <input {...register("weight")} className={"bg-white text-black rounded-md border-1"} type={"number"} required={true}/>
                             </div>
                             <div className={"flex justify-center"}>
                                 <button type={"submit"} className={"rounded-xl bg-red-400 hover:bg-red-500 font-semibold transition-colors px-6 py-2"}>Calculate BMI</button>

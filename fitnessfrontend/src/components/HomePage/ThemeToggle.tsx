@@ -35,7 +35,7 @@ export default function ThemeToggle() {
         <button
             type="button"
             onClick={() => setTheme(isDark ? 'light' : 'dark')}
-            className="lg:fixed  right-4 top-4 z-50 inline-flex items-center gap-2 px-3 py-2 rounded-full border border-surface-border bg-surface text-primary shadow-md hover:bg-surface-hover transition-colors cursor-pointer"
+            className="lg:fixed  right-4 top-15 z-50 inline-flex items-center gap-2 px-3 py-2 rounded-full border border-surface-border bg-surface text-primary shadow-md hover:bg-surface-hover transition-colors cursor-pointer"
         >
             {isDark ? (
                 <SunIcon className="h-5 w-5 text-yellow-500" />

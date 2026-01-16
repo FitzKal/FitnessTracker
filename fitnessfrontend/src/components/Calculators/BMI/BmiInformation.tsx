@@ -24,7 +24,7 @@ export default function BmiInformation() {
                         </>
                 }
                 <div className={"flex justify-center mt-3"}>
-                    <button className={"rounded-xl bg-gray-200 hover:bg-gray-300 font-semibold transition-colors px-6 py-2"}
+                    <button className={"rounded-xl bg-gray-200 hover:bg-gray-300 text-black font-semibold transition-colors px-6 py-2"}
                     onClick={() => showBmiTable?setShowBmiTable(false):setShowBmiTable(true)}>
                         {showBmiTable ? "Show me the Bmi Information" : "Show me the BMI table"}</button>
                 </div>
