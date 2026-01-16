@@ -30,8 +30,8 @@ export default function CreateFirstGoal(){
             toast.success("First goal successfully created!");
             navigate("/Fitness/goals/monthlyGoals");
         },onError:(error) =>{
-            if(error instanceof Error){
-                toast.error(error.message);
+            if(axios.isAxiosError(error)){
+                toast.error(error.response?.data.message);
             }else {
                 toast.error("Something went wrong");
                 console.log((error as Error).message);

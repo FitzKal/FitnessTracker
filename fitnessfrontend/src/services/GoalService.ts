@@ -1,6 +1,9 @@
 import api from "./AxiosConfig.ts";
 import type {createGoalRequestType, ExerciseDone, updateGoalRequestType} from "../types/GoalType.ts";
-import {AxiosError} from "axios";
+import axios, {AxiosError} from "axios";
+import {useQuery} from "@tanstack/react-query";
+import {toast} from "react-toastify";
+import {UserStore} from "../stores/UserStore.ts";
 
 //------------- GetAllGoals -------------
 export const getAllGoals = ()=>{
@@ -24,6 +27,21 @@ export const getMonthlyGoalById = (goalId:string | undefined) => {
         const message = (error as Error).message;
         console.log(message);
         return message;
+    }
+}
+
+//------------- GetLatestGoal -------------
+export const getLatestGoal = async () => {
+    try{
+        return api.get("/goal/getLatestGoal")
+            .then(res => res.data);
+    }catch (error) {
+        if (error instanceof Error){
+            console.log(error)
+            throw new Error(error.message)
+        }else{
+            throw error;
+        }
     }
 }
 
@@ -89,4 +107,22 @@ export function getCurrentDateYYYYMMDD(): string {
 export function parseYYYYMMDDToDate(dateStr: string): Date {
     const [year, month, day] = dateStr.split("-").map(Number);
     return new Date(year, month - 1, day);
+}
+
+const currentUser = UserStore.getState().user;
+
+export const useLatestGoalDetails = () => {
+    return useQuery({
+        queryKey: ["latestGoal",currentUser?.username],
+        queryFn: async () => {
+            return await getLatestGoal();
+        },
+        retry: (failureCount, error) => {
+            if (axios.isAxiosError(error) && error.response?.status === 404) {
+                return false;
+            }
+            toast.error(error.message);
+            return failureCount < 3;
+        }
+    })
 }
