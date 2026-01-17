@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import {
     ArrowRightEndOnRectangleIcon,
-    BoltIcon,
+    BoltIcon, CakeIcon,
     CalculatorIcon, CalendarDaysIcon,
     HomeIcon,
     TrophyIcon,
@@ -70,6 +70,10 @@ export default function NavBar() {
                     <CalculatorIcon className="h-6 w-6" />
                     <span className="text-[10px]">Calc</span>
                 </Link>
+                <Link to="/Fitness/recipes" className="flex flex-col items-center text-white hover:text-[#06e6e6] p-2">
+                    <CakeIcon className="h-6 w-6" />
+                    <span className="text-[10px]">Recipes</span>
+                </Link>
             </div>
 
             <div className={`
@@ -94,6 +98,7 @@ export default function NavBar() {
                     <NavItem to="/Fitness/calculator/bmi" icon={<CalculatorIcon />} label="Calculators" />
                     <NavItem to="/Fitness/workouts" icon={<TrophyIcon />} label="Workout Catalog" />
                     <NavItem to="/Fitness/goals/monthlyGoals" icon={<CalendarDaysIcon />} label="Goals" />
+                    <NavItem to={"/Fitness/recipes"} icon={<CakeIcon/>} label={"Recipes"} />
 
                     <li className="mt-auto hover:bg-red-600 transition-colors">
                         <Link

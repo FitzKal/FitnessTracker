@@ -168,7 +168,7 @@ export default function CreateProfile(){
                                         {...register("image")}
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png,image/webp"
-                                        className="block text-black bg-white w-full text-sm text-gray-500
+                                        className="block text-black bg-white w-full text-sm
                   file:mr-4 file:py-2 file:px-4
                   file:rounded-full file:border-0
                   file:text-sm file:font-semibold

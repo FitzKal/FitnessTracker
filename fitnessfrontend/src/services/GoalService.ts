@@ -2,7 +2,6 @@ import api from "./AxiosConfig.ts";
 import type {createGoalRequestType, ExerciseDone, updateGoalRequestType} from "../types/GoalType.ts";
 import axios, {AxiosError} from "axios";
 import {useQuery} from "@tanstack/react-query";
-import {toast} from "react-toastify";
 import {UserStore} from "../stores/UserStore.ts";
 
 //------------- GetAllGoals -------------
@@ -121,7 +120,6 @@ export const useLatestGoalDetails = () => {
             if (axios.isAxiosError(error) && error.response?.status === 404) {
                 return false;
             }
-            toast.error(error.message);
             return failureCount < 3;
         }
     })

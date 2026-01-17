@@ -5,6 +5,7 @@ import com.undieb.hu.main.recipes.RecipeWithInstructions;
 import com.undieb.hu.main.recipes.enums.CuisineFromCountries;
 import com.undieb.hu.main.recipes.enums.DietType;
 import com.undieb.hu.main.recipes.enums.MealType;
+import com.undieb.hu.main.recipes.enums.SortOptions;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
@@ -27,14 +28,16 @@ public class RecipeController {
         this.webClient = webClient;
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<RecipeSearchResult> getRecipesBySearch(
             @RequestParam String query,
             @RequestParam(required = false) Integer number,
             @RequestParam(required = false) CuisineFromCountries cuisineFromCountries,
             @RequestParam(required = false) DietType dietType,
             @RequestParam(required = false) MealType mealType,
-            @RequestParam(required = false) Boolean addRecipeNutrition
+            @RequestParam(required = false) Boolean addRecipeNutrition,
+            @RequestParam(required = false) SortOptions sortOption,
+            @RequestParam String sortDirection
             ){
         var response = webClient.get()
                 .uri(uriBuilder -> {
@@ -45,6 +48,8 @@ public class RecipeController {
                             ;
                     builder.queryParam("query",query);
                     builder.queryParam("addRecipeNutrition", Objects.requireNonNullElse(addRecipeNutrition, false));
+                    if (sortOption != null) builder.queryParam("sort",sortOption);
+                    builder.queryParam("sortDirection",sortDirection);
                     if (number != null) builder.queryParam("number",number);
                     if (cuisineFromCountries != null) builder.queryParam("cuisine",cuisineFromCountries);
                     if (dietType != null) builder.queryParam("diet",dietType);

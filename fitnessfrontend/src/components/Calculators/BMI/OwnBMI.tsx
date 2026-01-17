@@ -76,7 +76,7 @@ export default function OwnBMI() {
                 <p className={"text-2xl"}>It seems like you have not created a profile yet!</p>
                 <p className={"text-lg mt-5"}>To have your BMI calculated from your profile, please create one!</p>
                 <div className={"flex justify-center mt-5"}>
-                    <Link to={"/Fitness/CreateProfile"} className={"rounded-xl bg-blue-100 hover:bg-blue-300 font-semibold transition-colors px-6 py-2"}>Create my profile</Link>
+                    <Link to={"/Fitness/CreateProfile"} className={"rounded-xl bg-blue-100 dark:bg-blue-600 dark:hover:bg-blue-800 hover:bg-blue-300 font-semibold transition-colors px-6 py-2"}>Create my profile</Link>
                 </div>
             </div>
         );
