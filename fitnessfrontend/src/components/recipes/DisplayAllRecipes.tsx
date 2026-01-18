@@ -1,7 +1,8 @@
 
-import type {RecipeSearchResponse} from "../../types/RecipeTypes.ts";
+import type {RecipeSearchResponse, SearchResult} from "../../types/RecipeTypes.ts";
 import {useEffect, useState} from "react";
 import SearchRecipesForm from "./SearchRecipesForm.tsx";
+import RecipeListElement from "./RecipeListElement.tsx";
 
 export default function DisplayAllRecipes(){
 
@@ -13,7 +14,7 @@ export default function DisplayAllRecipes(){
 
 
     return (
-      <div className={"min-h-screen "}>
+      <div className={"min-h-screen pb-5"}>
          <div>
              <div className={"flex flex-col text-center border mt-5 p-5 border-slate-300 dark:bg-surface dark:border-surface-border shadow-md"}>
                  <h1 className={"text-2xl lg:text-4xl"}>Welcome to the recipe catalog!</h1>
@@ -22,8 +23,16 @@ export default function DisplayAllRecipes(){
              <div>
                  <SearchRecipesForm setAllRecipes={setAllRecipes}/>
              </div>
-             <div className={"mt-10"}>
-
+             <div className={"mx-10 mt-10 grid grid-cols-1 lg:grid-cols-3 gap-5"}>
+                 {
+                     allRecipes?.results.map((recipe:SearchResult) =>{
+                         return (
+                             <div>
+                                 <RecipeListElement recipe={recipe} />
+                             </div>
+                         )
+                     })
+                 }
              </div>
          </div>
       </div>
