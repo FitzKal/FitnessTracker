@@ -98,7 +98,7 @@ export default function NavBar() {
                     <NavItem to="/Fitness/calculator/bmi" icon={<CalculatorIcon />} label="Calculators" />
                     <NavItem to="/Fitness/workouts" icon={<TrophyIcon />} label="Workout Catalog" />
                     <NavItem to="/Fitness/goals/monthlyGoals" icon={<CalendarDaysIcon />} label="Goals" />
-                    <NavItem to={"/Fitness/recipes"} icon={<CakeIcon/>} label={"Recipes"} />
+                    <NavItem to={"/Fitness/recipes/search"} icon={<CakeIcon/>} label={"Recipes"} />
 
                     <li className="mt-auto hover:bg-red-600 transition-colors">
                         <Link

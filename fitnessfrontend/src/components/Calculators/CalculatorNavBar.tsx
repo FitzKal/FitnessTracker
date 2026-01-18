@@ -7,19 +7,19 @@ export default function CalculatorNavBar() {
                 <div className="flex flex-wrap justify-center gap-6">
                     <Link
                         to="/Fitness/calculator/bmi"
-                        className="text-lg font-medium px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors"
+                        className="text-lg font-medium px-4 py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-950 transition-colors"
                     >
                         Calculate BMI
                     </Link>
                     <Link
                         to="/Fitness/calculator/protein"
-                        className="text-lg font-medium px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors"
+                        className="text-lg font-medium px-4 py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-950 transition-colors"
                     >
                         Daily Protein Intake
                     </Link>
                     <Link
                         to="/Fitness/calculator/calories"
-                        className="text-lg font-medium px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors"
+                        className="text-lg font-medium px-4 py-2 rounded-lg hover:bg-blue-900 dark:hover:bg-blue-950 transition-colors"
                     >
                         Daily Calorie Intake
                     </Link>

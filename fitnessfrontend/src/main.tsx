@@ -26,6 +26,8 @@ import PreviousExtendedMonthlyGoal from "./components/goals/monthlyGoals/Previou
 import ExtendedWeeklyGoal from "./components/goals/weeklyGoals/ExtendedWeeklyGoal.tsx";
 import ExtendedDailyGoal from "./components/goals/dailyGoals/ExtendedDailyGoal.tsx";
 import DisplayAllRecipes from "./components/recipes/DisplayAllRecipes.tsx";
+import RecipeNavbar from "./components/recipes/RecipeNavbar.tsx";
+import DisplayRandomRecipes from "./components/recipes/DisplayRandomRecipes.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -127,7 +129,17 @@ const router = createBrowserRouter([
             },
             {
                 path:"/Fitness/recipes",
-                element:<DisplayAllRecipes/>
+                element:<RecipeNavbar/>,
+                children:[
+                    {
+                        path: "/Fitness/recipes/search",
+                        element: <DisplayAllRecipes/>
+                    },
+                    {
+                        path: "/Fitness/recipes/random",
+                        element: <DisplayRandomRecipes/>
+                    }
+                ]
             }
         ]
     }
