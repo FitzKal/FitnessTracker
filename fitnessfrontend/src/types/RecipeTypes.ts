@@ -1,15 +1,4 @@
-import type {CuisineOrigin, DietType, MealType, SortDirection, SortType} from "./RecipeEnums.ts";
-
-export interface RecipeSearchRequest{
-    query:string,
-    number?:number,
-    cuisineOrigin?: CuisineOrigin,
-    dietType?:DietType,
-    mealType?:MealType,
-    addRecipeNutrition:boolean,
-    sortingOption?:SortType,
-    sortDirection:SortDirection
-}
+import {CuisineOrigin, DietType, MealType, SortDirection, SortType} from "./RecipeEnums.ts";
 
 export interface RecipeSearchResponse{
     number:number,
@@ -34,4 +23,16 @@ export interface nutrientInfo{
     amount:number,
     unit:string,
     percentOfDailyNeeds:number
+}
+
+
+export interface RecipeSearchRequest{
+    query:string,
+    number?:number,
+    cuisineFromCountries?: CuisineOrigin,
+    dietType?:DietType,
+    mealType?:MealType,
+    addRecipeNutrition:boolean,
+    sortingOption?:SortType,
+    sortDirection:SortDirection
 }

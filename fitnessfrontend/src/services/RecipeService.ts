@@ -8,7 +8,7 @@ export const searchRecipes = async (searchRequest:RecipeSearchRequest) => {
             params:{
                 query:searchRequest.query,
                 number:searchRequest.number?searchRequest.number:undefined,
-                cuisineOrigin:searchRequest.cuisineOrigin?searchRequest.cuisineOrigin:undefined,
+                cuisineFromCountries:searchRequest.cuisineFromCountries?searchRequest.cuisineFromCountries:undefined,
                 dietType:searchRequest.dietType?searchRequest.dietType:undefined,
                 mealType:searchRequest.mealType?searchRequest.mealType:undefined,
                 addRecipeNutrition:searchRequest.addRecipeNutrition,

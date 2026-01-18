@@ -25,7 +25,7 @@ import DisplayAllDailyGoals from "./components/goals/dailyGoals/DisplayAllDailyG
 import PreviousExtendedMonthlyGoal from "./components/goals/monthlyGoals/PreviousExtendedMonthlyGoal.tsx";
 import ExtendedWeeklyGoal from "./components/goals/weeklyGoals/ExtendedWeeklyGoal.tsx";
 import ExtendedDailyGoal from "./components/goals/dailyGoals/ExtendedDailyGoal.tsx";
-import DisplayAllRecipes from "./components/workouts/DisplayAllRecipes.tsx";
+import DisplayAllRecipes from "./components/recipes/DisplayAllRecipes.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
