@@ -1,15 +1,17 @@
 
-import type {RecipeSearchRequest} from "../../types/RecipeTypes.ts";
+import type {RecipeSearchRequest, RecipeSearchResponse} from "../../types/RecipeTypes.ts";
 import {searchRecipes} from "../../services/RecipeService.ts";
-import {useEffect} from "react";
 import {useMutation} from "@tanstack/react-query";
 import axios from "axios";
+import {useEffect, useState} from "react";
 
 export default function DisplayAllRecipes(){
 
+    const [allRecipes,SetAllRecipes] = useState<RecipeSearchResponse>()
+
     const searchRequest:RecipeSearchRequest = {
         query:"pasta",
-        addRecipeNutrition:false,
+        addRecipeNutrition:true,
         sortDirection:"desc"
     }
     const searchMutation = useMutation({
@@ -18,7 +20,7 @@ export default function DisplayAllRecipes(){
             return  searchRecipes(request)
         },
         onSuccess:(result) => {
-            console.log(result);
+            SetAllRecipes(result);
         },
         onError:(error) =>{
             if (axios.isAxiosError(error)){
@@ -29,6 +31,9 @@ export default function DisplayAllRecipes(){
         }
     })
 
+    useEffect(() => {
+        console.log(allRecipes)
+    }, [allRecipes]);
 
 
     return (
