@@ -1,5 +1,5 @@
-import CustomProteinForm from "./CustomProteinForm.tsx";
 import type {proteinResponse} from "../../../types/CalculatorTypes.ts";
+import CustomProteinForm from "./CustomProteinForm.tsx";
 
 export default function CustomProtein(props:{handleProteinIntakeChange:(data:proteinResponse) =>void}){
 

@@ -5,9 +5,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import { useProfileDetails } from "../../../services/UserProfileService.ts";
+import { Link } from "react-router-dom";
 import ProgressBar from "../ProgressBar.tsx";
 import BmiClassificationText from "./BmiClassificationText.tsx";
-import { Link } from "react-router-dom";
 
 export default function OwnBMI() {
     const [hasProfile, setHasProfile] = useState<boolean>(true);

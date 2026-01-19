@@ -1,10 +1,11 @@
 import OwnProteinStats from "./OwnProteinStats.tsx";
 import { useState } from "react";
 import type { proteinResponse } from "../../../types/CalculatorTypes.ts";
+import CustomProtein from "./CustomProtein.tsx";
 import FetchedProteinDetails from "./FetchedProteinDetails.tsx";
 import ProteinImportance from "./ProteinImportance.tsx";
 import ProteinIntakeAmountImportance from "./ProteinIntakeAmountImportance.tsx";
-import CustomProtein from "./CustomProtein.tsx";
+
 
 export default function ProteinCalculator() {
     const [proteinIntake, setProteinIntake] = useState<proteinResponse>();

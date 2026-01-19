@@ -1,7 +1,8 @@
 import {useState} from "react";
 import OwnBMI from "./OwnBMI.tsx";
-import BmiInformation from "./BmiInformation.tsx";
 import CustomBMI from "./CustomBMI.tsx";
+import BmiInformation from "./BmiInformation.tsx";
+
 
 export default function BMICalculator(){
     const [isOwnBMI, setOwnBMI] = useState<boolean>(true);

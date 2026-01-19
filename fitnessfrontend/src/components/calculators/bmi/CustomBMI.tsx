@@ -1,10 +1,10 @@
-    import type {BMIForm} from "../../../types/FormTypes.ts";
-import ProgressBar from "../ProgressBar.tsx";
-import CustomBMIForm from "./CustomBMIForm.tsx";
+import type {BMIForm} from "../../../types/FormTypes.ts";
 import {useState} from "react";
 import {BMIClassing} from "../../../services/CalculatorService.ts";
-    import CustomSubmittedBMI from "./CustomSubmittedBMI.tsx";
-    import BmiClassificationText from "./BmiClassificationText.tsx";
+import CustomBMIForm from "./CustomBMIForm.tsx";
+import CustomSubmittedBMI from "./CustomSubmittedBMI.tsx";
+import ProgressBar from "../ProgressBar.tsx";
+import BmiClassificationText from "./BmiClassificationText.tsx";
 
 export default function CustomBMI(){
     const [customBMIDetails,setCustomBMIDetails] = useState<BMIForm>({

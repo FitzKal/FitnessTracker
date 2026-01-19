@@ -1,9 +1,9 @@
-import CalorieStats from "./CalorieStats.tsx";
 import { useState } from "react";
 import type { calorieResponse } from "../../../types/CalculatorTypes.ts";
 import FetchedCalories from "./FetchedCalories.tsx";
 import CalorieCountingInformation from "./CalorieCountingInformation.tsx";
 import CustomCalorie from "./CustomCalorie.tsx";
+import CalorieStats from "./CalorieStats.tsx";
 
 export default function CalorieCalculator() {
     const [calorieIntake, setCalorieIntake] = useState<calorieResponse>();
