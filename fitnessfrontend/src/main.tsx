@@ -28,6 +28,7 @@ import ExtendedDailyGoal from "./components/goals/dailyGoals/ExtendedDailyGoal.t
 import DisplayAllRecipes from "./components/recipes/DisplayAllRecipes.tsx";
 import RecipeNavbar from "./components/recipes/RecipeNavbar.tsx";
 import DisplayRandomRecipes from "./components/recipes/DisplayRandomRecipes.tsx";
+import RecipeElement from "./components/recipes/RecipeElement.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -138,6 +139,10 @@ const router = createBrowserRouter([
                     {
                         path: "/Fitness/recipes/random",
                         element: <DisplayRandomRecipes/>
+                    },
+                    {
+                        path: "/Fitness/recipes/:params",
+                        element: <RecipeElement/>
                     }
                 ]
             }

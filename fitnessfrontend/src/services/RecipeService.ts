@@ -45,3 +45,18 @@ export const getRandomRecipes = async (randomRequest:RandomRecipeRequest) => {
         }
     }
 }
+
+//------------- GetRecipeById -------------
+export const getRecipeById = async (recipeId:string|undefined) => {
+    try {
+        return api.get(`/recipe/${recipeId}`)
+            .then(res => res.data)
+    }catch (error){
+        if (error instanceof Error){
+            console.log(error);
+            throw new Error(error.message);
+        }else {
+            throw error;
+        }
+    }
+}

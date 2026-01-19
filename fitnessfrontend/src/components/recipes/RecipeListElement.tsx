@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { nutrientInfo, SearchResult } from "../../types/RecipeTypes.ts";
+import {Link} from "react-router-dom";
 
 export default function RecipeListElement(prop: { recipe: SearchResult }) {
     const [open, setOpen] = useState<boolean>(false);
@@ -10,9 +11,9 @@ export default function RecipeListElement(prop: { recipe: SearchResult }) {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                     <div className="flex flex-col gap-3">
-                        <p className="text-lg font-semibold text-center lg:text-left">
+                        <Link to={`/Fitness/recipes/${prop.recipe.id}_${prop.recipe.title}`} className="text-lg font-semibold text-center lg:text-left hover:text-blue-700">
                             {prop.recipe.title}
-                        </p>
+                        </Link>
 
                         <img
                             src={prop.recipe.image}
@@ -68,8 +69,8 @@ export default function RecipeListElement(prop: { recipe: SearchResult }) {
     }else {
         return (
             <div className="border border-slate-200 bg-gray-100 rounded-xl p-5 shadow-sm dark:bg-surface dark:border-surface-border">
-                <div>
-                    <h1 className={"text-center text-lg lg:text-xl border-b-1 dark:border-surface-border"}>{prop.recipe.title}</h1>
+                <div className={"flex justify-center"}>
+                    <Link to={`/Fitness/recipes/${prop.recipe.id}_${prop.recipe.title}`} className={"text-center text-lg lg:text-xl border-b-1 dark:border-surface-border hover:text-blue-700"}>{prop.recipe.title}</Link>
                 </div>
                 <div className={"flex justify-center"}>
                     <img

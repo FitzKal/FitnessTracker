@@ -45,3 +45,36 @@ export type RandomRecipeRequest = {
 export interface RandomRecipeResponse {
     recipes:SearchResult[]
 }
+
+///By Id
+export type RecipeByIdResponse = Instructions[]
+
+export interface Instructions{
+    name:string,
+    steps:Step[]
+}
+
+export interface Step{
+    step:string,
+    number:number,
+    equipment?:CookingEquipment[],
+    ingredients?:Ingredients[]
+}
+
+export interface CookingEquipment{
+    id:number,
+    image:string,
+    name:string
+    temperature?:Temperature
+}
+
+export interface Temperature{
+    number:number,
+    unit:string
+}
+
+export interface Ingredients{
+    id:number,
+    image:string,
+    name:string
+}
