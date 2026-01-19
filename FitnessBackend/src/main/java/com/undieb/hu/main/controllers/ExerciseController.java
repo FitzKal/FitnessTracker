@@ -18,7 +18,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @RequestMapping("/api/fitness/exercise")
 public class ExerciseController {
 
-    private final String host = "exercisedb-api1.p.rapidapi.com";
+    private final String host = "exercise-db-with-videos-and-images-by-ascendapi.p.rapidapi.com";
     private final String scheme = "https";
     private final String basePath = "/api/v1/";
     private final WebClient webClient;

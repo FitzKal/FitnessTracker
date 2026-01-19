@@ -1,5 +1,6 @@
 package com.undieb.hu.main.controllers;
 
+import com.undieb.hu.main.recipes.RandomRecipeResponse;
 import com.undieb.hu.main.recipes.RecipeSearchResult;
 import com.undieb.hu.main.recipes.RecipeWithInstructions;
 import com.undieb.hu.main.recipes.enums.CuisineFromCountries;
@@ -65,23 +66,26 @@ public class RecipeController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/random")
-    public ResponseEntity<RecipeSearchResult> getRandomRecipe(
+    @PostMapping("/random")
+    public ResponseEntity<RandomRecipeResponse> getRandomRecipe(
             @RequestParam(required = false) Integer number,
-            @RequestParam(required = false) Boolean addRecipeNutrition
+            @RequestParam(required = false) Boolean addRecipeNutrition,
+            @RequestParam(required = false) MealType includeTags
     ){
+        System.out.println(includeTags);
         var response = webClient.get()
                 .uri(uriBuilder -> {
                     var builder = uriBuilder
                             .scheme(scheme)
                             .host(host)
-                            .path(basePath + "/complexSearch");
-                    builder.queryParam("addRecipeNutrition", Objects.requireNonNullElse(addRecipeNutrition, false));
+                            .path(basePath + "/random");
+                    builder.queryParam("includeNutrition", Objects.requireNonNullElse(addRecipeNutrition, false));
                     if (number != null) builder.queryParam("number",number);
+                    if (includeTags != null) builder.queryParam("include-tags",includeTags.toString().toLowerCase().replace("_"," "));
                     return builder.build();
                 })
                 .retrieve()
-                .bodyToMono(RecipeSearchResult.class)
+                .bodyToMono(RandomRecipeResponse.class)
 
                 .block();
         return ResponseEntity.ok(response);
