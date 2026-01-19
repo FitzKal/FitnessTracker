@@ -14,7 +14,7 @@ export default function DisplayAllRecipes(){
 
 
     return (
-      <div className={"min-h-screen pb-5"}>
+      <div>
          <div>
              <div className={"flex flex-col text-center border mt-5 p-5 border-slate-300 dark:bg-surface dark:border-surface-border shadow-md"}>
                  <h1 className={"text-2xl lg:text-4xl"}>Welcome to the recipe catalog!</h1>
@@ -23,6 +23,17 @@ export default function DisplayAllRecipes(){
              <div>
                  <SearchRecipesForm setAllRecipes={setAllRecipes}/>
              </div>
+             {
+                 allRecipes?
+                     <div>
+                         <div className={"flex flex-col ml-5"}>
+                             <p>Number of results requested: {allRecipes?.number}</p>
+                             <p>Number of total results: {allRecipes?.totalResults}</p>
+                         </div>
+                     </div>:
+                     <></>
+
+             }
              <div className={"mx-10 mt-10 grid grid-cols-1 lg:grid-cols-3 gap-5"}>
                  {
                      allRecipes?.results.map((recipe:SearchResult) =>{
