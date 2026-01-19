@@ -36,6 +36,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST,"/api/fitness/auth/confirmRegister").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/fitness/auth/register").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/fitness/auth/resendCode").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/fitness/auth/resetPassword").permitAll()
+                                .requestMatchers(HttpMethod.PUT,"/api/fitness/auth/confirmResetPassword").permitAll()
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

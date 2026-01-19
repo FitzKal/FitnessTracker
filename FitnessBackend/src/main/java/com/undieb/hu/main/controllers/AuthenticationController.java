@@ -44,4 +44,16 @@ public class AuthenticationController {
         return ResponseEntity.ok(newDetails);
     }
 
+    @PostMapping("/resetPassword")
+    public ResponseEntity<VerificationDetails> sendResetToken(@RequestParam String email){
+        return ResponseEntity.ok(authenticationService.sendResetToken(email));
+    }
+
+    @PutMapping("/confirmResetPassword")
+    public ResponseEntity<Boolean> confirmPasswordReset(@RequestBody PasswordChangeResponse passwordChangeResponse,
+                                                        @RequestParam String otpToVerify){
+        return ResponseEntity.ok(authenticationService.isChangeSuccessful(passwordChangeResponse,otpToVerify));
+    }
+
+
 }
