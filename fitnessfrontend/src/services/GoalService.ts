@@ -117,7 +117,7 @@ export const useLatestGoalDetails = () => {
             return await getLatestGoal();
         },
         retry: (failureCount, error) => {
-            if (axios.isAxiosError(error) && error.response?.status === 404) {
+            if (axios.isAxiosError(error) && (error.response?.status === 404 || error.response?.status === 403)) {
                 return false;
             }
             return failureCount < 3;

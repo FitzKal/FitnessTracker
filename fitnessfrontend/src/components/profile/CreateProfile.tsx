@@ -32,7 +32,7 @@ export default function CreateProfile(){
         },
         onSuccess:() =>{
             navigate("/Fitness/Profile");
-            toast.success("Profile Successfully created");
+            toast.success("profile Successfully created");
         },
         onError:(error) =>{
             if(error instanceof Error){

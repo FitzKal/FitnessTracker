@@ -8,8 +8,8 @@ import RegisterForm from "./components/auth/RegisterForm.tsx";
 import VerificationPage from "./components/auth/VerificationPage.tsx";
 import HomePage from "./components/homePage/HomePage.tsx";
 import NavBar from "./components/homePage/NavBar.tsx";
-import Profile from "./components/Profile/Profile.tsx";
-import CreateProfile from "./components/Profile/CreateProfile.tsx";
+import Profile from "./components/profile/Profile.tsx";
+import CreateProfile from "./components/profile/CreateProfile.tsx";
 import BMICalculator from "./components/calculators/bmi/BMICalculator.tsx";
 import CalculatorNavBar from "./components/calculators/CalculatorNavBar.tsx";
 import ProteinCalculator from "./components/calculators/protein/ProteinCalculator.tsx";
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
                 element:<HomePage />
             },
             {
-                path:"/Fitness/Profile",
+                path:"/Fitness/profile",
                 element:<Profile />,
             },
             {
