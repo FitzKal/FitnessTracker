@@ -2,6 +2,7 @@ package com.undieb.hu.main.services;
 import com.undieb.hu.main.controllers.DTOs.auth.*;
 import com.undieb.hu.main.converters.RegisterUserDTOToUserConverter;
 import com.undieb.hu.main.exceptions.InvalidVerificationCodeException;
+import com.undieb.hu.main.exceptions.UserAlreadyExistsException;
 import com.undieb.hu.main.exceptions.UserNotFoundException;
 import com.undieb.hu.main.models.enums.Role;
 import com.undieb.hu.main.repositories.UserRepository;
@@ -21,6 +22,12 @@ public class AuthenticationService {
     private final EmailSenderService emailSenderService;
 
     public RegisterUserResponse registerUser(RegisterUserDto registerUserDto){
+        if (userRepository.existsByEmail(registerUserDto.getEmail())){
+            throw new UserAlreadyExistsException("A user with this email already exists");
+        }
+        if (userRepository.existsByUsername(registerUserDto.getUsername())){
+            throw new UserAlreadyExistsException("A user with this username already exists");
+        }
             var convertedToUser = registerUserDTOToUserConverter.convertRegisterUserDTOToUser(registerUserDto);
             convertedToUser.setRole(Role.USER);
             convertedToUser.setPassword(passwordEncrypter.passwordEncoder()
@@ -49,6 +56,26 @@ public class AuthenticationService {
         throw new UserNotFoundException("Invalid login credentials!");
     }
 
+    public VerificationDetails sendResetToken(String recipientEmail){
+        if (userRepository.existsByEmail(recipientEmail)){
+            return emailSenderService.sendPasswordResetToken(recipientEmail);
+        }else{
+            throw new UserNotFoundException("The given email is not associated with a user");
+        }
+    }
+
+    public Boolean isChangeSuccessful(PasswordChangeResponse passwordChangeResponse, String otpToVerify){
+        if (emailSenderService.verifyResetToken(otpToVerify,passwordChangeResponse)){
+            var userToUpdate = userRepository.findByEmail(passwordChangeResponse.getEmail());
+             userToUpdate.setPassword(passwordEncrypter.passwordEncoder()
+                    .encode(passwordChangeResponse.getNewPassword()));
+             userRepository.save(userToUpdate);
+             return true;
+        }else{
+            return false;
+        }
+    }
+
     private Boolean checkCredential(LoginRequestDTO requestDTO){
         var userToLogin = userRepository.findByUsername(requestDTO.getUsername());
         if (userToLogin != null)
@@ -56,6 +83,7 @@ public class AuthenticationService {
         else
             throw new UserNotFoundException("User not found");
     }
+
 
     public void logout(HttpServletRequest request){
         jwtService.addToBlackList(request);
