@@ -3,7 +3,7 @@ import {CuisineOrigin, DietType, MealType, SortDirection, SortType} from "./Reci
 export interface RecipeSearchResponse{
     number:number,
     results:SearchResult[],
-    totalResult:number
+    totalResults:number
 }
 
 export interface SearchResult{
@@ -35,4 +35,13 @@ export interface RecipeSearchRequest{
     addRecipeNutrition:boolean,
     sortingOption?:SortType,
     sortDirection:SortDirection
+}
+
+export type RandomRecipeRequest = {
+    number?:number,
+    addRecipeNutrition?:boolean,
+    includeTags?:MealType
+}
+export interface RandomRecipeResponse {
+    recipes:SearchResult[]
 }
