@@ -7,7 +7,8 @@ import {toast} from "react-toastify";
 import {useEffect} from "react";
 
 
-export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>void, userData:UserProfile}){
+export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>void, userData:UserProfile
+    , handlePasswordChanging: () => void }){
     const {register,handleSubmit,formState:{errors,isSubmitting},reset} = useForm<UserProfileFormType>({
         resolver:zodResolver(ProfileSchema),
         defaultValues:{
@@ -228,7 +229,10 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                         <button
                             type="button"
                             className="px-6 py-2 rounded-xl bg-yellow-300 dark:bg-yellow-600 hover:bg-yellow-400 dark:hover:bg-yellow-800 font-semibold"
-                        >
+                            onClick={() => {
+                                prop.updateHandler()
+                                prop.handlePasswordChanging()
+                            }}>
                             Change Password
                         </button>
 

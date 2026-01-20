@@ -35,7 +35,7 @@ export default function HomePage(){
             <div className="bg-white shadow-sm border-b border-gray-200 dark:bg-surface dark:border-surface-border">
                 <div className="max-w-3xl mx-auto px-4 py-6">
                     <div className="flex justify-center">
-                        <h1 className="text-3xl font-bold ">Welcome {currentUser!.username} to you Fitness Tracker!</h1>
+                        <h1 className="text-3xl font-bold ">Welcome {currentUser!.username} to your Fitness Tracker!</h1>
                     </div>
                 </div>
             </div>

@@ -9,11 +9,13 @@ import {Link, useNavigate} from "react-router-dom";
 import DeleteProfileForm from "./DeleteProfileForm.tsx";
 import {useLatestGoalDetails} from "../../services/GoalService.ts";
 import DisplayLatestProfileGoal from "./DisplayLatestProfileGoal.tsx";
+import PasswordChangeForm from "./PasswordChangeForm.tsx";
 
 export default function Profile() {
     const currentUser = UserStore.getState().user;
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
+    const [isChangingPassword, setIsChangingPassword] = useState<boolean>(false);
     const [hasGoal,setHasGoal] = useState<boolean>(true);
     const {data:latestGoalData, isLoading:latestGoalLoading, error:goalError, isError:isGoalError} = useLatestGoalDetails();
     const navigate = useNavigate();
@@ -47,6 +49,7 @@ export default function Profile() {
 
     const handleUpdating = () => setIsUpdating(!isUpdating);
     const handleDeleting = () => setIsDeleting(!isDeleting);
+    const handlePasswordChanging = () => setIsChangingPassword(!isChangingPassword);
 
     if ((isLoading && !missingProfile) || latestGoalLoading) {
         return (
@@ -57,8 +60,10 @@ export default function Profile() {
     }
     return (
         <div className="min-h-screen p-8">
-            <UpdateForm isUpdating={isUpdating} updateHandler={handleUpdating} userData={data} />
-            <DeleteProfileForm isDeleting={isDeleting} deleteHandler={handleDeleting} />
+            <UpdateForm isUpdating={isUpdating} updateHandler={handleUpdating} userData={data} handlePasswordChanging={handlePasswordChanging} />
+            <DeleteProfileForm isDeleting={isDeleting} deleteHandler={handleDeleting}/>
+            <PasswordChangeForm isChangingPassword={isChangingPassword} handlePasswordChanging={handlePasswordChanging} updateHandler={handleUpdating}
+            emailAddress={data.email}/>
 
             <h1 className="text-4xl font-bold text-center text-blue-900 mb-10">Your Profile</h1>
 
