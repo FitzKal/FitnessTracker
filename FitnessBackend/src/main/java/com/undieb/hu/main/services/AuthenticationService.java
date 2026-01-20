@@ -9,6 +9,7 @@ import com.undieb.hu.main.repositories.UserRepository;
 import com.undieb.hu.main.security.PasswordEncrypter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.*;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -64,16 +65,20 @@ public class AuthenticationService {
         }
     }
 
-    public Boolean isChangeSuccessful(PasswordChangeResponse passwordChangeResponse, String otpToVerify){
-        if (emailSenderService.verifyResetToken(otpToVerify,passwordChangeResponse)){
-            var userToUpdate = userRepository.findByEmail(passwordChangeResponse.getEmail());
-             userToUpdate.setPassword(passwordEncrypter.passwordEncoder()
-                    .encode(passwordChangeResponse.getNewPassword()));
-             userRepository.save(userToUpdate);
-             return true;
-        }else{
-            return false;
+    public String changePassword(String password, String email){
+        var userToUpdate = userRepository.findByEmail(email);
+        userToUpdate.setPassword(passwordEncrypter.passwordEncoder()
+                .encode(password));
+        userRepository.save(userToUpdate);
+        return "Password successfully changed!";
+    }
+
+    public Boolean verifyToken(PasswordChangeResponse passwordChangeResponse, String otpToVerify){
+        var isValid  = emailSenderService.verifyResetToken(otpToVerify, passwordChangeResponse);
+        if (!isValid){
+            throw new InvalidVerificationCodeException("The given token is invalid");
         }
+        return true;
     }
 
     private Boolean checkCredential(LoginRequestDTO requestDTO){

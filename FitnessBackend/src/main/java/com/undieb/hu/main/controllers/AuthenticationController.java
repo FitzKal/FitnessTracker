@@ -49,10 +49,16 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.sendResetToken(email));
     }
 
-    @PutMapping("/confirmResetPassword")
+    @PostMapping("/verifyToken")
     public ResponseEntity<Boolean> confirmPasswordReset(@RequestBody PasswordChangeResponse passwordChangeResponse,
                                                         @RequestParam String otpToVerify){
-        return ResponseEntity.ok(authenticationService.isChangeSuccessful(passwordChangeResponse,otpToVerify));
+        return ResponseEntity.ok(authenticationService.verifyToken(passwordChangeResponse,otpToVerify));
+    }
+
+    @PutMapping("/confirmReset")
+    public ResponseEntity<String> confirmNewPassword(@RequestBody PasswordChangeRequest passwordChangeRequest){
+        return ResponseEntity.ok(authenticationService.changePassword(passwordChangeRequest.getPassword(),
+                passwordChangeRequest.getEmail()));
     }
 
 
