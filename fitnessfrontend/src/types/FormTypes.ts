@@ -21,3 +21,13 @@ export type BMIForm = {
     height: number,
     weight:number
 }
+
+export interface ResetPasswordResponse {
+    email?:string | null
+    lastOTP?:string | null
+    otpTime?:string | null
+}
+
+export type PasswordReset  = {
+    password:string
+}

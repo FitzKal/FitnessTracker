@@ -1,4 +1,4 @@
-import type {LoginRequest, RegisterRequest} from "../types/FormTypes.ts";
+import type {LoginRequest, RegisterRequest, ResetPasswordResponse} from "../types/FormTypes.ts";
 import type {ResendTokenType, UserRegisterType} from "../types/User.ts";
 import api from "./AxiosConfig.ts";
 
@@ -25,16 +25,6 @@ export const userLogin = async (loginRequest:LoginRequest) =>{
 
 // ------------- Register -------------
 export const registerUser = async (registerRequest:RegisterRequest) =>{
-   /* try{
-        const res = await api.post("/auth/register",registerRequest)
-            .then(response => response.data);
-        console.log(res);
-        return res
-    }catch (error){
-        const message = (error as Error).message;
-        console.log(message);
-        throw new Error("There was a problem while registering");
-    }*/
     const res = await fetch("/api/fitness/auth/register",{
         method : "POST",
         headers:{
@@ -54,20 +44,6 @@ export const registerUser = async (registerRequest:RegisterRequest) =>{
 
 // ------------- Confirm Registration -------------
 export const confirmRegister = async (verificationCode:string, userToRegister : UserRegisterType) => {
-    // try{
-    //     const res = await api.post("/auth/confirmRegister",userToRegister,{
-    //         params : {
-    //             verificationCode : verificationCode
-    //         }
-    //     })
-    //         .then(response => response.data);
-    //     console.log(res);
-    //     return res;
-    // }catch(error){
-    //     const message = (error as Error).message;
-    //     console.log(message);
-    //     throw new Error("Invalid verification code");
-    // }
     const res = await fetch(`/api/fitness/auth/confirmRegister?` + new URLSearchParams({
         verificationCode : verificationCode
     }), {
@@ -116,4 +92,60 @@ export const logoutUser = async () =>{
      const message = (error as Error).message;
      throw new Error(message || "Could not complete request")
  }
+}
+
+// ------------- Send password reset token -------------
+export const resetPassword = async (email:string) => {
+    const res = await fetch("/api/fitness/auth/resetPassword?" + new URLSearchParams({
+        email:email
+    }).toString() ,{
+        method : "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body:JSON.stringify(email)
+    });
+    if (res.ok){
+        return await res.json()
+    }else {
+        const message = await res.text();
+        throw new Error(message || "Could not resend verification code");
+    }
+}
+
+// ------------- Verify Token -------------
+export const verifyToken = async (tokenToVerify:string, resetDetails:ResetPasswordResponse) => {
+    const res = await fetch("/api/fitness/auth/verifyToken?" + new URLSearchParams({
+        otpToVerify:tokenToVerify
+    }).toString() ,{
+        method : "POST",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body:JSON.stringify(resetDetails)
+    });
+    if (res.ok){
+        return await res.json()
+    }else {
+        const message = await res.text();
+        throw new Error(message || "Could not resend verification code");
+    }
+}
+
+// ------------- Change Password-------------
+export const changePassword = async (newPassword:{password:string, email:string}) => {
+    const res = await fetch("/api/fitness/auth/confirmReset",{
+        method : "PUT",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body:JSON.stringify(newPassword)
+    });
+    if (res.ok){
+        const message = await res.text();
+        return(message)
+    }else {
+        const message = await res.text();
+        throw new Error(message || "Could not resend verification code");
+    }
 }
