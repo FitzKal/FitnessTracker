@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import { UserStore } from "../../stores/UserStore.ts";
 import { getUserProfile } from "../../services/UserProfileService.ts";
 import { useEffect, useState} from "react";
@@ -10,6 +10,7 @@ import DeleteProfileForm from "./DeleteProfileForm.tsx";
 import {useLatestGoalDetails} from "../../services/GoalService.ts";
 import DisplayLatestProfileGoal from "./DisplayLatestProfileGoal.tsx";
 import PasswordChangeForm from "./PasswordChangeForm.tsx";
+import {exportDetailsToPDF} from "../../services/PdfService.ts";
 
 export default function Profile() {
     const currentUser = UserStore.getState().user;
@@ -36,6 +37,21 @@ export default function Profile() {
             return failureCount < 3;
         },
     });
+
+    const getPdf = useMutation({
+        mutationFn:(id:number) => exportDetailsToPDF(id),
+        onSuccess:() => {
+            toast.success("Pdf is downloading");
+
+        },
+        onError:(error) => {
+            if (error instanceof Error){
+                toast.error(error.message);
+            }else{
+                toast.error("Something went wrong");
+            }
+        }
+    })
 
     useEffect(() => {
         if (isGoalError && axios.isAxiosError(goalError) && goalError.response?.status === 404){
@@ -123,6 +139,12 @@ export default function Profile() {
                         className="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
                     >
                         Delete Profile
+                    </button>
+                    <button
+                        onClick={()=>getPdf.mutate(data.profileId)}
+                        className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-2xl shadow-md transition-colors"
+                    >
+                        Export profile data
                     </button>
                 </div>
         </div>
