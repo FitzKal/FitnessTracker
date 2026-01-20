@@ -29,6 +29,7 @@ import DisplayAllRecipes from "./components/recipes/DisplayAllRecipes.tsx";
 import RecipeNavbar from "./components/recipes/RecipeNavbar.tsx";
 import DisplayRandomRecipes from "./components/recipes/DisplayRandomRecipes.tsx";
 import RecipeElement from "./components/recipes/RecipeElement.tsx";
+import ResetPasswordPage from "./components/auth/ResetPasswordPage.tsx";
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
     {
         path:"/verificationPage",
         element:<VerificationPage />
+    },
+    {
+        path:"/resetPassword",
+        element:<ResetPasswordPage/>
     },
     {
         path: "/Fitness",
