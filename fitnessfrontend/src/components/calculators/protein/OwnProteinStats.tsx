@@ -1,5 +1,5 @@
-import {useProfileDetails} from "../../../services/UserProfileService.ts";
-import {useMutation} from "@tanstack/react-query";
+import {getUserProfile} from "../../../services/UserProfileService.ts";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {calculateProteinIntakeByProfile} from "../../../services/CalculatorService.ts";
 import {toast} from "react-toastify";
 import type {proteinResponse} from "../../../types/CalculatorTypes.ts";
@@ -7,7 +7,19 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 
 export default function OwnProteinStats(props:{handleProteinIntakeChange:(intake:proteinResponse) => void}){
-    const {data:details, isLoading:profileLoading, isError, error} = useProfileDetails();
+    const {data:details, isLoading:profileLoading, isError, error} = useQuery({
+        queryKey:["proteinProfile"],
+        queryFn:async() => {
+            return await getUserProfile();
+        },
+        retry:(failureCount,error) =>{
+            if (axios.isAxiosError(error) && error.response?.status === 404){
+                return false;
+            }
+            toast.error(error.message);
+            return failureCount < 3;
+        }
+    });
 
     const mutation = useMutation({
         mutationFn:(exerciseType:string) => calculateProteinIntakeByProfile(exerciseType),

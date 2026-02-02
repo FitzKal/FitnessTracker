@@ -1,5 +1,5 @@
-import {useProfileDetails} from "../../../services/UserProfileService.ts";
-import {useMutation} from "@tanstack/react-query";
+import {getUserProfile} from "../../../services/UserProfileService.ts";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {calculateOwnCalorieIntake} from "../../../services/CalculatorService.ts";
 import type {calorieResponse} from "../../../types/CalculatorTypes.ts";
 import {toast} from "react-toastify";
@@ -7,7 +7,19 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 
 export default function CalorieStats(props:{handleCalorieIntakeChange:(intake:calorieResponse) => void}){
-    const {data:details, isLoading:profileLoading,error,isError} = useProfileDetails();
+    const {data:details, isLoading:profileLoading,error,isError} = useQuery({
+        queryKey:["calorieProfile"],
+        queryFn:async() => {
+            return await getUserProfile();
+        },
+        retry:(failureCount,error) =>{
+            if (axios.isAxiosError(error) && error.response?.status === 404){
+                return false;
+            }
+            toast.error(error.message);
+            return failureCount < 3;
+        }
+    });
     const missingProfile = isError && axios.isAxiosError(error) && error.response?.status === 404;
 
 
