@@ -80,7 +80,7 @@ export default function RegisterForm(){
                 <button className={"border-2 rounded-2xl mr-20 mt-10 w-25 h-10 self-center font-semibold " +
                     "bg-gradient-to-b from-orange-400 to-black text-white " +
                     "transition duration-300 ease-in-out " +
-                    "hover:from-green-600 hover:to-black"}
+                    "hover:from-green-600 hover:to-black"} disabled={isSubmitting}
                 >
                     {isSubmitting ? "Loading..." : "Register"}
                 </button>

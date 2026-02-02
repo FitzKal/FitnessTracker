@@ -4,11 +4,12 @@ import {getWorkoutById} from "../../services/WorkoutService.ts";
 import {useEffect, useState} from "react";
 import type {WorkoutById} from "../../types/WorkoutType.ts";
 import type {ExerciseDone} from "../../types/GoalType.ts";
-import {addExerciseToGoal} from "../../services/GoalService.ts";
+import {addExerciseToGoal, useLatestGoalDetails} from "../../services/GoalService.ts";
 import {toast} from "react-toastify";
 
 export default function WorkoutPage() {
     const {params} = useParams();
+    const {isError:isGoalError, isLoading:isGoalLoading} = useLatestGoalDetails();
     const excId = params !== undefined ? String(params) : undefined;
     const [workoutData, setWorkoutData] = useState<WorkoutById>();
     const exerciseDetails:ExerciseDone = {
@@ -44,7 +45,7 @@ export default function WorkoutPage() {
 
     }, [isSuccess, data, workoutData]);
 
-    if (isLoading) {
+    if (isLoading || isGoalLoading) {
         return (<div className={"text-center text-4xl"}>Loading...</div>)
     } else {
 
@@ -133,20 +134,24 @@ export default function WorkoutPage() {
                         </div>
                     </div>
                 </div>
-                <div className={"flex justify-center mt-5"}>
-                    <div className={"flex justify-center mt-5"}>
-                        <button  className="
+                {
+                    !isGoalError?
+                        <div className={"flex justify-center mt-5"}>
+                            <div className={"flex justify-center mt-5"}>
+                                <button  className="
                         px-6 py-2 rounded-xl
                         bg-green-500 hover:bg-green-600
                         dark:bg-green-700 dark:hover:bg-green-900
                         text-white font-bold
                         transition-colors shadow-lg
                     "
-                     onClick={() =>{
-                         addExerciseMutation.mutate(exerciseDetails)
-                     }}   >I have done this workout today!</button>
-                    </div>
-                </div>
+                                         onClick={() =>{
+                                             addExerciseMutation.mutate(exerciseDetails)
+                                         }}   >I have done this workout today!</button>
+                            </div>
+                        </div>:
+                            <></>
+                }
             </div>
         </div>);
     }
