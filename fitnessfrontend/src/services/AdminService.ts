@@ -29,3 +29,19 @@ export const searchUsers = async (keyWord:string) => {
         throw error;
     }
 }
+
+//------------- DeleteUser -------------
+export const deleteUser = async (id:number)=>{
+    try{
+        return api.delete("/admin",{
+            params:{
+                id:id
+            }
+        }).then(res => res.data)
+    }catch (error){
+        if (error instanceof Error){
+            throw new Error(error.message);
+        }
+        throw error;
+    }
+}
