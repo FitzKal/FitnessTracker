@@ -1,12 +1,9 @@
 import DisplayUsers from "./DisplayUsers.tsx";
 import {useState} from "react";
-import SearchUsers from "./SearchUsers.tsx";
 
 export default function AdminDashboard(){
     const [isSearching,setIsSearching] = useState<boolean>(false);
-    const handleSearching = () => {
-        setIsSearching(!isSearching)
-    }
+    const [keyword,setKeyWord] = useState<string>("");
     return(
         <div>
             <div className={"flex justify-center flex-col"}>
@@ -17,28 +14,31 @@ export default function AdminDashboard(){
 
                 <div className={"my-10 flex flex-col justify-center mx-20"}>
                     <label>Search username</label>
-                    <input className={"border-2 bg-white p-2 text-black w-full rounded-md"} type={"text"} placeholder={"username"}/>
+                    <input id={"searchbar"} className={"border-2 bg-white p-2 text-black w-full rounded-md"} type={"text"} placeholder={"username"}/>
                 </div>
                 <div className={"mt-5 flex justify-center"}>
                     <button className={"border-2 rounded-xl w-[50%] p-3 bg bg-green-400 hover:bg-green-500 " +
-                        "dark:border-surface-border dark:bg-green-800 dark:hover:bg-green-900 text-xl"}>Search</button>
+                        "dark:border-surface-border dark:bg-green-800 dark:hover:bg-green-900 text-xl"}
+                    onClick={()=>{
+                        const searchbar = document.getElementById("searchbar") as HTMLInputElement;
+                        setKeyWord(searchbar.value);
+                        setIsSearching(true);
+                    }}>Search</button>
                 </div>
                 {
                     isSearching?
                         <div className={"mt-5 flex justify-center"}>
                             <button className={"border-2 rounded-xl w-[50%] p-3 bg bg-red-400 hover:bg-red-500 " +
                                 "dark:border-surface-border dark:bg-red-800 dark:hover:bg-red-900 text-xl"}
-                            onClick={handleSearching}>Clear search</button>
+                            onClick={() => {
+                                setIsSearching(false)
+                            }}>Clear search</button>
                         </div>:
                         <></>
                 }
             </div>
             <div className={"flex justify-center mx-10 mt-10 border-2 p-3 dark:border-surface-border rounded-md bg-white dark:bg-surface"}>
-                {
-                    !isSearching?
-                        <DisplayUsers isSearching={isSearching}/>:
-                        <SearchUsers/>
-                }
+                        <DisplayUsers isSearching={isSearching} keyword={keyword}/>
             </div>
         </div>
     )

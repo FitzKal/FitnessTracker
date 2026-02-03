@@ -1,18 +1,25 @@
 import {useQuery} from "@tanstack/react-query";
-import {getAllUsers} from "../../services/AdminService.ts";
+import {getAllUsers, searchUsers} from "../../services/AdminService.ts";
 import {useEffect} from "react";
 import type {User} from "../../types/User.ts";
 import UserDetails from "./UserDetails.tsx";
 import axios from "axios";
 import {toast} from "react-toastify";
 
-export default function DisplayUsers(prop:{isSearching:boolean}){
+export default function DisplayUsers(prop:{isSearching:boolean, keyword:string}){
 
-    const {data, isLoading, error, isError} = useQuery({
+    const {data:allData, isLoading:allLoading} = useQuery({
         queryKey:["DisplayAllUsers"],
         queryFn: async () => await getAllUsers(),
         enabled:!prop.isSearching
     })
+
+    const {data:searchedData, isLoading, error, isError} = useQuery({
+        queryKey:["SearchUser",prop.keyword],
+        queryFn: async () => await searchUsers(prop.keyword),
+        enabled:prop.isSearching
+    })
+
 
     useEffect(() => {
         if (isError && axios.isAxiosError(error)){
@@ -23,8 +30,13 @@ export default function DisplayUsers(prop:{isSearching:boolean}){
         }
     }, [error, isError]);
 
+    useEffect(() => {
+        console.log(searchedData)
+        console.log(allData)
+    }, [searchedData,allData]);
 
-    if (isLoading){
+
+    if (isLoading || allLoading){
         return <div>
             <h2 className={"text-2xl"}>Loading...</h2>
         </div>
@@ -39,8 +51,12 @@ export default function DisplayUsers(prop:{isSearching:boolean}){
                 <label>Role</label>
             </div>
             {
-                data.map((user:User) => {
-                    return <UserDetails user={user}/>
+                !prop.isSearching?
+                        allData.map((user:User) => {
+                            return <UserDetails user={user}/>
+                        }) :
+                    searchedData.map((user:User) => {
+                        return <UserDetails user={user}/>
                 })
             }
         </div>

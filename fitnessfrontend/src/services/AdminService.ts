@@ -16,7 +16,7 @@ export const getAllUsers = async () => {
 //------------- SearchUsers -------------
 export const searchUsers = async (keyWord:string) => {
     try {
-        return api.post("/admin",null,{
+        return api.get("/admin/search",{
             params: {
                 keyWord: keyWord
             }
