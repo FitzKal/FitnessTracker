@@ -16,6 +16,7 @@ import ThemeToggle from "./ThemeToggle.tsx";
 export default function NavBar() {
 
     const queryClient = useQueryClient();
+    const currentUser = UserStore.getState().user;
 
     const logoutMutation = useMutation({
         mutationFn: () => logoutUser(),
@@ -74,6 +75,15 @@ export default function NavBar() {
                     <CakeIcon className="h-6 w-6" />
                     <span className="text-[10px]">Recipes</span>
                 </Link>
+                {
+                    currentUser!.role === "ADMIN"?
+                        <Link to="/Fitness/admin" className="flex flex-col items-center text-white hover:text-[#06e6e6] p-2">
+                            <WrenchIcon className="h-6 w-6" />
+                            <span className="text-[10px]">Admin</span>
+                        </Link>
+                        :
+                        <></>
+                }
             </div>
 
             <div className={`
@@ -99,7 +109,12 @@ export default function NavBar() {
                     <NavItem to="/Fitness/workouts" icon={<TrophyIcon />} label="Workout Catalog" />
                     <NavItem to="/Fitness/goals/monthlyGoals" icon={<CalendarDaysIcon />} label="Goals" />
                     <NavItem to={"/Fitness/recipes/search"} icon={<CakeIcon/>} label={"Recipes"} />
-                    <NavItem to={"/Fitness/admin"} icon={<WrenchIcon/>} label={"Admin"} />
+                    {
+                        currentUser!.role === "ADMIN"?
+                            <NavItem to={"/Fitness/admin"} icon={<WrenchIcon/>} label={"Admin"} />
+                            :
+                            <></>
+                    }
 
                     <li className="mt-auto hover:bg-red-600 transition-colors">
                         <Link
