@@ -42,6 +42,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET,"/api/fitness/admin").hasAnyRole("ADMIN")
                                 .requestMatchers(HttpMethod.POST,"/api/fitness/admin").hasAnyRole("ADMIN")
                                 .requestMatchers(HttpMethod.DELETE,"/api/fitness/admin").hasAnyRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT,"/api/fitness/admin/**").hasAnyRole("ADMIN")
                                 .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

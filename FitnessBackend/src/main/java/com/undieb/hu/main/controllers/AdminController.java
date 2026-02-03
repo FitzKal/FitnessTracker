@@ -1,9 +1,11 @@
 package com.undieb.hu.main.controllers;
 
 import com.undieb.hu.main.controllers.DTOs.user.BasicUserDto;
+import com.undieb.hu.main.models.enums.Role;
 import com.undieb.hu.main.services.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +29,11 @@ public class AdminController {
     @DeleteMapping
     private ResponseEntity<String> deleteUser(@RequestParam Long id){
         return ResponseEntity.ok(adminService.deleteUser(id));
+    }
+
+    @PutMapping("/{id}")
+    private ResponseEntity<String> updateUser(@PathVariable Long id, @RequestParam Role role){
+        return ResponseEntity.ok(adminService.updateUser(id,role));
     }
 
 }
