@@ -5,7 +5,7 @@ import {
     CalculatorIcon, CalendarDaysIcon,
     HomeIcon,
     TrophyIcon,
-    UserIcon
+    UserIcon, WrenchIcon
 } from "@heroicons/react/16/solid";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { logoutUser } from "../../services/AuthService.ts";
@@ -99,6 +99,7 @@ export default function NavBar() {
                     <NavItem to="/Fitness/workouts" icon={<TrophyIcon />} label="Workout Catalog" />
                     <NavItem to="/Fitness/goals/monthlyGoals" icon={<CalendarDaysIcon />} label="Goals" />
                     <NavItem to={"/Fitness/recipes/search"} icon={<CakeIcon/>} label={"Recipes"} />
+                    <NavItem to={"/Fitness/admin"} icon={<WrenchIcon/>} label={"Admin"} />
 
                     <li className="mt-auto hover:bg-red-600 transition-colors">
                         <Link
