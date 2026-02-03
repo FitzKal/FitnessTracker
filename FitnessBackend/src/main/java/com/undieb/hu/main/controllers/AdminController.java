@@ -19,7 +19,7 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getAllUsers());
     }
 
-    @PostMapping
+    @GetMapping("/search")
     private ResponseEntity<List<BasicUserDto>> searchUser(@RequestParam String keyWord){
         return ResponseEntity.ok(adminService.getUsersBySearch(keyWord));
     }

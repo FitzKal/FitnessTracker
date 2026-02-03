@@ -23,7 +23,7 @@ public class AdminService {
 
     public List<BasicUserDto> getUsersBySearch(String keyword){
         return userRepository.findAll().stream()
-                .filter(users -> users.getUsername().contains(keyword))
+                .filter(users -> users.getUsername().toLowerCase().contains(keyword.toLowerCase()))
                 .map(usersToBasicUserDtoConverter::userToBasicUserDto)
                 .toList();
     }
