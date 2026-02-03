@@ -150,7 +150,6 @@ export default function UpdateForm(prop:{isUpdating:boolean, updateHandler:()=>v
                             )}
                         </div>
 
-                        {/* Weight */}
                         <div className="flex flex-col text-left relative w-full max-w-xs">
                             <label className="text-sm font-semibold mb-1">Weight (kg)</label>
                             <input
