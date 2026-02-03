@@ -1,23 +1,30 @@
 import DisplayUsers from "./DisplayUsers.tsx";
 import {useState} from "react";
 import DeleteUserForm from "./DeleteUserForm.tsx";
+import UpdateUserForm from "./UpdateUserForm.tsx";
 
 export default function AdminDashboard(){
     const [isSearching,setIsSearching] = useState<boolean>(false);
     const [keyword,setKeyWord] = useState<string>("");
     const [isDeleting,setIsDeleting] = useState<boolean>(false);
-    const [idToDelete,setIdToDelete] = useState<number>(0);
+    const [idToManage,setidToManage] = useState<number>(0);
+    const [isUpdating,setIsUpdating] = useState<boolean>(false);
 
     const deleteHandler = () => {
         setIsDeleting(!isDeleting);
     }
 
+    const updateHandler = () => {
+        setIsUpdating(!isUpdating);
+    }
+
     const handleIdToDelete = (id:number) => {
-        setIdToDelete(id);
+        setidToManage(id);
     }
     return(
         <div>
-            <DeleteUserForm isManaging={isDeleting} deleteHandler={deleteHandler} id={idToDelete}/>
+            <DeleteUserForm isManaging={isDeleting} deleteHandler={deleteHandler} id={idToManage}/>
+            <UpdateUserForm isManaging={isUpdating} updateHandler={updateHandler} id={idToManage}/>
             <div className={"flex justify-center flex-col"}>
                 <div className={"border-b-2  w-full text-center pb-5 bg-red-700 border-slate-200 shadow-lg dark:bg-surface " +
                     "dark:border-surface-border"}>
@@ -50,7 +57,8 @@ export default function AdminDashboard(){
                 }
             </div>
             <div className={"flex justify-center mx-10 mt-10 border-2 p-3 dark:border-surface-border rounded-md bg-white dark:bg-surface"}>
-                        <DisplayUsers isSearching={isSearching} keyword={keyword} deleteHandler={deleteHandler} handleIdToDelete={handleIdToDelete}/>
+                        <DisplayUsers isSearching={isSearching} keyword={keyword}
+                                      deleteHandler={deleteHandler} handleIdToDelete={handleIdToDelete} updateHandler={updateHandler}/>
             </div>
         </div>
     )
