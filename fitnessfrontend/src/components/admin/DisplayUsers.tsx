@@ -6,7 +6,7 @@ import UserDetails from "./UserDetails.tsx";
 import axios from "axios";
 import {toast} from "react-toastify";
 
-export default function DisplayUsers(prop:{isSearching:boolean, keyword:string}){
+export default function DisplayUsers(prop:{isSearching:boolean, keyword:string, manageHandler:()=>void}){
 
     const {data:allData, isLoading:allLoading} = useQuery({
         queryKey:["DisplayAllUsers"],
@@ -53,10 +53,10 @@ export default function DisplayUsers(prop:{isSearching:boolean, keyword:string})
             {
                 !prop.isSearching?
                         allData.map((user:User) => {
-                            return <UserDetails user={user}/>
+                            return <UserDetails user={user} manageHandler={prop.manageHandler}/>
                         }) :
                     searchedData.map((user:User) => {
-                        return <UserDetails user={user}/>
+                        return <UserDetails user={user} manageHandler={prop.manageHandler}/>
                 })
             }
         </div>

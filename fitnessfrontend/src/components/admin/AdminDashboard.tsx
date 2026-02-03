@@ -1,11 +1,18 @@
 import DisplayUsers from "./DisplayUsers.tsx";
 import {useState} from "react";
+import ManageUserForm from "./ManageUserForm.tsx";
 
 export default function AdminDashboard(){
     const [isSearching,setIsSearching] = useState<boolean>(false);
     const [keyword,setKeyWord] = useState<string>("");
+    const [isManaging,setIsManaging] = useState<boolean>(true);
+
+    const manageHandler = () => {
+        setIsManaging(!isManaging);
+    }
     return(
         <div>
+            <ManageUserForm isManaging={isManaging} manageHandler={manageHandler}/>
             <div className={"flex justify-center flex-col"}>
                 <div className={"border-b-2  w-full text-center pb-5 bg-white border-slate-200 shadow-lg dark:bg-surface " +
                     "dark:border-surface-border"}>
@@ -38,7 +45,7 @@ export default function AdminDashboard(){
                 }
             </div>
             <div className={"flex justify-center mx-10 mt-10 border-2 p-3 dark:border-surface-border rounded-md bg-white dark:bg-surface"}>
-                        <DisplayUsers isSearching={isSearching} keyword={keyword}/>
+                        <DisplayUsers isSearching={isSearching} keyword={keyword} manageHandler={manageHandler}/>
             </div>
         </div>
     )
