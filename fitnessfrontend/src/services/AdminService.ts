@@ -45,3 +45,19 @@ export const deleteUser = async (id:number)=>{
         throw error;
     }
 }
+
+//------------- Update user role -------------
+export const updateUser = async (id:number, role:string)=>{
+    try{
+        return api.put(`/admin/${id}`,null,{
+            params:{
+                role:role
+            }
+        }).then(res => res.data)
+    }catch (error){
+        if (error instanceof Error){
+            throw new Error(error.message);
+        }
+        throw error;
+    }
+}
