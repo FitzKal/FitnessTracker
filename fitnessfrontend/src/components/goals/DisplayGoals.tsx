@@ -32,27 +32,15 @@ export default function DisplayGoals(){
     })
 
     const handleCreating = () => {
-        if (isCreating){
-            setIsCreating(false);
-        }else{
-            setIsCreating(true);
-        }
+       setIsCreating(!isCreating);
     }
 
     const handleUpdating = () => {
-        if (isUpdating){
-            setIsUpdating(false);
-        }else{
-            setIsUpdating(true);
-        }
+       setIsUpdating(!isUpdating)
     }
 
     const handleDeleting = () => {
-        if (isDeleting){
-            setIsDeleting(false);
-        }else{
-            setIsDeleting(true);
-        }
+       setIsDeleting(!isDeleting)
     }
 
     const missingGoal = isError && axios.isAxiosError(error) && error.response?.status === 404;
